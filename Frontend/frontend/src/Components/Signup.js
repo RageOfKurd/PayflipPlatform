@@ -8,33 +8,30 @@ export const Signup = () => {
                 <div className="container">
                     <div className="row">
                         <div className="col-lg-8 mb-4 mx-auto text-center">
-                            <a href="javascript:;" target="_blank" className="text-secondary me-xl-5 me-3 mb-sm-0 mb-2">
-                                Company
-                            </a>
-                            <a href="javascript:;" target="_blank" className="text-secondary me-xl-5 me-3 mb-sm-0 mb-2">
-                                About Us
-                            </a>
-                            <a href="javascript:;" target="_blank" className="text-secondary me-xl-5 me-3 mb-sm-0 mb-2">
+                            <a href="https://en.payflip.be/team" className="text-secondary me-xl-5 me-3 mb-sm-0 mb-2">
                                 Team
                             </a>
-                            <a href="javascript:;" target="_blank" className="text-secondary me-xl-5 me-3 mb-sm-0 mb-2">
-                                Products
+                            <a href="https://en.payflip.be/jobs" className="text-secondary me-xl-5 me-3 mb-sm-0 mb-2">
+                                Jobs
                             </a>
-                            <a href="javascript:;" target="_blank" className="text-secondary me-xl-5 me-3 mb-sm-0 mb-2">
+                            <a href="https://en.payflip.be/tools" className="text-secondary me-xl-5 me-3 mb-sm-0 mb-2">
+                                Tools
+                            </a>
+                            <a href="https://en.payflip.be/blogs" className="text-secondary me-xl-5 me-3 mb-sm-0 mb-2">
                                 Blog
                             </a>
-                            <a href="javascript:;" target="_blank" className="text-secondary me-xl-5 me-3 mb-sm-0 mb-2">
-                                Pricing
+                            <a href="https://en.payflip.be/partners" className="text-secondary me-xl-5 me-3 mb-sm-0 mb-2">
+                                Partners
                             </a>
                         </div>
                         <div className="col-lg-8 mx-auto text-center mb-4 mt-2">
-                            <a href="javascript:;" target="_blank" className="text-secondary me-xl-4 me-4">
+                            <a href="https://www.facebook.com/payflip.smartrewardsolutions/posts" className="text-secondary me-xl-4 me-4">
                                 <span className="text-lg fab fa-facebook"></span>
                             </a>
-                            <a href="javascript:;" target="_blank" className="text-secondary me-xl-4 me-4">
+                            <a href="https://be.linkedin.com/company/payflipbe" className="text-secondary me-xl-4 me-4">
                                 <span className="text-lg fab fa-linkedin"></span>
                             </a>
-                            <a href="javascript:;" target="_blank" className="text-secondary me-xl-4 me-4">
+                            <a href="https://github.com/Jamerze/PayflipPlatform" className="text-secondary me-xl-4 me-4">
                                 <span className="text-lg fab fa-github"></span>
                             </a>
                         </div>
