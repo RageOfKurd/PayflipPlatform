@@ -1,0 +1,3 @@
+.backgroundimg::before{
+    background-image: linear-gradient(290deg, dodgerblue 0%, #FF0080 100%);
+}
