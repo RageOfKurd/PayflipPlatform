@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import './Assets/Payflip.css'
 import { Footer } from './Footer'
-import axios from 'axios'
+//import axios from 'axios'
 
 export const Signup = () => {
     const [companyName,setCompanyName] = useState('');
