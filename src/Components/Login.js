@@ -12,7 +12,7 @@ export const Login = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
         console.log(email, password)
-        const localhost = 'url'
+        //const localhost = 'url'
         /*const getData = () => {
             /* axios.get("localhost", 
              /* backend */
@@ -37,13 +37,13 @@ export const Login = () => {
                             <div className="row">
                                 <div className="col-xl-4 col-lg-5 col-md-6 d-flex flex-column mx-auto">
                                     <div className="card card-plain mt-8">
-                                        <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmiro.medium.com%2Fproxy%2F0*kYj1aQljmDquuw7Z&f=1&nofb=1" />
+                                        <img alt="placeholder-image" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmiro.medium.com%2Fproxy%2F0*kYj1aQljmDquuw7Z&f=1&nofb=1" />
                                         <div className="card-header pb-0 text-left bg-transparent">
                                             <h3 className="font-weight-bolder text-info">Welcome back</h3>
                                             <p className="mb-0">Enter your email and password to sign in</p>
                                         </div>
                                         <div className="card-body">
-                                            <form role="form" onSubmit={handleSubmit} >
+                                            <form onSubmit={handleSubmit} >
                                                 <label>Email</label>
                                                 <div className="mb-3">
                                                     <input type="email" autoFocus value={email} onChange={(answer) => { getEmail(answer.target.value) }} className="form-control" placeholder="Email" aria-label="Email" aria-describedby="email-addon" required />
@@ -57,7 +57,7 @@ export const Login = () => {
                                                     <label className="form-check-label" htmlFor="rememberMe">Remember me</label>
                                                 </div>
                                                 <div className="text-center">
-                                                <button type="button" class="btn bg-redpayflip text-white w-100 mt-4 mb-0">Sign in</button>
+                                                <button type="button" class="btn bg-redpayflip text-white w-100 mt-4 mb-0" disabled={!formValidation()}>Sign in</button>
                                                 </div>
                                             </form>
                                         </div>
