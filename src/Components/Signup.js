@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import './Assets/Payflip.css'
 import { Footer } from './Footer'
+import { Link } from "react-router-dom";
 //import axios from 'axios'
 
 export const Signup = () => {
@@ -22,6 +23,9 @@ export const Signup = () => {
             country: country
         })*/ 
     }
+
+    useEffect(() =>
+    document.title = "Payflip - Signup")
 
     return (
         <div>
@@ -78,7 +82,7 @@ export const Signup = () => {
                                             <div className="text-center">
                                                 <button type="submit" className="btn bg-redpayflip text-white w-100 my-4 mb-2">Request Access</button>
                                             </div>
-                                            <p className="text-sm mt-3 mb-0">Already have an account? <a href="https://www.youtube.com/watch?v=_mrr3UNALww" className="text-bluepayflip font-weight-bolder">Sign in</a></p>
+                                            <p className="text-sm mt-3 mb-0">Already have an account? <Link to="/login" className="text-bluepayflip font-weight-bolder">Sign in</Link></p>
                                         </form>
                                     </div>
                                 </div>
@@ -91,3 +95,5 @@ export const Signup = () => {
         </div>
     )
 }
+
+export default Signup;
