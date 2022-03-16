@@ -37,7 +37,7 @@ export const Login = () => {
                             <div className="row">
                                 <div className="col-xl-4 col-lg-5 col-md-6 d-flex flex-column mx-auto">
                                     <div className="card card-plain mt-8">
-                                        <img alt="placeholder-image" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmiro.medium.com%2Fproxy%2F0*kYj1aQljmDquuw7Z&f=1&nofb=1" />
+                                        <img alt="payflipdrawingplaceholder" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmiro.medium.com%2Fproxy%2F0*kYj1aQljmDquuw7Z&f=1&nofb=1" />
                                         <div className="card-header pb-0 text-left bg-transparent">
                                             <h3 className="font-weight-bolder text-info">Welcome back</h3>
                                             <p className="mb-0">Enter your email and password to sign in</p>
