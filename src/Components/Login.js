@@ -37,8 +37,8 @@ export const Login = () => {
                             <div className="row">
                                 <div className="col-xl-4 col-lg-5 col-md-6 d-flex flex-column mx-auto">
                                     <div className="card card-plain mt-8">
-                                        <img alt="payflipdrawingplaceholder" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmiro.medium.com%2Fproxy%2F0*kYj1aQljmDquuw7Z&f=1&nofb=1" />
                                         <div className="card-header pb-0 text-left bg-transparent">
+                                        <img alt="payflipdrawingplaceholder" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmiro.medium.com%2Fproxy%2F0*kYj1aQljmDquuw7Z&f=1&nofb=1" width="250px"/>
                                             <h3 className="font-weight-bolder text-info">Welcome back</h3>
                                             <p className="mb-0">Enter your email and password to sign in</p>
                                         </div>
@@ -57,7 +57,7 @@ export const Login = () => {
                                                     <label className="form-check-label" htmlFor="rememberMe">Remember me</label>
                                                 </div>
                                                 <div className="text-center">
-                                                <button type="button" class="btn bg-redpayflip text-white w-100 mt-4 mb-0" disabled={!formValidation()}>Sign in</button>
+                                                <button type="button" className="btn bg-redpayflip text-white w-100 mt-4 mb-0" disabled={!formValidation()}>Sign in</button>
                                                 </div>
                                             </form>
                                         </div>

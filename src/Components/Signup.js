@@ -34,7 +34,7 @@ export const Signup = () => {
                     <div className="container">
                         <div className="row justify-content-center">
                             <div className="col-lg-5 text-center mx-auto">
-                                <img alt="payfliplogo" height="70px" width="300px" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmiro.medium.com%2Fproxy%2F0*kYj1aQljmDquuw7Z&f=1&nofb=1"></img>
+                                <img alt="payfliplogo" height="70px" width="250px" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmiro.medium.com%2Fproxy%2F0*kYj1aQljmDquuw7Z&f=1&nofb=1"></img>
                             </div>
                         </div>
                     </div>
