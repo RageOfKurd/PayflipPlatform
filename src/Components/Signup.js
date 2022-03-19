@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import './Assets/Payflip.css'
 import { Footer } from './Footer'
-import { Link } from "react-router-dom";
-//import axios from 'axios'
+import { Link, useNavigate } from "react-router-dom";
+import axios from 'axios'
 
 export const Signup = () => {
     const [companyName,setCompanyName] = useState('');
@@ -11,17 +11,25 @@ export const Signup = () => {
     const [companyAddress,setCompanyAddress] = useState('');
     const [password,setPassword] = useState('');
     const [country,setCountry] = useState('Belgium');
+    let navigate = useNavigate()
     const submitHandling = (data) =>{
-        data.preventDefault() //Don't comment until backend is fully operational
-        console.log(companyName,contactName,companyMail,companyAddress,password,country)
-        /*axios.post("localhost",{         Don't uncomment until backend is fully operational
-            companyName: companyName,
-            contactName: contactName,
-            companyMail: companyMail,
-            companyAddress: companyAddress,
+        data.preventDefault();
+        axios.post("https://payflipplatform.herokuapp.com/auth/register",{         
+            name: contactName[0].toUpperCase() + contactName.substring(1).toLowerCase(),
+            company_name: companyName[0].toUpperCase() + companyName.substring(1).toLowerCase(),
+            email: companyMail.toLowerCase(),
+            address: companyAddress,
             password: password,
-            country: country
-        })*/ 
+            country: country,
+            role: "employer"
+        }).then((res)=>{
+            console.log(res)
+            if(res.status === 201){
+                navigate("/login")
+            }
+        }).catch((err)=>{
+            document.getElementById("existerror").hidden = false;
+        })
     }
 
     useEffect(() =>
@@ -82,6 +90,7 @@ export const Signup = () => {
                                             <div className="text-center">
                                                 <button type="submit" className="btn bg-redpayflip text-white w-100 my-4 mb-2">Request Access</button>
                                             </div>
+                                            <p hidden="true" id="existerror" style={{color: "red", fontWeight: "bold", fontSize: "14px"}}>Account with given email already exists</p>
                                             <p className="text-sm mt-3 mb-0">Already have an account? <Link to="/login" className="text-bluepayflip font-weight-bolder">Sign in</Link></p>
                                         </form>
                                     </div>

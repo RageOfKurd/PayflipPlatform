@@ -1,7 +1,8 @@
 import Footer from "./Footer";
 import React, { useEffect, useState } from "react";
 import BgImage from './Assets/backgroundImage.svg'
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import axios from 'axios'
 
 export const Login = () => {
     const [email, getEmail] = useState('');
@@ -9,20 +10,21 @@ export const Login = () => {
     function formValidation() {
         return email.length > 0 && password.length > 0;
     }
+    let navigate = useNavigate()
+
     const handleSubmit = (event) => {
         event.preventDefault();
         console.log(email, password)
-        //const localhost = 'url'
-        /*const getData = () => {
-            /* axios.get("localhost", 
-             /* backend */
-            //{
-
-                /* }).then((result) => {   console.log('retrieved successfully!')})
-             
-                .catch((e) => error) 
-            }
-        }*/
+        axios.post("https://payflipplatform.herokuapp.com/auth/login",{         
+            email: email.toLowerCase(),
+            password: password
+        }).then((res)=>{
+            console.log(res.data.accessToken)
+            navigate("/dashboard")
+        }).catch((err)=>{
+            console.log(err)
+            document.getElementById("crederror").hidden = false;
+        })
     }
 
     useEffect(() =>
@@ -50,18 +52,19 @@ export const Login = () => {
                                                 </div>
                                                 <label>Password</label>
                                                 <div className="mb-3">
-                                                    <input type="email" value={password} onChange={(answer) => { getPassword(answer.target.value) }} className="form-control" placeholder="Password" aria-label="Password" aria-describedby="password-addon" required />
+                                                    <input type="password" value={password} onChange={(answer) => { getPassword(answer.target.value) }} className="form-control" placeholder="Password" aria-label="Password" aria-describedby="password-addon" required />
                                                 </div>
                                                 <div className="form-check form-switch">
                                                     <input className="form-check-input" type="checkbox" id="rememberMe" ischecked="" />
                                                     <label className="form-check-label" htmlFor="rememberMe">Remember me</label>
                                                 </div>
                                                 <div className="text-center">
-                                                <button type="button" className="btn bg-redpayflip text-white w-100 mt-4 mb-0" disabled={!formValidation()}>Sign in</button>
+                                                <button type="submit" className="btn bg-redpayflip text-white w-100 mt-4 mb-0" disabled={!formValidation()}>Sign in</button>
                                                 </div>
                                             </form>
                                         </div>
                                         <div className="card-footer text-center pt-0 px-lg-2 px-1">
+                                        <p hidden="true" id="crederror" style={{color: "red", fontWeight: "bold", fontSize: "14px"}}>Credentials are invalid</p>
                                             <p className="mb-4 text-sm mx-auto">
                                                 Don't have an account?
                                                 <Link to="/signup" className="text-bluepayflip font-weight-bold"> Sign up</Link>
