@@ -1,55 +1,70 @@
-# Payflip Platform
-## Description
-This repository is associated with the Payflip platform that is part of the International Blended Mobility Project. 
+# Getting Started with Create React App
 
-## Code Rules
-### Naming Convention
-<p>For this project we use the following Naming Conventions:</p>
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-- Classes/Methods: PascalCase (e.g. InputProcessor, BelgianBenefit...) 
-- Interfaces: PascalCase and I in front of the word (IProcessor, IBenefit...)
-- Variables/Attributes: camelCase (e.g. firstName, userInput...)
-- Constants: UPPERCASE (e.g. BELGIANTAX, MINIMUMTAX...)
+## Available Scripts
 
-### Noisy Words
-<p>Try to avoid following words in names/variables, as they do not provide additional information and therefore are not useful:
+In the project directory, you can run:
 
-- The (prefix)
-- Info
-- Data
-- Variable
-- Object
-- Manager
+### `npm start`
 
-### As less directly checked numbers as possible
-<p>When using numbers in the code (especially in while and for loops, and if-statements), try to assign them first to a variable or constant, and use this variable instead. This makes it easier to change the code if necessary (because we just have to change the value of the variable)</p>
-<p>Example below might make this clearer:</p>
+Runs the app in the development mode.\
+Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-```
-Bad:
-if (student.classes.length < 7) {
-   // Do something
-}
+The page will reload when you make changes.\
+You may also see any lint errors in the console.
 
-Good:
-const MAX_CLASSES_PER_STUDENT: Number = 7
-if (student.classes.length < MAX_CLASSES_PER_STUDENT) {
-    // Do something
-}
-```
-### Functions (= Methods)
-- Max. around 20 lines (if longer we can try to split the function into smaller functions)
-- Single Responsiblity Principle, functions mostly have one purpose (but in some occasions it can happen that it's responsible for multiple things, which is totally fine then :-) )
-- When a certain condition appears in multiple functions, it should be extracted and be put into it's own function so that the others can you use by the function name -> Code Reusability
+### `npm test`
 
-### Commenting
-<p>When a name of a Class, Method, etc. speaks for itself, it's not necessary to comment it.</p>
-<p>When we do some commenting, we can follow the following guidelines:</p>
+Launches the test runner in the interactive watch mode.\
+See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-- Always Block Comments (/* and */) above the Class/Method in question
-- Description of the Method/Class
-- Explanation of the parameters (if present)
+### `npm run build`
 
-### Classes
-- Always Getter & Setters
-- Try to make attributes private (besides when it's really helpful to have it public and it won't break the code when the values are changed from other classes)
+Builds the app for production to the `build` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+The build is minified and the filenames include the hashes.\
+Your app is ready to be deployed!
+
+See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+
+### `npm run eject`
+
+**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+
+If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+
+Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+
+You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
+
+### Code Splitting
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+
+### Analyzing the Bundle Size
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+
+### Making a Progressive Web App
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+
+### Advanced Configuration
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+
+### Deployment
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+
+### `npm run build` fails to minify
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
