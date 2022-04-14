@@ -44,6 +44,10 @@
   }
 }
 
+.selectedicon {
+  color: white
+}
+
 body {
   margin: 0;
   font-family: var(--bs-font-sans-serif);
@@ -51,7 +55,7 @@ body {
   font-weight: 400;
   line-height: 1.5;
   color: #67748e;
-  background-color: #fff;
+  background-color: #f8f9fa;
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
@@ -20104,6 +20108,10 @@ label,
 
 .bg-redpayflip{
   background-color: #FF0080;
+}
+
+.text-redpayflipfg{
+  color: #FF0080;
 }
 
 .text-bluepayflip{
