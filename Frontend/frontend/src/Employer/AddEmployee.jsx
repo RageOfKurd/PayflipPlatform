@@ -7,7 +7,16 @@ export const EmployerAddEmployeePage = () => {
 
     const [employeeName, setemployeeName] = useState('');
     const [employeeMail, setemployeeMail] = useState('');
-    const [empStatus, setempStatus] = useState('unEmployed');
+    const [emptype, setEmptype] = useState('');
+    const [address, setAdress] = useState('');
+    
+    const [id, setID] = useState('');
+    const [password, setPassword] = useState('');
+
+    const [country, setCountry] = useState('belgium');
+    const [designation, setDesignation] = useState('');
+
+
   
     let navigate = useNavigate()
     const submitHandling = (data) => {
@@ -15,9 +24,15 @@ export const EmployerAddEmployeePage = () => {
         axios.post("http://localhost:7000/employee", {
 
             employee_name: employeeName[0].toUpperCase() + employeeName.substring(1).toLowerCase(),
+            employer_id : id,
             email: employeeMail.toLowerCase(),
-            status : empStatus,
-            role: "UnEmployed"
+            address : address,
+            password : password,
+            country : country,
+            designation : designation,
+            employement_type : emptype,
+
+
             
         }, { headers: headers }).then((res) => {
             console.log(res)
@@ -137,13 +152,31 @@ export const EmployerAddEmployeePage = () => {
                                                         <input type="email" className="form-control" value={employeeMail} onChange={(answer) => { setemployeeMail(answer.target.value) }} placeholder="Employee Email"
                                                             aria-label="EmployeeEmail" aria-describedby="email-addon" required />
                                                     </div>
-                                                  
+
+                                                    <div className="mb-3">
+                                                        <input type="password" className="form-control" value={password} onChange={(answer) => { setPassword(answer.target.value) }} placeholder="Password"
+                                                            aria-label="EmployeePassword" aria-describedby="email-addon" required />
+                                                    </div>
+
+                                                      <div className="mb-3">
+                                                        <input type="text" className="form-control" value={address} onChange={(answer) => { setAdress(answer.target.value) }} placeholder="Address"
+                                                            aria-label="EmployeeAddress" aria-describedby="email-addon" required />
+                                                    </div>
+                                                    <div className="mb-3">
+                                                        <input type="text" className="form-control" value={country} onChange={(answer) => { setCountry(answer.target.value) }} placeholder="Country"
+                                                            aria-label="EmployeeCountry" aria-describedby="email-addon" required />
+                                                    </div>
+                                                    <div className="mb-3">
+                                                        <input type="text" className="form-control" value={designation} onChange={(answer) => { setDesignation(answer.target.value) }} placeholder="Designation"
+                                                            aria-label="EmployeeDesignation" aria-describedby="email-addon" required />
+                                                    </div>
+                                    
                                                      
                                                     <div className="mb-3">
-                                                        <label htmlFor="empstatus" className="text-bluepayflip">Employement Status</label>
-                                                        <select className="form-control" id="empstatus" aria-label="empstatus" value={empStatus} onChange={(answer) => { setempStatus(answer.target.value) }}>
-                                                            <option value="Employed">Employed</option>
-                                                            <option value="notEmployed">Not Employed</option>
+                                                        <label htmlFor="emptype" className="text-bluepayflip">Employement Type</label>
+                                                        <select className="form-control" id="emptype" aria-label="emptype" value={emptype} onChange={(answer) => { setEmptype(answer.target.value) }}>
+                                                            <option value="Employed">HR</option>
+                                                            <option value="notEmployed"> other</option>
                                                         </select>
 
                                                     </div>
