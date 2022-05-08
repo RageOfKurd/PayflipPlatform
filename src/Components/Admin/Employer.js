@@ -4,12 +4,13 @@ import { Link, useNavigate } from 'react-router-dom'
 
 export const AdminEmployersPage = () => {
   const url = "http://localhost:7000/employer"
-  let headers = { "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RhZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE2NDk4NTM4MDksImV4cCI6MTY0OTg1NzQwOX0.8KvoMs2QwnkPS_sWeaP-GOiM-c-esk4bW0o2DB4ertw" }
+  let headers = { "Authorization": localStorage.getItem("accessToken") }
   let navigate = useNavigate()
 
   const [employerList, setEmployerList] = useState(null)
 
   useEffect(() => {
+    document.title = "Payflip - Companies";
     const fetchItems = async () => {
       try {
         const response = await fetch(url, { headers: headers })

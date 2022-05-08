@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 
 export const AdminEditEmployerPage = () => {
-    let headers = { "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RhZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE2NDk4NTM4MDksImV4cCI6MTY0OTg1NzQwOX0.8KvoMs2QwnkPS_sWeaP-GOiM-c-esk4bW0o2DB4ertw" }
+    let headers = { "Authorization": localStorage.getItem("accessToken") }
     const { id } = useParams()
 
     const [companyName, setCompanyName] = useState('');
@@ -34,6 +34,7 @@ export const AdminEditEmployerPage = () => {
     }
 
     useEffect(() => {
+        document.title = "Payflip - Employers";
         const fetchItems = async () => {
             try {
                 const url = `http://localhost:7000/employer/${id}`
@@ -50,8 +51,24 @@ export const AdminEditEmployerPage = () => {
             }
         }
 
-        (async () => await fetchItems())()
+        (async () => await fetchItems())();
+        (async () => await roleAuthentication())()
     }, [])
+
+    const roleAuthentication = async () => {
+        let roleUrl = "http://localhost:7000/auth/role";
+        const roleResponse = await fetch(roleUrl, { headers: { "Authorization": localStorage.getItem("accessToken") } })
+        const roleJson = await roleResponse.json();
+        let newRole = roleJson.data;
+        if (newRole != "admin") {
+            signout();
+        }
+    }
+
+    const signout = () => {
+        localStorage.clear()
+        navigate("/login")
+    }
 
     return (
         <>
