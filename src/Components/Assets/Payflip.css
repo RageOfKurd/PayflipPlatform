@@ -4,6 +4,9 @@
  * Copyright 2011-2021 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
  */
+
+ 
+ 
  :root {
   --bs-blue: #63B3ED;
   --bs-indigo: #596CFF;
@@ -44,6 +47,10 @@
   }
 }
 
+.selectedicon {
+  color: white
+}
+
 body {
   margin: 0;
   font-family: var(--bs-font-sans-serif);
@@ -51,7 +58,7 @@ body {
   font-weight: 400;
   line-height: 1.5;
   color: #67748e;
-  background-color: #fff;
+  background-color: #f8f9fa;
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
@@ -20106,6 +20113,10 @@ label,
   background-color: #FF0080;
 }
 
+.text-redpayflipfg{
+  color: #FF0080;
+}
+
 .text-bluepayflip{
   color: dodgerblue;
 }
@@ -24941,4 +24952,3 @@ pre[class*="language-"] {
 .extrashadow{
   box-shadow: 1px 1px 20px lightgray;
 }
-

@@ -15,20 +15,53 @@ export const Login = () => {
     const handleSubmit = (event) => {
         event.preventDefault();
         console.log(email, password)
-        axios.post("https://payflipplatform.herokuapp.com/auth/login",{         
+        axios.post("http://localhost:7000/auth/login", {
             email: email.toLowerCase(),
             password: password
-        }).then((res)=>{
-            console.log(res.data.accessToken)
-            navigate("/dashboard")
-        }).catch((err)=>{
+        }).then((res) => {
+            localStorage.setItem("accessToken", `Bearer ${res.data.data.token.accessToken}`)
+            if (res.data.data.user.role == "admin") {
+                console.log("admin")
+                navigate("/admin/dashboard")
+            }
+            else if (res.data.data.user.role == "employer") {
+                console.log("employer")
+                navigate("/employer/dashboard")
+            }
+
+        }).catch((err) => {
             console.log(err)
             document.getElementById("crederror").hidden = false;
         })
     }
 
-    useEffect(() =>
-    document.title = "Payflip - Login")
+    useEffect(() => {
+        document.title = "Payflip - Login";
+        let validateurl = "http://localhost:7000/auth/validate";
+        if (localStorage.getItem("accessToken") != null) {
+            const fetchItems = async () => {
+                try {
+                    let response = await fetch(validateurl, { headers: { "Authorization": localStorage.getItem("accessToken") } })
+                    let responseinjson = await response.json()
+                    if (responseinjson.message == "Authorized") {
+                        if (localStorage.getItem("role") == "admin") {
+                            navigate("/admin/dashboard")
+                        }
+                        else if (localStorage.getItem("role") == "employer") {
+                            navigate("/employer/dashboard")
+                        }
+                    }
+                    else {
+                        localStorage.removeItem("accessToken");
+                        localStorage.removeItem("role");
+                    }
+                } catch (err) {
+                    console.log(err)
+                }
+            }
+            (async () => await fetchItems())()
+        }
+    })
 
     return (
         <div>
@@ -40,7 +73,7 @@ export const Login = () => {
                                 <div className="col-xl-4 col-lg-5 col-md-6 d-flex flex-column mx-auto">
                                     <div className="card card-plain mt-8">
                                         <div className="card-header pb-0 text-left bg-transparent">
-                                        <img alt="payflipdrawingplaceholder" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmiro.medium.com%2Fproxy%2F0*kYj1aQljmDquuw7Z&f=1&nofb=1" width="250px"/>
+                                            <img alt="payflipdrawingplaceholder" src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmiro.medium.com%2Fproxy%2F0*kYj1aQljmDquuw7Z&f=1&nofb=1" width="250px" />
                                             <h3 className="font-weight-bolder text-info">Welcome back</h3>
                                             <p className="mb-0">Enter your email and password to sign in</p>
                                         </div>
@@ -59,12 +92,12 @@ export const Login = () => {
                                                     <label className="form-check-label" htmlFor="rememberMe">Remember me</label>
                                                 </div>
                                                 <div className="text-center">
-                                                <button type="submit" className="btn bg-redpayflip text-white w-100 mt-4 mb-0" disabled={!formValidation()}>Sign in</button>
+                                                    <button type="submit" className="btn bg-redpayflip text-white w-100 mt-4 mb-0" disabled={!formValidation()}>Sign in</button>
                                                 </div>
                                             </form>
                                         </div>
                                         <div className="card-footer text-center pt-0 px-lg-2 px-1">
-                                        <p hidden="true" id="crederror" style={{color: "red", fontWeight: "bold", fontSize: "14px"}}>Credentials are invalid</p>
+                                            <p hidden={true} id="crederror" style={{ color: "red", fontWeight: "bold", fontSize: "14px" }}>Credentials are invalid</p>
                                             <p className="mb-4 text-sm mx-auto">
                                                 Don't have an account?
                                                 <Link to="/signup" className="text-bluepayflip font-weight-bold"> Sign up</Link>
