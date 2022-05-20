@@ -2,98 +2,114 @@ import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 
-export const AdminEditEmployerPage = () => {
+export const AdminEditEmployeePage = () => {
     let headers = { "Authorization": localStorage.getItem("accessToken") }
     const { id } = useParams()
 
-    const [companyName, setCompanyName] = useState('');
-    const [contactName, setContactName] = useState('');
-    const [companyMail, setCompanyMail] = useState('');
-    const [companyAddress, setCompanyAddress] = useState('');
+    const [employeeName, setEmployeeName] = useState('');
+    const [employerId, setEmployerId] = useState('');
+    const [email, setMail] = useState('');
+    const [employeeAddress, setEmployeeAddress] = useState('');
     const [password, setPassword] = useState('');
     const [country, setCountry] = useState('Belgium');
+    const [designation, setDesignation] = useState('');
+    const [employementType, setEmployementType] = useState('full-time');
+
     let navigate = useNavigate()
     const submitHandling = (data) => {
         data.preventDefault();
-        console.log(password)
-        if (password != "" && password.length >= 8) {
-            if (companyMail.toLowerCase().includes("@gmail.com", (companyMail.length - 1) - 10) || companyMail.toLowerCase().includes("@payflip.be", (companyMail.length - 1) - 11) ||
-            companyMail.toLowerCase().includes("@outlook.com", (companyMail.length - 1) - 12) || companyMail.toLowerCase().includes("@protonmail.com", (companyMail.length - 1) - 15)) {
-                document.getElementById("alertprocessing").hidden = false;
-                document.getElementById("existerror").hidden = true;
-                axios.put(`http://localhost:7000/employer/${id}`, {
-                    contact_name: contactName[0].toUpperCase() + contactName.substring(1).toLowerCase(),
-                    name: companyName[0].toUpperCase() + companyName.substring(1).toLowerCase(),
-                    email: companyMail.toLowerCase(),
-                    address: companyAddress,
-                    password: password,
-                    country: country
-                }, { headers: headers }).then((res) => {
-                    console.log(res)
-                    if (res.status === 200) {
-                        navigate("/admin/companies")
+        axios.get("http://localhost:7000/employer/" + employerId, { headers: headers }).then((res) => {
+            if (res.data.success) {
+                if (password != "" && password.length >= 8) {
+                    if (email.toLowerCase().includes("@gmail.com", (email.length - 1) - 10) || email.toLowerCase().includes("@payflip.be", (email.length - 1) - 11) ||
+                        email.toLowerCase().includes("@outlook.com", (email.length - 1) - 12) || email.toLowerCase().includes("@protonmail.com", (email.length - 1) - 15)) {
+                        document.getElementById("alertprocessing").hidden = false;
+                        document.getElementById("existerror").hidden = true;
+                        axios.put(`http://localhost:7000/employee/${id}`, {
+                            name: employeeName.toLowerCase(),
+                            employer_id: employerId,
+                            email: email.toLowerCase(),
+                            address: employeeAddress,
+                            password: password,
+                            country: country,
+                            designation: designation,
+                            employement_type: employementType
+                        }, { headers: headers }).then((res) => {
+                            console.log(res)
+                            if (res.status === 200) {
+                                navigate("/admin/employees")
+                            }
+                        }).catch((err) => {
+                            document.getElementById("alertprocessing").hidden = true;
+                            document.getElementById("existerror").innerText = "Employer data couldn't be updated. Try again later."
+                            document.getElementById("existerror").hidden = false;
+                        })
                     }
-                }).catch((err) => {
+                    else {
+                        document.getElementById("alertprocessing").hidden = true;
+                        document.getElementById("existerror").innerText = "The given email is not valid."
+                        document.getElementById("existerror").hidden = false;
+                    }
+                }
+                else if (password != "" && password.length < 8) {
                     document.getElementById("alertprocessing").hidden = true;
-                    document.getElementById("existerror").innerText = "Employer data couldn't be updated. Try again later."
+                    document.getElementById("existerror").innerText = "Password should be at least 8 characters."
                     document.getElementById("existerror").hidden = false;
-                })
+                }
+                else {
+                    if (email.toLowerCase().includes("@gmail.com", (email.length - 1) - 10) || email.toLowerCase().includes("@payflip.be", (email.length - 1) - 11) ||
+                        email.toLowerCase().includes("@outlook.com", (email.length - 1) - 12) || email.toLowerCase().includes("@protonmail.com", (email.length - 1) - 15)) {
+                        document.getElementById("alertprocessing").hidden = false;
+                        document.getElementById("existerror").hidden = true;
+                        axios.put(`http://localhost:7000/employee/${id}`, {
+                            name: employeeName.toLowerCase(),
+                            employer_id: employerId,
+                            email: email.toLowerCase(),
+                            address: employeeAddress,
+                            country: country,
+                            designation: designation,
+                            employement_type: employementType
+                        }, { headers: headers }).then((res) => {
+                            console.log(res)
+                            if (res.status === 200) {
+                                navigate("/admin/employees")
+                            }
+                        }).catch((err) => {
+                            document.getElementById("alertprocessing").hidden = true;
+                            document.getElementById("existerror").innerText = "Employer data couldn't be updated. Try again later."
+                            document.getElementById("existerror").hidden = false;
+                        })
+                    }
+                    else {
+                        document.getElementById("alertprocessing").hidden = true;
+                        document.getElementById("existerror").innerText = "The given email is not valid."
+                        document.getElementById("existerror").hidden = false;
+                    }
+                }
             }
             else {
                 document.getElementById("alertprocessing").hidden = true;
-                document.getElementById("existerror").innerText = "The given email is not valid."
+                document.getElementById("existerror").innerText = "The given employerId is not valid."
                 document.getElementById("existerror").hidden = false;
             }
-        }
-        else if (password != "" && password.length < 8) {
-            document.getElementById("alertprocessing").hidden = true;
-            document.getElementById("existerror").innerText = "Password should be at least 8 characters."
-            document.getElementById("existerror").hidden = false;
-        }
-        else {
-            if (companyMail.toLowerCase().includes("@gmail.com", (companyMail.length - 1) - 10) || companyMail.toLowerCase().includes("@payflip.be", (companyMail.length - 1) - 11) ||
-            companyMail.toLowerCase().includes("@outlook.com", (companyMail.length - 1) - 12) || companyMail.toLowerCase().includes("@protonmail.com", (companyMail.length - 1) - 15)) {
-                document.getElementById("alertprocessing").hidden = false;
-                document.getElementById("existerror").hidden = true;
-                axios.put(`http://localhost:7000/employer/${id}`, {
-                    contact_name: contactName[0].toUpperCase() + contactName.substring(1).toLowerCase(),
-                    name: companyName[0].toUpperCase() + companyName.substring(1).toLowerCase(),
-                    email: companyMail.toLowerCase(),
-                    address: companyAddress,
-                    country: country
-                }, { headers: headers }).then((res) => {
-                    console.log(res)
-                    if (res.status === 200) {
-                        navigate("/admin/companies")
-                    }
-                }).catch((err) => {
-                    document.getElementById("alertprocessing").hidden = true;
-                    document.getElementById("existerror").innerText = "Employer data couldn't be updated. Try again later."
-                    document.getElementById("existerror").hidden = false;
-                })
-            }
-            else {
-                document.getElementById("alertprocessing").hidden = true;
-                document.getElementById("existerror").innerText = "The given email is not valid."
-                document.getElementById("existerror").hidden = false;
-            }
-        }
-
+        })
     }
 
     useEffect(() => {
-        document.title = "Payflip - Employers";
+        document.title = "Payflip - Employees";
         const fetchItems = async () => {
             try {
-                const url = `http://localhost:7000/employer/${id}`
+                const url = `http://localhost:7000/employee/${id}`
                 const response = await fetch(url, { headers: headers })
-                const employer = await response.json()
-                console.log(employer.data.name)
-                setCompanyName(employer.data.name)
-                setContactName(employer.data.user.name)
-                setCompanyMail(employer.data.user.email)
-                setCompanyAddress(employer.data.address)
-                setCountry(employer.data.country)
+                const employee = await response.json()
+                console.log(employee.data.name)
+                setEmployeeName(employee.data.name)
+                setEmployerId(employee.data.employer_id)
+                setMail(employee.data.user.email)
+                setEmployeeAddress(employee.data.address)
+                setCountry(employee.data.country)
+                setDesignation(employee.data.designation)
+                setEmployementType(employee.data.employement_type)
             } catch (err) {
 
             }
@@ -156,19 +172,19 @@ export const AdminEditEmployerPage = () => {
                                     </Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link to="/admin/employees" className="hoverableitem nav-link">
+                                    <Link to="/admin/employees" className="hoverableitem nav-link active">
                                         <div
                                             className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                                            <i className="fas fa-users" aria-hidden="true"></i>
+                                            <i className="fas fa-users selectedicon" aria-hidden="true"></i>
                                         </div>
                                         <span className="nav-link-text ms-1">Employees</span>
                                     </Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link to="/admin/companies" className="hoverableitem nav-link active">
+                                    <Link to="/admin/companies" className="hoverableitem nav-link">
                                         <div
                                             className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                                            <i className="fas fa-building selectedicon" aria-hidden="true"></i>
+                                            <i className="fas fa-building" aria-hidden="true"></i>
                                         </div>
                                         <span className="nav-link-text ms-1">Companies</span>
                                     </Link>
@@ -224,29 +240,40 @@ export const AdminEditEmployerPage = () => {
                                     <div className="card z-index-0">
                                         <div className="extrashadow">
                                             <div className="card-header text-center pt-4">
-                                                <h3 className="text-info">Edit {companyName}</h3>
+                                                <h3 className="text-info">Edit {employeeName}</h3>
                                             </div>
                                             <div className="card-body">
                                                 <form className="formtext" onSubmit={submitHandling}>
                                                     <div className="mb-3">
-                                                        <input type="text" className="form-control" value={companyName} onChange={(answer) => { setCompanyName(answer.target.value) }} placeholder="Company Name"
-                                                            aria-label="CompanyName" aria-describedby="email-addon" required />
+                                                        <input type="text" className="form-control" value={employeeName} onChange={(answer) => { setEmployeeName(answer.target.value) }} placeholder="Employee Name (eg. firstname lastname)"
+                                                            aria-label="EmployeeName" aria-describedby="email-addon" required />
                                                     </div>
                                                     <div className="mb-3">
-                                                        <input type="text" className="form-control" value={contactName} onChange={(answer) => { setContactName(answer.target.value) }} placeholder="Contact Name"
-                                                            aria-label="ContactName" aria-describedby="email-addon" required />
+                                                        <input type="text" className="form-control" value={employerId} onChange={(answer) => { setEmployerId(answer.target.value) }} placeholder="Employer Id (eg. hy5c47b6bggfa75a1fpp4seb)"
+                                                            aria-label="EmployerId" aria-describedby="email-addon" required />
                                                     </div>
                                                     <div className="mb-3">
-                                                        <input type="email" className="form-control" value={companyMail} onChange={(answer) => { setCompanyMail(answer.target.value) }} placeholder="Company Email"
+                                                        <input type="email" className="form-control" value={email} onChange={(answer) => { setMail(answer.target.value) }} placeholder="Employee Email (eg. jonasberkels@payflip.be)"
                                                             aria-label="Email" aria-describedby="email-addon" required />
                                                     </div>
                                                     <div className="mb-3">
-                                                        <input type="text" className="form-control" value={companyAddress} onChange={(answer) => { setCompanyAddress(answer.target.value) }} placeholder="Company Address"
+                                                        <input type="password" className="form-control" value={password} onChange={(answer) => { setPassword(answer.target.value) }} placeholder="Password (optional)"
+                                                            aria-label="Password" aria-describedby="email-addon" />
+                                                    </div>
+                                                    <div className="mb-3">
+                                                        <input type="text" className="form-control" value={employeeAddress} onChange={(answer) => { setEmployeeAddress(answer.target.value) }} placeholder="Employee Address"
                                                             aria-label="Address" aria-describedby="email-addon" required />
                                                     </div>
                                                     <div className="mb-3">
-                                                        <input type="password" className="form-control" value={password} onChange={(answer) => { setPassword(answer.target.value) }} placeholder="Password (optional)"
-                                                            aria-label="Password" aria-describedby="password-addon" />
+                                                        <input type="text" className="form-control" value={designation} onChange={(answer) => { setDesignation(answer.target.value) }} placeholder="Designation/Department (eg. HR)"
+                                                            aria-label="Designation" aria-describedby="password-addon" required />
+                                                    </div>
+                                                    <div className="mb-3">
+                                                        <label htmlFor="employementType" className="text-bluepayflip">Employee's employment type:</label>
+                                                        <select className="form-control" id="employementType" aria-label="EmployementType" value={employementType} onChange={(answer) => { setEmployementType(answer.target.value) }}>
+                                                            <option value="full-time">Full-Time</option>
+                                                            <option value="part-time">Part-Time</option>
+                                                        </select>
                                                     </div>
                                                     <div className="mb-3">
                                                         <label htmlFor="country" className="text-bluepayflip">For which country do you want to register?</label>
@@ -259,7 +286,7 @@ export const AdminEditEmployerPage = () => {
                                                     <div className="text-center">
                                                         <button type="submit" className="btn bg-redpayflip text-white w-100 my-4 mb-2">Update information</button>
                                                     </div>
-                                                    <p hidden="true" id="existerror" style={{ color: "red", fontWeight: "bold", fontSize: "14px" }}>Error while trying to update the information</p>
+                                                    <p hidden="true" id="existerror" style={{ color: "red", fontWeight: "bold", fontSize: "14px" }}>Account with given email already exists</p>
                                                 </form>
                                             </div>
                                         </div>

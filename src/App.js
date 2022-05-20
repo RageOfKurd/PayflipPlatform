@@ -12,6 +12,9 @@ import { Signup } from './Components/Signup';
 import { useEffect } from "react";
 import { EmployerBenefitsPage } from "./Components/Employer/Benefit";
 import { AuthenticationPage } from "./Components/BeingAuthenticated";
+import { EmployerBenefitsAssigningPage } from "./Components/Employer/BenefitAssigning";
+import { AdminAddEmployeePage } from "./Components/Admin/AddEmployee";
+import { AdminEditEmployeePage } from "./Components/Admin/EditEmployee";
 
 function App() {
   let navigate = useNavigate()
@@ -69,11 +72,13 @@ function App() {
       <Route path='admin/dashboard' element={<AdminDash />}></Route>
       <Route path='admin/benefits' element={<AdminBenefits />}></Route>
       <Route path='admin/employees' element={<AdminEmployeesPage />}></Route>
+      <Route path='admin/employees/add' element={<AdminAddEmployeePage />}></Route>
+      <Route path='admin/employees/:id' element={<AdminEditEmployeePage />}></Route>
       <Route path='admin/companies' element={<AdminEmployersPage />}></Route>
       <Route path='admin/companies/add' element={<AdminAddEmployerPage />}></Route>
       <Route path='admin/companies/:id' element={<AdminEditEmployerPage />}></Route>
       <Route path='employer/dashboard' element={<EmployerDash />}></Route>
-      <Route path='employer/benefits' element={<EmployerBenefitsPage />}></Route>
+      <Route path='employer/benefits' element={<EmployerBenefitsAssigningPage />}></Route>
       <Route path='authentication' element={<AuthenticationPage />}></Route>
       <Route path='*' element={<Navigate to="/login" />}></Route>
     </Routes>

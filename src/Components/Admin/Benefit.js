@@ -1,7 +1,45 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
+import {
+    DropdownMenu, DropdownItem,
+    ButtonDropdown, DropdownToggle
+} from "reactstrap"
+import { useEffect } from "react";
+
+import { useNavigate, useParams } from "react-router-dom";
+
+import axios from 'axios';
+import { AdminAddBenefitPage } from './AddBenefit';
+
+
 
 export const AdminBenefits = () => {
+
+    let params = useParams();
+
+    const [dropDownOpen, setOpen] = useState(false);
+
+    let headers = { Authorization: localStorage.getItem("accessToken") };
+
+
+    const [benefits, setBenefits] = useState('');
+
+    const getData = () => {
+        axios.get(
+            "http://localhost:7000/admin/benefit",
+            params.post_id)
+        .then(benefits => {
+            setBenefits(benefits);
+            console.log(benefits);
+
+        })
+        .catch((err) => {
+            document.getElementById("existerror").hidden = false;
+        });
+    };
+
+    useEffect(() => { getData(); }, []);
+
     return (
         <>
             <div className="g-sidenav-show  bg-gray-100">
@@ -101,50 +139,8 @@ export const AdminBenefits = () => {
                         {/* <!-- End Navbar --> */}
                         <div className="container-fluid py-4">
                             <div className="row">
-                                <div className="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-                                    <div className="card hoverablecnt">
-                                        <div className="card-body p-3">
-                                            <div className="row">
-                                                <div className="col-8">
-                                                    <div className="numbers">
-                                                        <p className="text-sm mb-0 text-capitalize font-weight-bold">Total spendable amount</p>
-                                                        <h5 className="font-weight-bolder mb-0">
-                                                            €1425.47
-                                                            <span className="text-success text-sm font-weight-bolder">+12%</span>
-                                                        </h5>
-                                                    </div>
-                                                </div>
-                                                <div className="col-4 text-end">
-                                                    <div className="icon icon-shape bg-gradient-payflip shadow text-center border-radius-md">
-                                                        <i className="fas fa-coins text-lg opacity-10" aria-hidden="true"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-                                    <div className="card hoverablecnt">
-                                        <div className="card-body p-3">
-                                            <div className="row">
-                                                <div className="col-8">
-                                                    <div className="numbers">
-                                                        <p className="text-sm mb-0 text-capitalize font-weight-bold">Total benefits ordered</p>
-                                                        <h5 className="font-weight-bolder mb-0">
-                                                            26
-                                                            <span className="text-success text-sm font-weight-bolder">+3%</span>
-                                                        </h5>
-                                                    </div>
-                                                </div>
-                                                <div className="col-4 text-end">
-                                                    <div className="icon icon-shape bg-gradient-payflip shadow text-center border-radius-md">
-                                                        <i className="fas fa-trophy text-lg opacity-10" aria-hidden="true"></i>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+
+
                                 <div className="col-xl-3 col-sm-6">
                                     <div className="card hoverablecnt">
                                         <div className="card-body p-3">
@@ -165,6 +161,108 @@ export const AdminBenefits = () => {
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="col-12">
+                            <div className="card mb-4">
+                                <div className="card-header pb-0">
+                                    <h6>Benefits table</h6>
+                                    <div className="input-group">
+                                        <span className="input-group-text text-body"><i className="fas fa-search" aria-hidden="true"></i></span>
+                                        <input type="text" className="form-control" placeholder="Type here..." />
+                                    </div>
+                                    <div className="card-header row-md-1 col-md-0">
+                                        <button className="btn btn-link text-secondary">
+                                            <Link to="/add" className="nav-link text-body font-weight-bold px-0" >
+                                                <a className="fa fa-plus text-xs" data-bs-toggle="modal" ></a>
+
+                                            </Link>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div className="card-body px-0 pt-0 pb-2">
+                                    <div className="table-responsive p-0">
+                                        <table
+                                            className="table align-items-center justify-content-center mb-0"
+                                        >
+                                            <thead>
+                                                <tr>
+                                                    <th
+                                                        className="
+                              text-uppercase text-secondary text-xxs
+                              font-weight-bolder
+                              opacity-7
+                            "
+                                                    >
+                                                        Benefit name
+                                                    </th>
+                                                    <th
+                                                        className="
+                              text-uppercase text-secondary text-xxs
+                              font-weight-bolder
+                              opacity-7
+                              ps-2
+                            "
+                                                    >
+                                                        Price
+                                                    </th>
+                                                    <th
+                                                        className="
+                              text-uppercase text-secondary text-xxs
+                              font-weight-bolder
+                              opacity-7
+                              ps-2
+                            "
+                                                    >Country
+                                                    </th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {
+                                                    <tr>
+                                                        <td>
+                                                            <div className="d-flex px-2">
+                                                                <div className="my-auto">
+                                                                    <h6 className="mb-0 text-sm">{benefits.name}</h6>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <p className="text-sm font-weight-bold mb-0">
+                                                                {benefits.cost}
+                                                            </p>
+                                                        </td>
+                                                        <td>
+                                                            <span className="text-xs font-weight-bold">
+                                                                {benefits.country}
+                                                            </span>
+                                                        </td>
+                                                        <td className="align-middle">
+                                                            <ButtonDropdown toggle={() => { setOpen(!dropDownOpen) }}
+                                                                isOpen={dropDownOpen}>
+
+                                                                <DropdownToggle className='dropdown-item' >
+                                                                    <a href="#" className="fa fa-ellipsis-v text-xs" data-bs-toggle="dropdown">
+                                                                    </a>
+                                                                </DropdownToggle>
+                                                                <DropdownMenu>
+                                                                    <DropdownItem > <Link to='/:idben' > Edit </Link></DropdownItem>
+                                                                    <DropdownItem > <Link to='*' > Delete </Link></DropdownItem>
+                                                                </DropdownMenu>
+
+                                                            </ButtonDropdown>
+
+
+                                                        </td>
+
+                                                    </tr>
+                                                }
+
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </div>

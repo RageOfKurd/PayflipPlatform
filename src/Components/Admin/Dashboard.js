@@ -12,16 +12,16 @@ export function AdminDash() {
   useEffect(async () => {
     document.title = "Payflip - Dashboard";
 
-    (async () => await roleAuthentication())();
+    // (async () => await roleAuthentication())();
     (async () => await fetchItems())();
   }, [])
 
-  /* const signout = () => {
-    localStorage.clear()
-    navigate("/login")
-  } */
+   const signout = () => {
+    /* localStorage.clear()
+    navigate("/login") */
+  } 
 
-  const roleAuthentication = async () => {
+  /* const roleAuthentication = async () => {
     let roleUrl = "http://localhost:7000/auth/role";
     const roleResponse = await fetch(roleUrl, { headers: { "Authorization": localStorage.getItem("accessToken") } })
     const roleJson = await roleResponse.json();
@@ -29,7 +29,7 @@ export function AdminDash() {
     if (newRole != "admin") {
       signout();
     }
-  }
+  } */
 
   const fetchItems = async () => {
     try {
