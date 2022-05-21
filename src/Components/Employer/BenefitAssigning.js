@@ -176,17 +176,6 @@ export const EmployerBenefitsAssigningPage = () => {
                       <span className="nav-link-text ms-1">Employees</span>
                     </Link>
                   </li>
-                  <li className="nav-item">
-                    <Link
-                      to="/employer/companies"
-                      className="hoverableitem nav-link"
-                    >
-                      <div className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i className="fas fa-building" aria-hidden="true"></i>
-                      </div>
-                      <span className="nav-link-text ms-1">Companies</span>
-                    </Link>
-                  </li>
                   <li className="nav-item mt-3">
                     <h6 className="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">
                       Account pages
@@ -453,17 +442,6 @@ export const EmployerBenefitsAssigningPage = () => {
                       <i className="fas fa-users" aria-hidden="true"></i>
                     </div>
                     <span className="nav-link-text ms-1">Employees</span>
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link
-                    to="/employer/companies"
-                    className="hoverableitem nav-link"
-                  >
-                    <div className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                      <i className="fas fa-building" aria-hidden="true"></i>
-                    </div>
-                    <span className="nav-link-text ms-1">Companies</span>
                   </Link>
                 </li>
                 <li className="nav-item mt-3">
