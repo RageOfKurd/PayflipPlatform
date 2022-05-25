@@ -17,6 +17,7 @@ import { AdminAddEmployeePage } from "./Components/Admin/AddEmployee";
 import { AdminEditEmployeePage } from "./Components/Admin/EditEmployee";
 import { EmployerEmployeesPage } from "./Components/Employer/Employee";
 import { EmployerAddEmployeePage } from "./Components/Employer/AddEmployee";
+import { EmployerEditEmployeePage } from "./Components/Employer/EditEmployee";
 
 function App() {
   let navigate = useNavigate()
@@ -83,6 +84,7 @@ function App() {
       <Route path='employer/benefits' element={<EmployerBenefitsAssigningPage />}></Route>
       <Route path='employer/employees' element={<EmployerEmployeesPage />}></Route>
       <Route path='employer/employees/add' element={<EmployerAddEmployeePage />}></Route>
+      <Route path='employer/employees/:id' element={<EmployerEditEmployeePage />}></Route>
       <Route path='authentication' element={<AuthenticationPage />}></Route>
       <Route path='*' element={<Navigate to="/login" />}></Route>
     </Routes>

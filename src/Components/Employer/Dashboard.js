@@ -156,9 +156,9 @@ export function EmployerDash() {
                         <div className="row">
                           <div className="col-8">
                             <div className="numbers">
-                              <p className="text-sm mb-0 text-capitalize font-weight-bold">Total Companies</p>
+                              <p className="text-sm mb-0 text-capitalize font-weight-bold">Total Available Benefits</p>
                               <h5 className="font-weight-bolder mb-0">
-                                {stats.data.total_employers}
+                                {stats.data.total_benefits}
                               </h5>
                             </div>
                           </div>
@@ -177,7 +177,7 @@ export function EmployerDash() {
                         <div className="row">
                           <div className="col-8">
                             <div className="numbers">
-                              <p className="text-sm mb-0 text-capitalize font-weight-bold">Total Salary Spent</p>
+                              <p className="text-sm mb-0 text-capitalize font-weight-bold">Total Salary Used</p>
                               <h5 className="font-weight-bolder mb-0">
                                 €{stats.data.total_salary_used}
                               </h5>

@@ -188,6 +188,14 @@ export const AdminEmployeesPage = () => {
                             opacity-7
                             ps-2
                           ">
+                                  Company
+                                </th>
+                                <th className="
+                            text-uppercase text-secondary text-xxs
+                            font-weight-bolder
+                            opacity-7
+                            ps-2
+                          ">
                                   Contact Mail
                                 </th>
                                 <th className="
@@ -211,6 +219,9 @@ export const AdminEmployeesPage = () => {
                                           <h6 className="mb-0 text-sm">{employee.name}</h6>
                                         </div>
                                       </div>
+                                    </td>
+                                    <td>
+                                      <p className="text-sm font-weight-bold mb-0">{employee.employer_name}</p>
                                     </td>
                                     <td>
                                       <p className="text-sm font-weight-bold mb-0">{employee.user.email}</p>

@@ -1,9 +1,10 @@
 import axios from 'axios';
-import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 
-export const EmployerAddEmployeePage = () => {
+export const EmployerEditEmployeePage = () => {
     let headers = { "Authorization": localStorage.getItem("accessToken") }
+    const { id } = useParams()
 
     const [employeeName, setEmployeeName] = useState('');
     const [employerId, setEmployerId] = useState('');
@@ -13,54 +14,117 @@ export const EmployerAddEmployeePage = () => {
     const [country, setCountry] = useState('Belgium');
     const [designation, setDesignation] = useState('');
     const [employementType, setEmployementType] = useState('full-time');
-    let accountcreationprocessing = false;
-    let navigate = useNavigate();
 
+    let navigate = useNavigate()
     const submitHandling = (data) => {
         data.preventDefault();
-        if (!accountcreationprocessing) {
-            axios.get("http://localhost:7000/auth/profile", { headers: headers }).then((res) => {
-                if (res.data.success) {
-                    setEmployerId(res.data.data.id);
-                    if (email.toLowerCase().includes("@gmail.com", (email.length - 1) - 10) || email.toLowerCase().includes("@payflip.be", (email.length - 1) - 11) ||
-                        email.toLowerCase().includes("@outlook.com", (email.length - 1) - 12) || email.toLowerCase().includes("@protonmail.com", (email.length - 1) - 15)) {
-                        accountcreationprocessing = true;
-                        document.getElementById("alertprocessing").hidden = false;
-                        document.getElementById("existerror").hidden = true;
-                        axios.post("http://localhost:7000/employee", {
-                            name: employeeName.toLowerCase(),
-                            employer_id: employerId,
-                            email: email.toLowerCase(),
-                            address: employeeAddress,
-                            password: password,
-                            country: country,
-                            designation: designation,
-                            employement_type: employementType
-                        }, { headers: headers }).then((res) => {
-                            console.log(res)
-                            if (res.status === 201) {
-                                navigate("/employer/employees")
-                            }
-                        }).catch((err) => {
-                            accountcreationprocessing = false;
-                            document.getElementById("alertprocessing").hidden = true;
-                            document.getElementById("existerror").innerText = "Account couldn't be created (email might already be registered). Try again later."
-                            document.getElementById("existerror").hidden = false;
-                        })
+        if (password != "" && password.length >= 8) {
+            if (email.toLowerCase().includes("@gmail.com", (email.length - 1) - 10) || email.toLowerCase().includes("@payflip.be", (email.length - 1) - 11) ||
+                email.toLowerCase().includes("@outlook.com", (email.length - 1) - 12) || email.toLowerCase().includes("@protonmail.com", (email.length - 1) - 15)) {
+                document.getElementById("alertprocessing").hidden = false;
+                document.getElementById("existerror").hidden = true;
+                axios.put(`http://localhost:7000/employee/${id}`, {
+                    name: employeeName.toLowerCase(),     
+                    employer_id: employerId,
+                    email: email.toLowerCase(),
+                    address: employeeAddress,
+                    password: password,
+                    country: country,
+                    designation: designation,
+                    employement_type: employementType
+                }, { headers: headers }).then((res) => {
+                    console.log(res)
+                    if (res.status === 200) {
+                        navigate("/employer/employees")
                     }
-                    else {
-                        document.getElementById("alertprocessing").hidden = true;
-                        document.getElementById("existerror").innerText = "The given email is not valid."
-                        document.getElementById("existerror").hidden = false;
+                }).catch((err) => {
+                    document.getElementById("alertprocessing").hidden = true;
+                    document.getElementById("existerror").innerText = "Employee data couldn't be updated. Try again later."
+                    document.getElementById("existerror").hidden = false;
+                })
+            }
+            else {
+                document.getElementById("alertprocessing").hidden = true;
+                document.getElementById("existerror").innerText = "The given email is not valid."
+                document.getElementById("existerror").hidden = false;
+            }
+        }
+        else if (password != "" && password.length < 8) {
+            document.getElementById("alertprocessing").hidden = true;
+            document.getElementById("existerror").innerText = "Password should be at least 8 characters."
+            document.getElementById("existerror").hidden = false;
+        }
+        else {
+            if (email.toLowerCase().includes("@gmail.com", (email.length - 1) - 10) || email.toLowerCase().includes("@payflip.be", (email.length - 1) - 11) ||
+                email.toLowerCase().includes("@outlook.com", (email.length - 1) - 12) || email.toLowerCase().includes("@protonmail.com", (email.length - 1) - 15)) {
+                document.getElementById("alertprocessing").hidden = false;
+                document.getElementById("existerror").hidden = true;
+                axios.put(`http://localhost:7000/employee/${id}`, {
+                    name: employeeName.toLowerCase(),      
+                    employer_id: employerId,
+                    email: email.toLowerCase(),
+                    address: employeeAddress,
+                    country: country,
+                    designation: designation,
+                    employement_type: employementType
+                }, { headers: headers }).then((res) => {
+                    console.log(res)
+                    if (res.status === 200) {
+                        navigate("/employer/employees")
                     }
-                }
-                else {
-                    localStorage.clear();
-                    navigate("/login");
-                }
-            })
+                }).catch((err) => {
+                    document.getElementById("alertprocessing").hidden = true;
+                    document.getElementById("existerror").innerText = "Employer data couldn't be updated. Try again later."
+                    document.getElementById("existerror").hidden = false;
+                })
+            }
+            else {
+                document.getElementById("alertprocessing").hidden = true;
+                document.getElementById("existerror").innerText = "The given email is not valid."
+                document.getElementById("existerror").hidden = false;
+            }
         }
     }
+
+
+    useEffect(() => {
+        document.title = "Payflip - Employees";
+        const fetchItems = async () => {
+            try {
+                const url = `http://localhost:7000/employee/${id}`
+                const response = await fetch(url, { headers: headers })
+                const employee = await response.json()
+                console.log(employee.data.name)
+                setEmployeeName(employee.data.name)
+                setEmployerId(employee.data.employer_id)
+                setMail(employee.data.user.email)
+                setEmployeeAddress(employee.data.address)
+                setCountry(employee.data.country)
+                setDesignation(employee.data.designation)
+                setEmployementType(employee.data.employement_type)
+            } catch (err) {
+
+            }
+        }
+
+        (async () => await fetchItems())();
+        //(async () => await roleAuthentication())()
+    }, [])
+
+    /* const roleAuthentication = async () => {
+        let roleUrl = "http://localhost:7000/auth/role";
+        const roleResponse = await fetch(roleUrl, { headers: { "Authorization": localStorage.getItem("accessToken") } })
+        const roleJson = await roleResponse.json();
+        let newRole = roleJson.data;
+        if (newRole != "admin") {
+            signout();
+        }
+    }
+    
+    const signout = () => {
+        localStorage.clear()
+        navigate("/login")
+    } */
 
     return (
         <>
@@ -133,7 +197,7 @@ export const EmployerAddEmployeePage = () => {
                                         <li className="breadcrumb-item text-sm"><a className="opacity-5 text-dark">Employer</a></li>
                                         <li className="breadcrumb-item text-sm text-dark active" aria-current="page">Employees</li>
                                     </ol>
-                                    <h6 className="font-weight-bolder mb-0">Add</h6>
+                                    <h6 className="font-weight-bolder mb-0">Edit</h6>
                                 </nav>
                                 <div className="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
                                     <div className="ms-md-auto pe-md-3 d-flex align-items-center">
@@ -151,7 +215,7 @@ export const EmployerAddEmployeePage = () => {
                         </nav>
                         {/* <!-- End Navbar --> */}
                         <div id="alertprocessing" className="alert alert-primary" role="alert" style={{ width: '425px', marginRight: '15px', marginTop: '15px', marginLeft: 'auto', color: 'white' }} hidden={true}>
-                            Account is being created. You'll be redirected soon.
+                            Account is being updated. You'll be redirected soon.
                         </div>
                         <div className="container-fluid py-4">
                             <div className="row">
@@ -159,7 +223,7 @@ export const EmployerAddEmployeePage = () => {
                                     <div className="card z-index-0">
                                         <div className="extrashadow">
                                             <div className="card-header text-center pt-4">
-                                                <h3 className="text-info">Add an employee</h3>
+                                                <h3 className="text-info">Edit {employeeName}</h3>
                                             </div>
                                             <div className="card-body">
                                                 <form className="formtext" onSubmit={submitHandling}>
@@ -172,8 +236,8 @@ export const EmployerAddEmployeePage = () => {
                                                             aria-label="Email" aria-describedby="email-addon" required />
                                                     </div>
                                                     <div className="mb-3">
-                                                        <input type="password" className="form-control" value={password} onChange={(answer) => { setPassword(answer.target.value) }} placeholder="Password"
-                                                            aria-label="Password" aria-describedby="email-addon" required />
+                                                        <input type="password" className="form-control" value={password} onChange={(answer) => { setPassword(answer.target.value) }} placeholder="Password (optional)"
+                                                            aria-label="Password" aria-describedby="email-addon" />
                                                     </div>
                                                     <div className="mb-3">
                                                         <input type="text" className="form-control" value={employeeAddress} onChange={(answer) => { setEmployeeAddress(answer.target.value) }} placeholder="Employee Address"
@@ -199,7 +263,7 @@ export const EmployerAddEmployeePage = () => {
                                                         </select>
                                                     </div>
                                                     <div className="text-center">
-                                                        <button type="submit" className="btn bg-redpayflip text-white w-100 my-4 mb-2">Add the employee</button>
+                                                        <button type="submit" className="btn bg-redpayflip text-white w-100 my-4 mb-2">Update information</button>
                                                     </div>
                                                     <p hidden="true" id="existerror" style={{ color: "red", fontWeight: "bold", fontSize: "14px" }}>Account with given email already exists</p>
                                                 </form>
@@ -241,3 +305,4 @@ export const EmployerAddEmployeePage = () => {
         </>
     )
 }
+

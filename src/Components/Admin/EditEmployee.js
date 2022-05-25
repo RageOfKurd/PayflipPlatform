@@ -76,7 +76,7 @@ export const AdminEditEmployeePage = () => {
                             }
                         }).catch((err) => {
                             document.getElementById("alertprocessing").hidden = true;
-                            document.getElementById("existerror").innerText = "Employer data couldn't be updated. Try again later."
+                            document.getElementById("existerror").innerText = "Employee data couldn't be updated. Try again later."
                             document.getElementById("existerror").hidden = false;
                         })
                     }
@@ -212,7 +212,7 @@ export const AdminEditEmployeePage = () => {
                                 <nav aria-label="breadcrumb">
                                     <ol className="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
                                         <li className="breadcrumb-item text-sm"><a className="opacity-5 text-dark">Admin</a></li>
-                                        <li className="breadcrumb-item text-sm text-dark active" aria-current="page">Companies</li>
+                                        <li className="breadcrumb-item text-sm text-dark active" aria-current="page">Employees</li>
                                     </ol>
                                     <h6 className="font-weight-bolder mb-0">Edit</h6>
                                 </nav>
