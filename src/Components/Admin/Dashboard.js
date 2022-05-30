@@ -4,8 +4,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthenticationPage } from "../BeingAuthenticated";
 
 export function AdminDash() {
+  let api_base_url = `${process.env.REACT_APP_API_BASE_URL}`;
   let navigate = useNavigate()
-  const url = "http://localhost:7000/dashboard"
+  const url = api_base_url + "/dashboard"
 
   const [stats, setStats] = useState(null)
 
@@ -22,7 +23,7 @@ export function AdminDash() {
   } 
 
   /* const roleAuthentication = async () => {
-    let roleUrl = "http://localhost:7000/auth/role";
+    let roleUrl = api_base_url + "/auth/role";
     const roleResponse = await fetch(roleUrl, { headers: { "Authorization": localStorage.getItem("accessToken") } })
     const roleJson = await roleResponse.json();
     let newRole = roleJson.data;

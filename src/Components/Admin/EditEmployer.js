@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 
 export const AdminEditEmployerPage = () => {
+    let api_base_url = `${process.env.REACT_APP_API_BASE_URL}`;
     let headers = { "Authorization": localStorage.getItem("accessToken") }
     const { id } = useParams()
 
@@ -56,7 +57,7 @@ export const AdminEditEmployerPage = () => {
     }, [])
 
     /* const roleAuthentication = async () => {
-        let roleUrl = "http://localhost:7000/auth/role";
+        let roleUrl = api_base_url + "/auth/role";
         const roleResponse = await fetch(roleUrl, { headers: { "Authorization": localStorage.getItem("accessToken") } })
         const roleJson = await roleResponse.json();
         let newRole = roleJson.data;

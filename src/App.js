@@ -15,9 +15,10 @@ import { AuthenticationPage } from "./Components/BeingAuthenticated";
 import { EmployerBenefitsAssigningPage } from "./Components/Employer/BenefitAssigning";
 
 function App() {
+  let api_base_url = `${process.env.REACT_APP_API_BASE_URL}`;
   let navigate = useNavigate()
-  let validateurl = "http://localhost:7000/auth/validate";
-  let refreshurl = "http://localhost:7000/auth/refreshToken";
+  let validateurl = api_base_url + "/auth/validate";
+  let refreshurl = api_base_url + "/auth/refreshToken";
 
   useEffect(() => {
     setInterval(() => {

@@ -1,6 +1,7 @@
 import React from 'react'
 
 export const Footer = () => {
+    let api_base_url = `${process.env.REACT_APP_API_BASE_URL}`;
     return (
         <div>
             <footer className="footer py-5">

@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
 export const AdminAddEmployerPage = () => {
+    let api_base_url = `${process.env.REACT_APP_API_BASE_URL}`;
     let headers = { "Authorization": localStorage.getItem("accessToken") }
 
     const [companyName, setCompanyName] = useState('');
@@ -14,7 +15,7 @@ export const AdminAddEmployerPage = () => {
     let navigate = useNavigate()
     const submitHandling = (data) => {
         data.preventDefault();
-        axios.post("http://localhost:7000/employer", {
+        axios.post(api_base_url + "/employer", {
             name: contactName[0].toUpperCase() + contactName.substring(1).toLowerCase(),
             company_name: companyName[0].toUpperCase() + companyName.substring(1).toLowerCase(),
             email: companyMail.toLowerCase(),

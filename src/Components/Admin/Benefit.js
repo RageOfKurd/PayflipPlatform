@@ -14,6 +14,7 @@ import { AdminAddBenefitPage } from './AddBenefit';
 
 
 export const AdminBenefits = () => {
+    let api_base_url = `${process.env.REACT_APP_API_BASE_URL}`;
 
     let params = useParams();
 
@@ -26,7 +27,7 @@ export const AdminBenefits = () => {
 
     const getData = () => {
         axios.get(
-            "http://localhost:7000/admin/benefit",
+            api_base_url + "/admin/benefit",
             params.post_id)
         .then(benefits => {
             setBenefits(benefits);

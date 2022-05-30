@@ -3,8 +3,9 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 export function EmployerDash() {
+  let api_base_url = `${process.env.REACT_APP_API_BASE_URL}`;
   let navigate = useNavigate()
-  const url = "http://localhost:7000/dashboard"
+  const url = api_base_url + "/dashboard"
 
   const [stats, setStats] = useState(null)
 

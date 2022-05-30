@@ -3,8 +3,9 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 export const EmployerBenefitsAssigningPage = () => {
-  const urlavailablebenefits = "http://localhost:7000/employer-benefit/country";
-  const urlcompanybenefits = "http://localhost:7000/employer-benefit";
+  let api_base_url = `${process.env.REACT_APP_API_BASE_URL}`;
+  const urlavailablebenefits = api_base_url + "/employer-benefit/country";
+  const urlcompanybenefits = api_base_url + "/employer-benefit";
   let headers = { Authorization: localStorage.getItem("accessToken") };
   let navigate = useNavigate();
 
@@ -74,7 +75,7 @@ export const EmployerBenefitsAssigningPage = () => {
   };
 
   const saveBenefits = async () => {
-    const response = await fetch("http://localhost:7000/auth/profile", {
+    const response = await fetch(api_base_url + "/auth/profile", {
       headers: headers,
     });
     const userprofile = await response.json();
@@ -82,7 +83,7 @@ export const EmployerBenefitsAssigningPage = () => {
     console.log(companyBenefitsList.map((benefit) => benefit.id));
     axios
       .post(
-        "http://localhost:7000/employer-benefit",
+        api_base_url + "/employer-benefit",
         {
           employer_id: userprofile.data.id,
           benefits: companyBenefitsList.map((benefit) => benefit.id),

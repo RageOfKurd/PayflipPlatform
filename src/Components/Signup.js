@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from 'axios'
 
 export const Signup = () => {
+    let api_base_url = `${process.env.REACT_APP_API_BASE_URL}`;
     const [companyName, setCompanyName] = useState('');
     const [contactName, setContactName] = useState('');
     const [companyMail, setCompanyMail] = useState('');
@@ -22,7 +23,7 @@ export const Signup = () => {
                 accountcreationprocessing = true;
                 document.getElementById("alertprocessing").hidden = false;
                 document.getElementById("existerror").hidden = true;
-                axios.post("http://localhost:7000/auth/register", {
+                axios.post(api_base_url + "/auth/register", {
                     name: contactName[0].toUpperCase() + contactName.substring(1).toLowerCase(),
                     company_name: companyName[0].toUpperCase() + companyName.substring(1).toLowerCase(),
                     email: companyMail.toLowerCase(),

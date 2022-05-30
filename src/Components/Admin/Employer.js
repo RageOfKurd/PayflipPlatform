@@ -3,7 +3,8 @@ import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
 export const AdminEmployersPage = () => {
-  const url = "http://localhost:7000/employer"
+  let api_base_url = `${process.env.REACT_APP_API_BASE_URL}`;
+  const url = api_base_url + "/employer"
   let headers = { "Authorization": localStorage.getItem("accessToken") }
   let navigate = useNavigate()
 

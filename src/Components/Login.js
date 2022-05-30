@@ -2,20 +2,20 @@ import Footer from "./Footer";
 import React, { useEffect, useState } from "react";
 import BgImage from './Assets/backgroundImage.svg'
 import { Link, useNavigate } from "react-router-dom";
-import axios from 'axios'
+import axios from 'axios';
 
 export const Login = () => {
+    let api_base_url = `${process.env.REACT_APP_API_BASE_URL}`;
     const [email, getEmail] = useState('');
     const [password, getPassword] = useState('');
     function formValidation() {
         return email.length > 0 && password.length > 0;
     }
     let navigate = useNavigate()
-
     const handleSubmit = (event) => {
         event.preventDefault();
         console.log(email, password)
-        axios.post("http://localhost:7000/auth/login", {
+        axios.post(api_base_url + "/auth/login", {
             email: email.toLowerCase(),
             password: password
         }).then((res) => {
@@ -37,7 +37,7 @@ export const Login = () => {
 
     useEffect(() => {
         document.title = "Payflip - Login";
-        let validateurl = "http://localhost:7000/auth/validate";
+        let validateurl = api_base_url + "/auth/validate";
         if (localStorage.getItem("accessToken") != null) {
             const fetchItems = async () => {
                 try {

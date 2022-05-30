@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 export const AdminAddBenefitPage = () => {
+  let api_base_url = `${process.env.REACT_APP_API_BASE_URL}`;
   let headers = { Authorization: localStorage.getItem("accessToken") };
 
   const [benefitName, setBenefitName] = useState("");
@@ -16,7 +17,7 @@ export const AdminAddBenefitPage = () => {
     data.preventDefault();
     axios
       .post(
-        "http://localhost:7000/benefit",
+        api_base_url + "/benefit",
         {
           name: benefitName,
           cost: benefitCost,
