@@ -71,9 +71,18 @@ export function EmployerDash() {
                     <Link to="/employer/benefits" className="hoverableitem nav-link">
                       <div
                         className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i className="fas fa-shopping-cart" aria-hidden="true"></i>
+                      </div>
+                      <span className="nav-link-text ms-1">Benefits Shop</span>
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link to="/employer/ourbenefits" className="hoverableitem nav-link">
+                      <div
+                        className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i className="fas fa-trophy" aria-hidden="true"></i>
                       </div>
-                      <span className="nav-link-text ms-1">Benefits</span>
+                      <span className="nav-link-text ms-1">Our Benefits</span>
                     </Link>
                   </li>
                   <li className="nav-item">
@@ -259,9 +268,18 @@ export function EmployerDash() {
                   <Link to="/employer/benefits" className="hoverableitem nav-link">
                     <div
                       className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                      <i className="fas fa-shopping-cart" aria-hidden="true"></i>
+                    </div>
+                    <span className="nav-link-text ms-1">Benefits Shop</span>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/employer/ourbenefits" className="hoverableitem nav-link">
+                    <div
+                      className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                       <i className="fas fa-trophy" aria-hidden="true"></i>
                     </div>
-                    <span className="nav-link-text ms-1">Benefits</span>
+                    <span className="nav-link-text ms-1">Our Benefits</span>
                   </Link>
                 </li>
                 <li className="nav-item">

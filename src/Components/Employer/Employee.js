@@ -16,8 +16,8 @@ export const EmployerEmployeesPage = () => {
         const response = await fetch(url, { headers: headers })
         const employees = await response.json()
         console.log(employees.data)
-        
-        
+
+
         setEmployeeList(employees.data)
       } catch (err) {
 
@@ -78,9 +78,18 @@ export const EmployerEmployeesPage = () => {
                     <Link to="/employer/benefits" className="hoverableitem nav-link">
                       <div
                         className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i className="fas fa-shopping-cart" aria-hidden="true"></i>
+                      </div>
+                      <span className="nav-link-text ms-1">Benefits Shop</span>
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link to="/employer/ourbenefits" className="hoverableitem nav-link">
+                      <div
+                        className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                         <i className="fas fa-trophy" aria-hidden="true"></i>
                       </div>
-                      <span className="nav-link-text ms-1">Benefits</span>
+                      <span className="nav-link-text ms-1">Our Benefits</span>
                     </Link>
                   </li>
                   <li className="nav-item">
@@ -147,7 +156,7 @@ export const EmployerEmployeesPage = () => {
           border-radius-xl
         " id="navbarBlur" navbar-scroll="true" />
                           <h6 className="text-redpayflipfg">Employees</h6>
-                          
+
                           <button onClick={addEmployee} className="fa fa-user-plus btn btn-link text-secondary mb-0"></button>
                         </div>
                       </div>
@@ -278,16 +287,25 @@ export const EmployerEmployeesPage = () => {
                   <Link to="/employer/benefits" className="hoverableitem nav-link">
                     <div
                       className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                      <i className="fas fa-trophy" aria-hidden="true"></i>
+                      <i className="fas fa-shopping-cart" aria-hidden="true"></i>
                     </div>
-                    <span className="nav-link-text ms-1">Benefits</span>
+                    <span className="nav-link-text ms-1">Benefits Shop</span>
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link to="/employer/employees" className="hoverableitem nav-link">
+                  <Link to="/employer/ourbenefits" className="hoverableitem nav-link">
                     <div
                       className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                      <i className="fas fa-users" aria-hidden="true"></i>
+                      <i className="fas fa-trophy" aria-hidden="true"></i>
+                    </div>
+                    <span className="nav-link-text ms-1">Our Benefits</span>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/employer/employees" className="hoverableitem nav-link active">
+                    <div
+                      className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                      <i className="fas fa-users selectedicon" aria-hidden="true"></i>
                     </div>
                     <span className="nav-link-text ms-1">Employees</span>
                   </Link>
@@ -408,31 +426,31 @@ export const EmployerEmployeesPage = () => {
                 </div>
               </div>
               <footer className="footer pt-3  ">
-                  <div className="container-fluid">
-                    <div className="row align-items-center justify-content-lg-between">
-                      <div className="col-lg-6 mb-lg-0 mb-4">
-                        <div className="copyright text-center text-sm text-muted text-lg-start">
-                          ©2022,
-                          Payflip
-                        </div>
-                      </div>
-                      <div className="col-lg-6">
-                        <ul className="nav nav-footer justify-content-center justify-content-lg-end">
-                          <li className="nav-item">
-                            <a href="https://en.payflip.be/team" className="nav-link text-muted" target="_blank">About
-                              Us</a>
-                          </li>
-                          <li className="nav-item">
-                            <a href="https://en.payflip.be/blogs" className="nav-link text-muted" target="_blank">Blog</a>
-                          </li>
-                          <li className="nav-item">
-                            <a href="https://en.payflip.be/partners" className="nav-link pe-0 text-muted" target="_blank">Partners</a>
-                          </li>
-                        </ul>
+                <div className="container-fluid">
+                  <div className="row align-items-center justify-content-lg-between">
+                    <div className="col-lg-6 mb-lg-0 mb-4">
+                      <div className="copyright text-center text-sm text-muted text-lg-start">
+                        ©2022,
+                        Payflip
                       </div>
                     </div>
+                    <div className="col-lg-6">
+                      <ul className="nav nav-footer justify-content-center justify-content-lg-end">
+                        <li className="nav-item">
+                          <a href="https://en.payflip.be/team" className="nav-link text-muted" target="_blank">About
+                            Us</a>
+                        </li>
+                        <li className="nav-item">
+                          <a href="https://en.payflip.be/blogs" className="nav-link text-muted" target="_blank">Blog</a>
+                        </li>
+                        <li className="nav-item">
+                          <a href="https://en.payflip.be/partners" className="nav-link pe-0 text-muted" target="_blank">Partners</a>
+                        </li>
+                      </ul>
+                    </div>
                   </div>
-                </footer>
+                </div>
+              </footer>
             </div>
           </main>
         </div>

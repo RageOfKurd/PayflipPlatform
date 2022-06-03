@@ -12,13 +12,12 @@ import {
   MDBBtn,
 } from "mdb-react-ui-kit";
 
-export const EmployerBenefitsPage = () => {
+export const EmployerSpecificBenefitsPage = () => {
 
   const urlavailablebenefits = "http://localhost:7000/employer-benefit/country"
   const urlcompanybenefits = "http://localhost:7000/employer-benefit"
   let headers = { "Authorization": localStorage.getItem("accessToken") }
   let navigate = useNavigate()
-
   const [availableBenefitsList, setAvailableBenefitsList] = useState(null)
   const [companyBenefitsList, setCompanyBenefitsList] = useState([])
 
@@ -46,7 +45,6 @@ export const EmployerBenefitsPage = () => {
         })
       }
 
-
       setCompanyBenefitsList(companyBenefitsArray);
       setAvailableBenefitsList(tempAvailableBenefitList)
 
@@ -54,38 +52,6 @@ export const EmployerBenefitsPage = () => {
       console.log(err)
       console.log("Error while trying to retrieve benefit data.")
     }
-  }
-
-  const addBenefit = (id) => {
-    try {
-      companyBenefitsList.push(availableBenefitsList.find((benefit) => benefit.id == id.target.value));
-      setCompanyBenefitsList([...companyBenefitsList]);
-      console.log(companyBenefitsList)
-      availableBenefitsList.splice(availableBenefitsList.indexOf(availableBenefitsList.find((benefit) => benefit.id == id.target.value)), 1)
-      setAvailableBenefitsList([...availableBenefitsList])
-      console.log(availableBenefitsList)
-    } catch (error) {
-      console.log(error)
-      console.log("Benefit couldn't be added")
-    }
-  }
-
-  const saveBenefits = async () => {
-    const response = await fetch("http://localhost:7000/auth/profile", { headers: headers })
-    const userprofile = await response.json()
-    console.log(userprofile.data.id)
-    console.log(companyBenefitsList.map((benefit) => benefit.id))
-    axios.post("http://localhost:7000/employer-benefit", {
-      employer_id: userprofile.data.id,
-      benefits: companyBenefitsList.map((benefit) => benefit.id)
-    }, { headers: headers }).then((res) => {
-      console.log(res)
-      document.getElementById("alertsuccess").hidden = false;
-      setInterval(() => document.getElementById("alertsuccess").hidden = true, 5000)
-    }).catch((err) => {
-      document.getElementById("alertdanger").hidden = false;
-      setInterval(() => document.getElementById("alertdanger").hidden = true, 5000)
-    })
   }
 
   if (availableBenefitsList) {
@@ -118,19 +84,19 @@ export const EmployerBenefitsPage = () => {
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link to="/employer/benefits" className="hoverableitem nav-link active">
+                    <Link to="/employer/benefits" className="hoverableitem nav-link">
                       <div
                         className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i className="fas fa-shopping-cart selectedicon" aria-hidden="true"></i>
+                        <i className="fas fa-shopping-cart" aria-hidden="true"></i>
                       </div>
                       <span className="nav-link-text ms-1">Benefits Shop</span>
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link to="/employer/ourbenefits" className="hoverableitem nav-link">
+                    <Link to="/employer/ourbenefits" className="hoverableitem nav-link active">
                       <div
                         className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i className="fas fa-trophy" aria-hidden="true"></i>
+                        <i className="fas fa-trophy selectedicon" aria-hidden="true"></i>
                       </div>
                       <span className="nav-link-text ms-1">Our Benefits</span>
                     </Link>
@@ -187,33 +153,13 @@ export const EmployerBenefitsPage = () => {
               </nav>
               {/* <!-- End Navbar --> */}
               <div className="container-fluid py-4">
-                <div className="alert alert-success" style={{ color: 'white' }} role="alert" id="alertsuccess" hidden={true}>
-                  Benefits are saved.
-                </div>
-                <div className="alert alert-danger" style={{ color: 'white' }} role="alert" id="alertdanger" hidden={true}>
-                  Error while trying to save the benefits. Please try again later.
-                </div>
-                <div>
-                  <ul className="list-group p-3" style={{ listStyle: 'none', position: 'fixed', zIndex: 1, right: 0, width: '400px' }}>
-                    <a href="#" className="list-group-item list-group-item-action active"
-                    >The benefits in your package:
-                    </a>
+                <div className="justify-content-between">
+                  <p>--- My Company Benefits ---</p>
+                  <MDBRow>
                     {companyBenefitsList.length > 0 ?
                       companyBenefitsList.map((benefit) => {
                         return (
-                          <a key={benefit.id} href="#" className="list-group-item list-group-item-action disabled  d-flex justify-content-between align-items-center">
-                            {benefit.name} (€{benefit.cost})</a>
-                        )
-                      }) : <div className="list-group-item list-group-item-action disabled  d-flex justify-content-between align-items-center">No benefits in your company package.</div>}
-                  </ul>
-                </div>
-                <div className="justify-content-between">
-                  <p>--- All available benefits ---</p>
-                  <MDBRow>
-                    {availableBenefitsList.length > 0 ?
-                      availableBenefitsList.map((benefit) => {
-                        return (
-                          <MDBCol md={5}>
+                          <MDBCol md={4}>
                             <MDBCard
                               key={benefit.id}
                               alignment="center"
@@ -227,24 +173,12 @@ export const EmployerBenefitsPage = () => {
                                 </MDBCardTitle>
 
                                 <MDBCardText>{benefit.description}</MDBCardText>
-                                <button
-                                  type="submit"
-                                  className="btn bg-redpayflip text-white w-80 mt-1 mb-0"
-                                  value={benefit.id}
-                                  onClick={addBenefit}
-                                >
-                                  Purchase
-                                </button>
                               </MDBCardBody>
                             </MDBCard>
                           </MDBCol>
                         )
-                      }) : null}
+                      }) : <p>You currently don't have any benefits assigned to your company. Let's go shopping!</p>}
                   </MDBRow>
-                </div>
-                <div className="d-flex justify-content-between">
-                  <button onClick={fetchItems} type="button" className="btn btn-danger">Cancel</button>
-                  <button onClick={saveBenefits} type="button" className="btn btn-success">Save</button>
                 </div>
                 <footer className="footer pt-3  ">
                   <div className="container-fluid">
@@ -309,19 +243,19 @@ export const EmployerBenefitsPage = () => {
                   </Link>
                 </li>
                 <li className="nav-item">
-                    <Link to="/employer/benefits" className="hoverableitem nav-link active">
+                    <Link to="/employer/benefits" className="hoverableitem nav-link">
                       <div
                         className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i className="fas fa-shopping-cart selectedicon" aria-hidden="true"></i>
+                        <i className="fas fa-shopping-cart" aria-hidden="true"></i>
                       </div>
                       <span className="nav-link-text ms-1">Benefits Shop</span>
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link to="/employer/ourbenefits" className="hoverableitem nav-link">
+                    <Link to="/employer/ourbenefits" className="hoverableitem nav-link active">
                       <div
                         className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i className="fas fa-trophy" aria-hidden="true"></i>
+                        <i className="fas fa-trophy selectedicon" aria-hidden="true"></i>
                       </div>
                       <span className="nav-link-text ms-1">Our Benefits</span>
                     </Link>

@@ -28,7 +28,10 @@ export const Login = () => {
                 console.log("employer")
                 navigate("/employer/dashboard")
             }
-
+            else if (res.data.data.user.role == "employee") {
+                console.log("employee")
+                navigate("/employee/dashboard")
+            }
         }).catch((err) => {
             console.log(err)
             document.getElementById("crederror").hidden = false;

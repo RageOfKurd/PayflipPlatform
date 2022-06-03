@@ -18,6 +18,10 @@ import { AdminEditEmployeePage } from "./Components/Admin/EditEmployee";
 import { EmployerEmployeesPage } from "./Components/Employer/Employee";
 import { EmployerAddEmployeePage } from "./Components/Employer/AddEmployee";
 import { EmployerEditEmployeePage } from "./Components/Employer/EditEmployee";
+import { EmployerSpecificBenefitsPage } from "./Components/Employer/CompanyBenefits";
+import { EmployeeDash } from "./Components/Employee/Dashboard";
+import { EmployeeSpecificBenefitsPage } from "./Components/Employee/EmployeeBenefits";
+import { EmployeeBenefitsShoppingPage } from "./Components/Employee/Benefit";
 
 function App() {
   let navigate = useNavigate()
@@ -80,11 +84,17 @@ function App() {
       <Route path='admin/companies' element={<AdminEmployersPage />}></Route>
       <Route path='admin/companies/add' element={<AdminAddEmployerPage />}></Route>
       <Route path='admin/companies/:id' element={<AdminEditEmployerPage />}></Route>
+
       <Route path='employer/dashboard' element={<EmployerDash />}></Route>
-      <Route path='employer/benefits' element={<EmployerBenefitsAssigningPage />}></Route>
+      <Route path='employer/benefits' element={<EmployerBenefitsPage />}></Route>
+      <Route path='employer/ourbenefits' element={<EmployerSpecificBenefitsPage />}></Route>
       <Route path='employer/employees' element={<EmployerEmployeesPage />}></Route>
       <Route path='employer/employees/add' element={<EmployerAddEmployeePage />}></Route>
       <Route path='employer/employees/:id' element={<EmployerEditEmployeePage />}></Route>
+
+      <Route path='employee/dashboard' element={<EmployeeDash />}></Route>
+      <Route path='employee/benefits' element={<EmployeeBenefitsShoppingPage />}></Route>
+      <Route path='employee/mybenefits' element={<EmployeeSpecificBenefitsPage />}></Route>
       <Route path='authentication' element={<AuthenticationPage />}></Route>
       <Route path='*' element={<Navigate to="/login" />}></Route>
     </Routes>

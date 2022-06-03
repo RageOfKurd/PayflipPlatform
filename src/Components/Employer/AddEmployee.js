@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
 export const EmployerAddEmployeePage = () => {
@@ -16,52 +16,58 @@ export const EmployerAddEmployeePage = () => {
     let accountcreationprocessing = false;
     let navigate = useNavigate();
 
+    useEffect(() => {
+        document.title = "Payflip - Employees";
+        (async () => await fetchEmployerId())()
+    }, [])
+
+    const fetchEmployerId = async () => {
+        axios.get("http://localhost:7000/auth/profile", { headers: headers }).then((res) => {
+            if (res.data.success) {
+                let employerIdRes = res.data.data.id;
+                setEmployerId(employerIdRes);
+            }
+            else {
+                localStorage.clear();
+                navigate("/login");
+            }
+        })
+    }
+
     const submitHandling = (data) => {
         data.preventDefault();
-        if (!accountcreationprocessing) {
-            axios.get("http://localhost:7000/auth/profile", { headers: headers }).then((res) => {
+        if (email.toLowerCase().includes("@gmail.com", (email.length - 1) - 10) || email.toLowerCase().includes("@payflip.be", (email.length - 1) - 11) ||
+            email.toLowerCase().includes("@outlook.com", (email.length - 1) - 12) || email.toLowerCase().includes("@protonmail.com", (email.length - 1) - 15)) {
+            accountcreationprocessing = true;
+            document.getElementById("alertprocessing").hidden = false;
+            document.getElementById("existerror").hidden = true;
+            axios.post("http://localhost:7000/employee", {
+                name: employeeName.toLowerCase(),
+                employer_id: employerId,
+                email: email.toLowerCase(),
+                address: employeeAddress,
+                password: password,
+                country: country,
+                designation: designation,
+                employement_type: employementType
+            }, { headers: headers }).then((res) => {
                 if (res.data.success) {
-                    let employerIdRes = res.data.data.id;
-                    setEmployerId(employerIdRes);
-                    if (email.toLowerCase().includes("@gmail.com", (email.length - 1) - 10) || email.toLowerCase().includes("@payflip.be", (email.length - 1) - 11) ||
-                        email.toLowerCase().includes("@outlook.com", (email.length - 1) - 12) || email.toLowerCase().includes("@protonmail.com", (email.length - 1) - 15)) {
-                        accountcreationprocessing = true;
-                        document.getElementById("alertprocessing").hidden = false;
-                        document.getElementById("existerror").hidden = true;
-                        axios.post("http://localhost:7000/employee", {
-                            name: employeeName.toLowerCase(),
-                            employer_id: employerId,
-                            email: email.toLowerCase(),
-                            address: employeeAddress,
-                            password: password,
-                            country: country,
-                            designation: designation,
-                            employement_type: employementType
-                        }, { headers: headers }).then((res) => {
-                            console.log(res)
-                            if (res.status === 201) {
-                                navigate("/employer/employees")
-                            }
-                        }).catch((err) => {
-                            accountcreationprocessing = false;
-                            document.getElementById("alertprocessing").hidden = true;
-                            document.getElementById("existerror").innerText = "Account couldn't be created (email might already be registered). Try again later."
-                            document.getElementById("existerror").hidden = false;
-                        })
-                    }
-                    else {
-                        document.getElementById("alertprocessing").hidden = true;
-                        document.getElementById("existerror").innerText = "The given email is not valid."
-                        document.getElementById("existerror").hidden = false;
-                    }
+                    navigate("/employer/employees")
                 }
-                else {
-                    localStorage.clear();
-                    navigate("/login");
-                }
+            }).catch((err) => {
+                accountcreationprocessing = false;
+                document.getElementById("alertprocessing").hidden = true;
+                document.getElementById("existerror").innerText = "Account couldn't be created (email might already be registered). Try again later."
+                document.getElementById("existerror").hidden = false;
             })
         }
+        else {
+            document.getElementById("alertprocessing").hidden = true;
+            document.getElementById("existerror").innerText = "The given email is not valid."
+            document.getElementById("existerror").hidden = false;
+        }
     }
+
 
     return (
         <>
@@ -95,9 +101,18 @@ export const EmployerAddEmployeePage = () => {
                                     <Link to="/employer/benefits" className="hoverableitem nav-link">
                                         <div
                                             className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                                            <i className="fas fa-shopping-cart" aria-hidden="true"></i>
+                                        </div>
+                                        <span className="nav-link-text ms-1">Benefits Shop</span>
+                                    </Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link to="/employer/ourbenefits" className="hoverableitem nav-link">
+                                        <div
+                                            className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                                             <i className="fas fa-trophy" aria-hidden="true"></i>
                                         </div>
-                                        <span className="nav-link-text ms-1">Benefits</span>
+                                        <span className="nav-link-text ms-1">Our Benefits</span>
                                     </Link>
                                 </li>
                                 <li className="nav-item">
@@ -202,7 +217,7 @@ export const EmployerAddEmployeePage = () => {
                                                     <div className="text-center">
                                                         <button type="submit" className="btn bg-redpayflip text-white w-100 my-4 mb-2">Add the employee</button>
                                                     </div>
-                                                    <p hidden="true" id="existerror" style={{ color: "red", fontWeight: "bold", fontSize: "14px" }}>Account with given email already exists</p>
+                                                    <p hidden={true} id="existerror" style={{ color: "red", fontWeight: "bold", fontSize: "14px" }}>Account with given email already exists</p>
                                                 </form>
                                             </div>
                                         </div>

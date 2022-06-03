@@ -24,7 +24,7 @@ export const EmployerEditEmployeePage = () => {
                 document.getElementById("alertprocessing").hidden = false;
                 document.getElementById("existerror").hidden = true;
                 axios.put(`http://localhost:7000/employee/${id}`, {
-                    name: employeeName.toLowerCase(),     
+                    name: employeeName.toLowerCase(),
                     employer_id: employerId,
                     email: email.toLowerCase(),
                     address: employeeAddress,
@@ -60,7 +60,7 @@ export const EmployerEditEmployeePage = () => {
                 document.getElementById("alertprocessing").hidden = false;
                 document.getElementById("existerror").hidden = true;
                 axios.put(`http://localhost:7000/employee/${id}`, {
-                    name: employeeName.toLowerCase(),      
+                    name: employeeName.toLowerCase(),
                     employer_id: employerId,
                     email: email.toLowerCase(),
                     address: employeeAddress,
@@ -158,9 +158,18 @@ export const EmployerEditEmployeePage = () => {
                                     <Link to="/employer/benefits" className="hoverableitem nav-link">
                                         <div
                                             className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                                            <i className="fas fa-shopping-cart" aria-hidden="true"></i>
+                                        </div>
+                                        <span className="nav-link-text ms-1">Benefits Shop</span>
+                                    </Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link to="/employer/ourbenefits" className="hoverableitem nav-link">
+                                        <div
+                                            className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                                             <i className="fas fa-trophy" aria-hidden="true"></i>
                                         </div>
-                                        <span className="nav-link-text ms-1">Benefits</span>
+                                        <span className="nav-link-text ms-1">Our Benefits</span>
                                     </Link>
                                 </li>
                                 <li className="nav-item">
