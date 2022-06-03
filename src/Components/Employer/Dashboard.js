@@ -13,7 +13,7 @@ export function EmployerDash() {
     document.title = "Payflip - Dashboard";
     const fetchItems = async () => {
       try {
-        if(localStorage.getItem("role") != "employer"){
+        if (localStorage.getItem("role") != "employer") {
           signout()
         }
         const response = await fetch(url, { headers: { "Authorization": localStorage.getItem("accessToken") } })
@@ -59,54 +59,54 @@ export function EmployerDash() {
               <hr className="horizontal dark mt-0" />
               <div className="collapse navbar-collapse  w-auto  max-height-vh-100 h-100" id="sidenav-collapse-main">
                 <ul className="navbar-nav">
-                <li className="nav-item">
-                                        <Link to="/employer/dashboard" className="hoverableitem nav-link" >
-                                            <div
-                                                className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                                                <i className="fas fa-home" aria-hidden="true"></i>
-                                            </div>
-                                            <span className="nav-link-text ms-1">Dashboard</span>
-                                        </Link>
-                                    </li>
-                                    <li className="nav-item">
-                                        <Link to="/employer/benefits" className="hoverableitem nav-link active">
-                                            <div
-                                                className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                                                <i className="fas fa-trophy selectedicon" aria-hidden="true"></i>
-                                            </div>
-                                            <span className="nav-link-text ms-1">Benefits</span>
-                                        </Link>
-                                    </li>
-                                    <li className="nav-item">
-                                        <Link to="/employer/employees" className="hoverableitem nav-link">
-                                            <div
-                                                className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                                                <i className="fas fa-users" aria-hidden="true"></i>
-                                            </div>
-                                            <span className="nav-link-text ms-1">Employees</span>
-                                        </Link>
-                                    </li>
-                                    <li className="nav-item">
-                                        <Link to="/employer/companies" className="hoverableitem nav-link">
-                                            <div
-                                                className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                                                <i className="fas fa-building" aria-hidden="true"></i>
-                                            </div>
-                                            <span className="nav-link-text ms-1">Companies</span>
-                                        </Link>
-                                    </li>
-                                    <li className="nav-item mt-3">
-                                        <h6 className="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account pages</h6>
-                                    </li>
-                                    <li className="nav-item">
-                                        <Link to="/login" className="hoverableitem nav-link">
-                                            <div
-                                                className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                                                <i className="fa fa-sign-out" aria-hidden="true"></i>
-                                            </div>
-                                            <span className="nav-link-text ms-1">Sign Out</span>
-                                        </Link>
-                                    </li>
+                  <li className="nav-item">
+                    <Link to="/employer/dashboard" className="hoverableitem nav-link active" >
+                      <div
+                        className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i className="fas fa-home selectedicon" aria-hidden="true"></i>
+                      </div>
+                      <span className="nav-link-text ms-1">Dashboard</span>
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link to="/employer/benefits" className="hoverableitem nav-link">
+                      <div
+                        className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i className="fas fa-shopping-cart" aria-hidden="true"></i>
+                      </div>
+                      <span className="nav-link-text ms-1">Benefits Shop</span>
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link to="/employer/ourbenefits" className="hoverableitem nav-link">
+                      <div
+                        className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i className="fas fa-trophy" aria-hidden="true"></i>
+                      </div>
+                      <span className="nav-link-text ms-1">Our Benefits</span>
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link to="/employer/employees" className="hoverableitem nav-link">
+                      <div
+                        className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i className="fas fa-users" aria-hidden="true"></i>
+                      </div>
+                      <span className="nav-link-text ms-1">Employees</span>
+                    </Link>
+                  </li>
+                  <li className="nav-item mt-3">
+                    <h6 className="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account pages</h6>
+                  </li>
+                  <li className="nav-item">
+                    <Link to="/login" className="hoverableitem nav-link">
+                      <div
+                        className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i className="fa fa-sign-out" aria-hidden="true"></i>
+                      </div>
+                      <span className="nav-link-text ms-1">Sign Out</span>
+                    </Link>
+                  </li>
                 </ul>
               </div>
             </aside>
@@ -117,7 +117,7 @@ export function EmployerDash() {
                 <div className="container-fluid py-1 px-3">
                   <nav aria-label="breadcrumb">
                     <ol className="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
-                      <li className="breadcrumb-item text-sm"><a className="opacity-5 text-dark">Admin</a></li>
+                      <li className="breadcrumb-item text-sm"><a className="opacity-5 text-dark">Employer</a></li>
                       <li className="breadcrumb-item text-sm text-dark active" aria-current="page">Dashboard</li>
                     </ol>
                     <h6 className="font-weight-bolder mb-0">Dashboard</h6>
@@ -166,9 +166,9 @@ export function EmployerDash() {
                         <div className="row">
                           <div className="col-8">
                             <div className="numbers">
-                              <p className="text-sm mb-0 text-capitalize font-weight-bold">Total Companies</p>
+                              <p className="text-sm mb-0 text-capitalize font-weight-bold">Total Available Benefits</p>
                               <h5 className="font-weight-bolder mb-0">
-                                {stats.data.total_employers}
+                                {stats.data.total_benefits}
                               </h5>
                             </div>
                           </div>
@@ -187,7 +187,7 @@ export function EmployerDash() {
                         <div className="row">
                           <div className="col-8">
                             <div className="numbers">
-                              <p className="text-sm mb-0 text-capitalize font-weight-bold">Total Salary Spent</p>
+                              <p className="text-sm mb-0 text-capitalize font-weight-bold">Total Salary Used</p>
                               <h5 className="font-weight-bolder mb-0">
                                 €{stats.data.total_salary_used}
                               </h5>
@@ -257,7 +257,7 @@ export function EmployerDash() {
             <div className="collapse navbar-collapse  w-auto  max-height-vh-100 h-100" id="sidenav-collapse-main">
               <ul className="navbar-nav">
                 <li className="nav-item">
-                  <Link to="/admin/dashboard" className="hoverableitem nav-link active" >
+                  <Link to="/employer/dashboard" className="hoverableitem nav-link active" >
                     <div
                       className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                       <i className="fas fa-home selectedicon" aria-hidden="true"></i>
@@ -266,30 +266,30 @@ export function EmployerDash() {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link to="/admin/benefits" className="hoverableitem nav-link">
+                  <Link to="/employer/benefits" className="hoverableitem nav-link">
+                    <div
+                      className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                      <i className="fas fa-shopping-cart" aria-hidden="true"></i>
+                    </div>
+                    <span className="nav-link-text ms-1">Benefits Shop</span>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/employer/ourbenefits" className="hoverableitem nav-link">
                     <div
                       className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                       <i className="fas fa-trophy" aria-hidden="true"></i>
                     </div>
-                    <span className="nav-link-text ms-1">Benefits</span>
+                    <span className="nav-link-text ms-1">Our Benefits</span>
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link to="/admin/employees" className="hoverableitem nav-link">
+                  <Link to="/employer/employees" className="hoverableitem nav-link">
                     <div
                       className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                       <i className="fas fa-users" aria-hidden="true"></i>
                     </div>
                     <span className="nav-link-text ms-1">Employees</span>
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link to="/admin/companies" className="hoverableitem nav-link">
-                    <div
-                      className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                      <i className="fas fa-building" aria-hidden="true"></i>
-                    </div>
-                    <span className="nav-link-text ms-1">Companies</span>
                   </Link>
                 </li>
                 <li className="nav-item mt-3">
@@ -314,7 +314,7 @@ export function EmployerDash() {
               <div className="container-fluid py-1 px-3">
                 <nav aria-label="breadcrumb">
                   <ol className="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
-                    <li className="breadcrumb-item text-sm"><a className="opacity-5 text-dark">Admin</a></li>
+                    <li className="breadcrumb-item text-sm"><a className="opacity-5 text-dark">Employer</a></li>
                     <li className="breadcrumb-item text-sm text-dark active" aria-current="page">Dashboard</li>
                   </ol>
                   <h6 className="font-weight-bolder mb-0">Dashboard</h6>

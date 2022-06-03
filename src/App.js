@@ -71,11 +71,22 @@ function App() {
       <Route path='admin/dashboard' element={<AdminDash />}></Route>
       <Route path='admin/benefits' element={<AdminBenefits />}></Route>
       <Route path='admin/employees' element={<AdminEmployeesPage />}></Route>
+      <Route path='admin/employees/add' element={<AdminAddEmployeePage />}></Route>
+      <Route path='admin/employees/:id' element={<AdminEditEmployeePage />}></Route>
       <Route path='admin/companies' element={<AdminEmployersPage />}></Route>
       <Route path='admin/companies/add' element={<AdminAddEmployerPage />}></Route>
       <Route path='admin/companies/:id' element={<AdminEditEmployerPage />}></Route>
+
       <Route path='employer/dashboard' element={<EmployerDash />}></Route>
-      <Route path='employer/benefits' element={<EmployerBenefitsAssigningPage />}></Route>
+      <Route path='employer/benefits' element={<EmployerBenefitsPage />}></Route>
+      <Route path='employer/ourbenefits' element={<EmployerSpecificBenefitsPage />}></Route>
+      <Route path='employer/employees' element={<EmployerEmployeesPage />}></Route>
+      <Route path='employer/employees/add' element={<EmployerAddEmployeePage />}></Route>
+      <Route path='employer/employees/:id' element={<EmployerEditEmployeePage />}></Route>
+
+      <Route path='employee/dashboard' element={<EmployeeDash />}></Route>
+      <Route path='employee/benefits' element={<EmployeeBenefitsShoppingPage />}></Route>
+      <Route path='employee/mybenefits' element={<EmployeeSpecificBenefitsPage />}></Route>
       <Route path='authentication' element={<AuthenticationPage />}></Route>
       <Route path='*' element={<Navigate to="/login" />}></Route>
     </Routes>

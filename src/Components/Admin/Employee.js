@@ -49,11 +49,11 @@ export const AdminEmployeesPage = () => {
   }
 
   const addEmployee = () => {
-    navigate("/admin/employee/add")
+    navigate("/admin/employees/add")
   }
 
   const editEmployee = (id) => {
-    navigate(`/admin/employee/${id.target.value}`)
+    navigate(`/admin/employees/${id.target.value}`)
   }
 
   if (employeeList) {
@@ -95,19 +95,19 @@ export const AdminEmployeesPage = () => {
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link to="/admin/employees" className="hoverableitem nav-link">
+                    <Link to="/admin/employees" className="hoverableitem nav-link active">
                       <div
                         className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i className="fas fa-users" aria-hidden="true"></i>
+                        <i className="fas fa-users selectedicon" aria-hidden="true"></i>
                       </div>
                       <span className="nav-link-text ms-1">Employees</span>
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link to="/admin/companies" className="hoverableitem nav-link active">
+                    <Link to="/admin/companies" className="hoverableitem nav-link">
                       <div
                         className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i className="fas fa-building selectedicon" aria-hidden="true"></i>
+                        <i className="fas fa-building" aria-hidden="true"></i>
                       </div>
                       <span className="nav-link-text ms-1">Companies</span>
                     </Link>
@@ -167,20 +167,7 @@ export const AdminEmployeesPage = () => {
           border-radius-xl
         " id="navbarBlur" navbar-scroll="true" />
                           <h6 className="text-redpayflipfg">Employees</h6>
-                          <div className="container-fluid py-1 px-3">
-
-                            <div className="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
-                              <div className="ms-md-auto pe-md-3 d-flex align-items-center">
-                              </div>
-                              <ul className="navbar-nav justify-content-end">
-                                <li className="nav-item d-flex align-items-center">
-                                  <a href="hln.be" className="nav-link text-body font-weight-bold px-0">
-                                    <button href="" className="fa fa-user-plus me-sm-1 btn btn-link"></button>
-                                  </a>
-                                </li>
-                              </ul>
-                            </div>
-                          </div>
+                          
                           <button onClick={addEmployee} className="fa fa-user-plus btn btn-link text-secondary mb-0"></button>
                         </div>
                       </div>
@@ -195,6 +182,14 @@ export const AdminEmployeesPage = () => {
                             opacity-7
                           ">
                                   EmployeeName
+                                </th>
+                                <th className="
+                            text-uppercase text-secondary text-xxs
+                            font-weight-bolder
+                            opacity-7
+                            ps-2
+                          ">
+                                  Company
                                 </th>
                                 <th className="
                             text-uppercase text-secondary text-xxs
@@ -225,6 +220,9 @@ export const AdminEmployeesPage = () => {
                                           <h6 className="mb-0 text-sm">{employee.name}</h6>
                                         </div>
                                       </div>
+                                    </td>
+                                    <td>
+                                      <p className="text-sm font-weight-bold mb-0">{employee.employer_name}</p>
                                     </td>
                                     <td>
                                       <p className="text-sm font-weight-bold mb-0">{employee.user.email}</p>
@@ -357,7 +355,7 @@ export const AdminEmployeesPage = () => {
                 <nav aria-label="breadcrumb">
                   <ol className="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
                     <li className="breadcrumb-item text-sm"><a className="opacity-5 text-dark">Admin</a></li>
-                    <li className="breadcrumb-item text-sm text-dark active" aria-current="page">Companies</li>
+                    <li className="breadcrumb-item text-sm text-dark active" aria-current="page">Employees</li>
                   </ol>
                   <h6 className="font-weight-bolder mb-0">Overview</h6>
                 </nav>

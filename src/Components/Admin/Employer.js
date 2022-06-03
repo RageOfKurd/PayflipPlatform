@@ -176,12 +176,19 @@ export const AdminEmployersPage = () => {
                           <table className="table align-items-center justify-content-center mb-0">
                             <thead>
                               <tr>
+                              <th className="
+                            text-uppercase text-secondary text-xxs
+                            font-weight-bolder
+                            opacity-7
+                          ">
+                                  Company Id
+                                </th>
                                 <th className="
                             text-uppercase text-secondary text-xxs
                             font-weight-bolder
                             opacity-7
                           ">
-                                  Company
+                                  Company Name
                                 </th>
                                 <th className="
                             text-uppercase text-secondary text-xxs
@@ -206,6 +213,13 @@ export const AdminEmployersPage = () => {
                               {employerList.map((employer) => {
                                 return (
                                   <tr>
+                                    <td>
+                                      <div className="d-flex px-3">
+                                        <div className="my-auto">
+                                          <h6 className="mb-0 text-sm">{employer.id}</h6>
+                                        </div>
+                                      </div>
+                                    </td>
                                     <td>
                                       <div className="d-flex px-3">
                                         <div className="my-auto">
@@ -376,21 +390,6 @@ export const AdminEmployersPage = () => {
           border-radius-xl
         " id="navbarBlur" navbar-scroll="true" />
                         <h6 className="text-redpayflipfg">Companies</h6>
-                        <div className="container-fluid py-1 px-3">
-
-                          <div className="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
-                            <div className="ms-md-auto pe-md-3 d-flex align-items-center">
-                            </div>
-                            <ul className="navbar-nav justify-content-end">
-                              <li className="nav-item d-flex align-items-center">
-                                <a href="hln.be" className="nav-link text-body font-weight-bold px-0">
-                                  <i className="fa fa-user-plus me-sm-1" data-bs-toggle="modal"
-                                    data-bs-target="#addCompanyModal"></i>
-                                </a>
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
                         <button onClick={addCompany} className="fa fa-user-plus btn btn-link text-secondary mb-0"></button>
                       </div>
                     </div>
