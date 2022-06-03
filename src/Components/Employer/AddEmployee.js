@@ -21,7 +21,8 @@ export const EmployerAddEmployeePage = () => {
         if (!accountcreationprocessing) {
             axios.get("http://localhost:7000/auth/profile", { headers: headers }).then((res) => {
                 if (res.data.success) {
-                    setEmployerId(res.data.data.id);
+                    let employerIdRes = res.data.data.id;
+                    setEmployerId(employerIdRes);
                     if (email.toLowerCase().includes("@gmail.com", (email.length - 1) - 10) || email.toLowerCase().includes("@payflip.be", (email.length - 1) - 11) ||
                         email.toLowerCase().includes("@outlook.com", (email.length - 1) - 12) || email.toLowerCase().includes("@protonmail.com", (email.length - 1) - 15)) {
                         accountcreationprocessing = true;

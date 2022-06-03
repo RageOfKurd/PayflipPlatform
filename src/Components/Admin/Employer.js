@@ -175,12 +175,19 @@ export const AdminEmployersPage = () => {
                           <table className="table align-items-center justify-content-center mb-0">
                             <thead>
                               <tr>
+                              <th className="
+                            text-uppercase text-secondary text-xxs
+                            font-weight-bolder
+                            opacity-7
+                          ">
+                                  Company Id
+                                </th>
                                 <th className="
                             text-uppercase text-secondary text-xxs
                             font-weight-bolder
                             opacity-7
                           ">
-                                  Company
+                                  Company Name
                                 </th>
                                 <th className="
                             text-uppercase text-secondary text-xxs
@@ -205,6 +212,13 @@ export const AdminEmployersPage = () => {
                               {employerList.map((employer) => {
                                 return (
                                   <tr>
+                                    <td>
+                                      <div className="d-flex px-3">
+                                        <div className="my-auto">
+                                          <h6 className="mb-0 text-sm">{employer.id}</h6>
+                                        </div>
+                                      </div>
+                                    </td>
                                     <td>
                                       <div className="d-flex px-3">
                                         <div className="my-auto">
