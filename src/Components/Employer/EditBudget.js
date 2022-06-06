@@ -1,32 +1,44 @@
 import axios from 'axios';
-import React, { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 
-export const AdminAddEmployerPage = () => {
+export const EmployerEditBudgetPage = () => {
     let api_base_url = `${process.env.REACT_APP_API_BASE_URL}`;
     let headers = { "Authorization": localStorage.getItem("accessToken") }
+    const { id } = useParams()
+    const employee_url = api_base_url + "/employee"
 
-    const [companyName, setCompanyName] = useState('');
-    const [contactName, setContactName] = useState('');
-    const [companyMail, setCompanyMail] = useState('');
-    const [companyAddress, setCompanyAddress] = useState('');
-    const [password, setPassword] = useState('');
-    const [country, setCountry] = useState('Belgium');
+    const [amount, setAmount] = useState('');
+    const [budget_type, setBudgetType] = useState('');
+    const [employee_id, setEmployeeID] = useState('Select Employee');
     let navigate = useNavigate()
+
+    const [employeeList, setEmployeeList] = useState(null)
+
+    useEffect(() => {
+        const fetchItems = async () => {
+            try {
+                const response = await fetch(employee_url, { headers: headers })
+                const employees = await response.json()
+                setEmployeeList(employees.data)
+            } catch (err) {
+
+            }
+        }
+
+        (async () => await fetchItems())()
+    }, [])
+
     const submitHandling = (data) => {
         data.preventDefault();
-        axios.post(api_base_url + "/employer", {
-            name: contactName[0].toUpperCase() + contactName.substring(1).toLowerCase(),
-            company_name: companyName[0].toUpperCase() + companyName.substring(1).toLowerCase(),
-            email: companyMail.toLowerCase(),
-            address: companyAddress,
-            password: password,
-            country: country,
-            role: "employer"
+        axios.put(`${process.env.REACT_APP_API_BASE_URL}/budget/${id}`, {
+            amount: amount,
+            budget_type: budget_type,
+            employee_id: employee_id,
         }, { headers: headers }).then((res) => {
             console.log(res)
-            if (res.status === 201 && res.data.success === true) {
-                navigate("/admin/companies")
+            if (res.status === 200 && res.data.success === true) {
+                navigate("/employer/budgets")
             } else {
                 console.log(res.data.message);
                 document.getElementById("existerror").innerHTML = res.data.message;
@@ -36,6 +48,25 @@ export const AdminAddEmployerPage = () => {
             document.getElementById("existerror").hidden = false;
         })
     }
+
+    useEffect(() => {
+        document.title = "Payflip - Budgets";
+        const fetchItems = async () => {
+            try {
+                const detail_url = `${process.env.REACT_APP_API_BASE_URL}/budget/${id}`
+                const response = await fetch(detail_url, { headers: headers })
+                const budget = await response.json()
+                setAmount(budget.data.amount)
+                setBudgetType(budget.data.budget_type)
+                setEmployeeID(budget.data.employee_id)
+            } catch (err) {
+
+            }
+        }
+
+        (async () => await fetchItems())();
+        //(async () => await roleAuthentication())()
+    }, [])
 
     return (
         <>
@@ -57,25 +88,25 @@ export const AdminAddEmployerPage = () => {
                         <div className="collapse navbar-collapse  w-auto  max-height-vh-100 h-100" id="sidenav-collapse-main">
                             <ul className="navbar-nav">
                                 <li className="nav-item">
-                                    <Link to="/admin/dashboard" className="hoverableitem nav-link" >
+                                    <Link to="/employer/dashboard" className="hoverableitem nav-link " >
                                         <div
                                             className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                                            <i className="fas fa-home" aria-hidden="true"></i>
+                                            <i className="fas fa-home " aria-hidden="true"></i>
                                         </div>
                                         <span className="nav-link-text ms-1">Dashboard</span>
                                     </Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link to="/admin/benefits" className="hoverableitem nav-link">
+                                    <Link to="/employer/benefits" className="hoverableitem nav-link">
                                         <div
                                             className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                                            <i className="fas fa-trophy" aria-hidden="true"></i>
+                                            <i className="fas fa-trophy " aria-hidden="true"></i>
                                         </div>
                                         <span className="nav-link-text ms-1">Benefits</span>
                                     </Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link to="/admin/employees" className="hoverableitem nav-link">
+                                    <Link to="/employer/employees" className="hoverableitem nav-link">
                                         <div
                                             className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                                             <i className="fas fa-users" aria-hidden="true"></i>
@@ -84,12 +115,12 @@ export const AdminAddEmployerPage = () => {
                                     </Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link to="/admin/companies" className="hoverableitem nav-link active">
+                                    <Link to="/employer/budgets" className="hoverableitem nav-link active">
                                         <div
                                             className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                                            <i className="fas fa-building selectedicon" aria-hidden="true"></i>
+                                            <i className="fas fa-euro-sign selectedicon" aria-hidden="true"></i>
                                         </div>
-                                        <span className="nav-link-text ms-1">Companies</span>
+                                        <span className="nav-link-text ms-1">Budgets</span>
                                     </Link>
                                 </li>
                                 <li className="nav-item mt-3">
@@ -113,7 +144,7 @@ export const AdminAddEmployerPage = () => {
                             navbar-scroll="true">
                             <div className="container-fluid py-1 px-3">
                                 <nav aria-label="breadcrumb">
-                                    <h4 className="font-weight-bolder mb-0">Employers</h4>
+                                    <h4 className="font-weight-bolder mb-0">Budgets</h4>
                                 </nav>
                                 <div className="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
                                     <div className="ms-md-auto pe-md-3 d-flex align-items-center">
@@ -136,41 +167,32 @@ export const AdminAddEmployerPage = () => {
                                     <div className="card z-index-0">
                                         <div className="extrashadow">
                                             <div className="card-header text-center pt-4">
-                                                <h3 className="text-info">Register an Employer</h3>
+                                                <h3 className="text-info">Edit Budget</h3>
                                             </div>
                                             <div className="card-body">
                                                 <form className="formtext" onSubmit={submitHandling}>
                                                     <div className="mb-3">
-                                                        <input type="text" className="form-control" value={companyName} onChange={(answer) => { setCompanyName(answer.target.value) }} placeholder="Company Name"
-                                                            aria-label="CompanyName" aria-describedby="email-addon" required />
+                                                        <input type="number" className="form-control" value={amount} onChange={(answer) => { setAmount(answer.target.value) }} placeholder="Amount"
+                                                            aria-label="Amount" aria-describedby="email-addon" required />
                                                     </div>
                                                     <div className="mb-3">
-                                                        <input type="text" className="form-control" value={contactName} onChange={(answer) => { setContactName(answer.target.value) }} placeholder="Contact Name"
-                                                            aria-label="ContactName" aria-describedby="email-addon" required />
+                                                        <input type="text" className="form-control" value={budget_type} onChange={(answer) => { setBudgetType(answer.target.value) }} placeholder="Budget Type" aria-label="BudgetType" aria-describedby="email-addon" required />
                                                     </div>
                                                     <div className="mb-3">
-                                                        <input type="email" className="form-control" value={companyMail} onChange={(answer) => { setCompanyMail(answer.target.value) }} placeholder="Company Email"
-                                                            aria-label="Email" aria-describedby="email-addon" required />
-                                                    </div>
-                                                    <div className="mb-3">
-                                                        <input type="text" className="form-control" value={companyAddress} onChange={(answer) => { setCompanyAddress(answer.target.value) }} placeholder="Company Address"
-                                                            aria-label="Address" aria-describedby="email-addon" required />
-                                                    </div>
-                                                    <div className="mb-3">
-                                                        <input type="password" className="form-control" value={password} onChange={(answer) => { setPassword(answer.target.value) }} placeholder="Password"
-                                                            aria-label="Password" aria-describedby="password-addon" required />
-                                                    </div>
-                                                    <div className="mb-3">
-                                                        <label htmlFor="country" className="text-bluepayflip">For which country do you want to register?</label>
-                                                        <select className="form-control" id="country" aria-label="Country" value={country} onChange={(answer) => { setCountry(answer.target.value) }}>
-                                                            <option value="Belgium">Belgium</option>
-                                                            <option value="Slovenia">Slovenia</option>
-                                                            <option value="Portugal">Portugal</option>
+                                                        <select className="form-control" id="employee" aria-label="Employee" value={employee_id} onChange={(answer) => { setEmployeeID(answer.target.value) }}>
+                                                            <option value="">Select Employee</option>
+                                                            {
+                                                               employeeList && employeeList.length > 0 ? employeeList.map(employee =>
+                                                                    <option value={employee.id}>{employee.name}</option>
+                                                                ) : (
+                                                                    <span></span>
+                                                                )
+                                                            }
                                                         </select>
                                                     </div>
-                                                    <p className="text-center" hidden="true" id="existerror" style={{ color: "red", fontWeight: "bold", fontSize: "14px" }}>Account with given email already exists</p>
+                                                    <p className="text-center" hidden="true" id="existerror" style={{ color: "red", fontWeight: "bold", fontSize: "14px" }}>Error while trying to update the information</p>
                                                     <div className="text-center">
-                                                        <button type="submit" className="btn bg-redpayflip text-white w-100 my-4 mb-2">Add the company</button>
+                                                        <button type="submit" className="btn bg-redpayflip text-white w-100 my-4 mb-2">Update information</button>
                                                     </div>
                                                 </form>
                                             </div>

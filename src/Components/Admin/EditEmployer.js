@@ -19,7 +19,7 @@ export const AdminEditEmployerPage = () => {
         console.log(password)
         if (password != "" && password.length >= 8) {
             if (companyMail.toLowerCase().includes("@gmail.com", (companyMail.length - 1) - 10) || companyMail.toLowerCase().includes("@payflip.be", (companyMail.length - 1) - 11) ||
-            companyMail.toLowerCase().includes("@outlook.com", (companyMail.length - 1) - 12) || companyMail.toLowerCase().includes("@protonmail.com", (companyMail.length - 1) - 15)) {
+                companyMail.toLowerCase().includes("@outlook.com", (companyMail.length - 1) - 12) || companyMail.toLowerCase().includes("@protonmail.com", (companyMail.length - 1) - 15)) {
                 document.getElementById("alertprocessing").hidden = false;
                 document.getElementById("existerror").hidden = true;
                 axios.put(`${process.env.REACT_APP_API_BASE_URL}/employer/${id}`, {
@@ -28,22 +28,23 @@ export const AdminEditEmployerPage = () => {
                     email: companyMail.toLowerCase(),
                     address: companyAddress,
                     password: password,
-                    country: country
+                    country: country,
+                    role: "employer"
                 }, { headers: headers }).then((res) => {
                     console.log(res)
-                    if (res.status === 200) {
+                    if (res.status === 200 && res.data.success === true) {
                         navigate("/admin/companies")
+                    } else {
+                        console.log(res.data.message);
+                        document.getElementById("existerror").innerHTML = res.data.message;
+                        document.getElementById("existerror").hidden = false;
                     }
                 }).catch((err) => {
                     document.getElementById("alertprocessing").hidden = true;
                     document.getElementById("existerror").innerText = "Employer data couldn't be updated. Try again later."
                     document.getElementById("existerror").hidden = false;
                 })
-            }
-            else {
-                document.getElementById("alertprocessing").hidden = true;
-                document.getElementById("existerror").innerText = "The given email is not valid."
-                document.getElementById("existerror").hidden = false;
+
             }
         }
         else if (password != "" && password.length < 8) {
@@ -53,7 +54,7 @@ export const AdminEditEmployerPage = () => {
         }
         else {
             if (companyMail.toLowerCase().includes("@gmail.com", (companyMail.length - 1) - 10) || companyMail.toLowerCase().includes("@payflip.be", (companyMail.length - 1) - 11) ||
-            companyMail.toLowerCase().includes("@outlook.com", (companyMail.length - 1) - 12) || companyMail.toLowerCase().includes("@protonmail.com", (companyMail.length - 1) - 15)) {
+                companyMail.toLowerCase().includes("@outlook.com", (companyMail.length - 1) - 12) || companyMail.toLowerCase().includes("@protonmail.com", (companyMail.length - 1) - 15)) {
                 document.getElementById("alertprocessing").hidden = false;
                 document.getElementById("existerror").hidden = true;
                 axios.put(`${process.env.REACT_APP_API_BASE_URL}/employer/${id}`, {
@@ -253,10 +254,10 @@ export const AdminEditEmployerPage = () => {
                                                             <option value="Portugal">Portugal</option>
                                                         </select>
                                                     </div>
+                                                    <p className="text-center" hidden="true" id="existerror" style={{ color: "red", fontWeight: "bold", fontSize: "14px" }}>Error while trying to update the information</p>
                                                     <div className="text-center">
                                                         <button type="submit" className="btn bg-redpayflip text-white w-100 my-4 mb-2">Update information</button>
                                                     </div>
-                                                    <p hidden="true" id="existerror" style={{ color: "red", fontWeight: "bold", fontSize: "14px" }}>Error while trying to update the information</p>
                                                 </form>
                                             </div>
                                         </div>
