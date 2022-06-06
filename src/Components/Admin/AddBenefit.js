@@ -29,8 +29,12 @@ export const AdminAddBenefitPage = () => {
       )
       .then((res) => {
         console.log(res);
-        if (res.status === 201) {
+        if (res.status === 201 && res.data.success === true) {
           navigate("/admin/benefits"); //this requires double check
+        } else {
+          console.log(res.data.message);
+          document.getElementById("existerror").innerHTML = res.data.message;
+          document.getElementById("existerror").hidden = false;
         }
       })
       .catch((err) => {
@@ -237,16 +241,8 @@ export const AdminAddBenefitPage = () => {
                               <option value="Portugal">Portugal</option>
                             </select>
                           </div>
-
-                          <div className="text-center">
-                            <button
-                              type="submit"
-                              className="btn bg-redpayflip text-white w-100 my-4 mb-2"
-                            >
-                              Add the benefit
-                            </button>
-                          </div>
                           <p
+                            className="text-center"
                             hidden="true"
                             id="existerror"
                             style={{
@@ -257,6 +253,15 @@ export const AdminAddBenefitPage = () => {
                           >
                             benefit already exists
                           </p>
+
+                          <div className="text-center">
+                            <button
+                              type="submit"
+                              className="btn bg-redpayflip text-white w-100 my-4 mb-2"
+                            >
+                              Add the benefit
+                            </button>
+                          </div>
                         </form>
                       </div>
                     </div>

@@ -15,6 +15,9 @@ import { AuthenticationPage } from "./Components/BeingAuthenticated";
 import { EmployerBenefitsAssigningPage } from "./Components/Employer/BenefitAssigning";
 import { AdminAddBenefitPage } from "./Components/Admin/AddBenefit";
 import { AdminEditBenefitPage } from "./Components/Admin/EditBenefit";
+import { EmployerBudgetPage } from "./Components/Employer/Budget";
+import { EmployerAddBudgetPage } from "./Components/Employer/AddBudget";
+import { EmployerEditBudgetPage } from "./Components/Employer/EditBudget";
 
 function App() {
   let api_base_url = `${process.env.REACT_APP_API_BASE_URL}`;
@@ -73,15 +76,28 @@ function App() {
       <Route path='admin/dashboard' element={<AdminDash />}></Route>
       <Route path='admin/benefits' element={<AdminBenefits />}></Route>
       <Route path='admin/employees' element={<AdminEmployeesPage />}></Route>
+      <Route path='admin/employees/add' element={<AdminAddEmployeePage />}></Route>
+      <Route path='admin/employees/:id' element={<AdminEditEmployeePage />}></Route>
       <Route path='admin/companies' element={<AdminEmployersPage />}></Route>
       <Route path='admin/companies/add' element={<AdminAddEmployerPage />}></Route>
       <Route path='admin/companies/:id' element={<AdminEditEmployerPage />}></Route>
       <Route path='employer/dashboard' element={<EmployerDash />}></Route>
-      <Route path='employer/benefits' element={<EmployerBenefitsAssigningPage />}></Route>
+      <Route path='employer/benefits' element={<EmployerBenefitsPage />}></Route>
+      <Route path='employer/ourbenefits' element={<EmployerSpecificBenefitsPage />}></Route>
+      <Route path='employer/employees' element={<EmployerEmployeesPage />}></Route>
+      <Route path='employer/employees/add' element={<EmployerAddEmployeePage />}></Route>
+      <Route path='employer/employees/:id' element={<EmployerEditEmployeePage />}></Route>
+
+      <Route path='employee/dashboard' element={<EmployeeDash />}></Route>
+      <Route path='employee/benefits' element={<EmployeeBenefitsShoppingPage />}></Route>
+      <Route path='employee/mybenefits' element={<EmployeeSpecificBenefitsPage />}></Route>
       <Route path='authentication' element={<AuthenticationPage />}></Route>
       <Route path='*' element={<Navigate to="/login" />}></Route>
       <Route path="admin/benefits/add" element={<AdminAddBenefitPage />}></Route>
       <Route path='admin/benefits/:id' element={<AdminEditBenefitPage />}></Route>
+      <Route path='employer/budgets' element={<EmployerBudgetPage />}></Route>
+      <Route path='employer/budgets/add' element={<EmployerAddBudgetPage />}></Route>
+      <Route path='employer/budgets/:id' element={<EmployerEditBudgetPage />}></Route>
     </Routes>
   );
 }

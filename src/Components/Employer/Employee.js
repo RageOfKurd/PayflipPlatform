@@ -80,7 +80,7 @@ export const EmployerBenefitsPage = () => {
         })
     }
 
-    
+
     if (availableBenefitsList) {
         return (
             <div>
@@ -129,12 +129,12 @@ export const EmployerBenefitsPage = () => {
                                         </Link>
                                     </li>
                                     <li className="nav-item">
-                                        <Link to="/employer/companies" className="hoverableitem nav-link">
+                                        <Link to="/employer/budgets" className="hoverableitem nav-link active">
                                             <div
                                                 className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                                                <i className="fas fa-building" aria-hidden="true"></i>
+                                                <i className="fas fa-euro-sign selectedicon" aria-hidden="true"></i>
                                             </div>
-                                            <span className="nav-link-text ms-1">Companies</span>
+                                            <span className="nav-link-text ms-1">Budgets</span>
                                         </Link>
                                     </li>
                                     <li className="nav-item mt-3">

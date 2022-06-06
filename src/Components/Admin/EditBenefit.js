@@ -29,8 +29,12 @@ export const AdminEditBenefitPage = () => {
       )
       .then((res) => {
         console.log(res);
-        if (res.status === 200) {
+        if (res.status === 200 && res.data.success === true) {
           navigate("/admin/benefits");
+        } else {
+          console.log(res.data.message);
+          document.getElementById("existerror").innerHTML = res.data.message;
+          document.getElementById("existerror").hidden = false;
         }
       })
       .catch((err) => {
@@ -49,7 +53,7 @@ export const AdminEditBenefitPage = () => {
         setBenefitCost(benefit.data.cost);
         setBenefitDesc(benefit.data.description);
         setCountry(benefit.data.country);
-      } catch (err) {}
+      } catch (err) { }
     };
     (async () => await fetchItems())();
   }, []);
@@ -158,7 +162,7 @@ export const AdminEditBenefitPage = () => {
             >
               <div className="container-fluid py-1 px-3">
                 <nav aria-label="breadcrumb">
-                <h4 className="font-weight-bolder mb-0">Benefits</h4>
+                  <h4 className="font-weight-bolder mb-0">Benefits</h4>
                 </nav>
                 <div
                   className="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4"
@@ -254,15 +258,7 @@ export const AdminEditBenefitPage = () => {
                               <option value="Portugal">Portugal</option>
                             </select>
                           </div>
-                          <div className="text-center">
-                            <button
-                              type="submit"
-                              className="btn bg-redpayflip text-white w-100 my-4 mb-2"
-                            >
-                              Update information
-                            </button>
-                          </div>
-                          <p
+                          <p className="text-center"
                             hidden="true"
                             id="existerror"
                             style={{
@@ -273,6 +269,14 @@ export const AdminEditBenefitPage = () => {
                           >
                             Error while trying to update the information
                           </p>
+                          <div className="text-center">
+                            <button
+                              type="submit"
+                              className="btn bg-redpayflip text-white w-100 my-4 mb-2"
+                            >
+                              Update information
+                            </button>
+                          </div>
                         </form>
                       </div>
                     </div>

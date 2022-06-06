@@ -26,8 +26,12 @@ export const AdminEditEmployerPage = () => {
             role: "employer"
         }, { headers: headers }).then((res) => {
             console.log(res)
-            if (res.status === 200) {
+            if (res.status === 200 && res.data.success === true) {
                 navigate("/admin/companies")
+            } else {
+                console.log(res.data.message);
+                document.getElementById("existerror").innerHTML = res.data.message;
+                document.getElementById("existerror").hidden = false;
             }
         }).catch((err) => {
             document.getElementById("existerror").hidden = false;
@@ -202,10 +206,10 @@ export const AdminEditEmployerPage = () => {
                                                             <option value="Portugal">Portugal</option>
                                                         </select>
                                                     </div>
+                                                    <p className="text-center" hidden="true" id="existerror" style={{ color: "red", fontWeight: "bold", fontSize: "14px" }}>Error while trying to update the information</p>
                                                     <div className="text-center">
                                                         <button type="submit" className="btn bg-redpayflip text-white w-100 my-4 mb-2">Update information</button>
                                                     </div>
-                                                    <p hidden="true" id="existerror" style={{ color: "red", fontWeight: "bold", fontSize: "14px" }}>Error while trying to update the information</p>
                                                 </form>
                                             </div>
                                         </div>
