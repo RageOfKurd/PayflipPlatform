@@ -88,10 +88,10 @@ export const EmployerEditBudgetPage = () => {
                         <div className="collapse navbar-collapse  w-auto  max-height-vh-100 h-100" id="sidenav-collapse-main">
                             <ul className="navbar-nav">
                                 <li className="nav-item">
-                                    <Link to="/employer/dashboard" className="hoverableitem nav-link " >
+                                    <Link to="/employer/dashboard" className="hoverableitem nav-link active" >
                                         <div
                                             className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                                            <i className="fas fa-home " aria-hidden="true"></i>
+                                            <i className="fas fa-home selectedicon" aria-hidden="true"></i>
                                         </div>
                                         <span className="nav-link-text ms-1">Dashboard</span>
                                     </Link>
@@ -100,9 +100,18 @@ export const EmployerEditBudgetPage = () => {
                                     <Link to="/employer/benefits" className="hoverableitem nav-link">
                                         <div
                                             className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                                            <i className="fas fa-trophy " aria-hidden="true"></i>
+                                            <i className="fas fa-shopping-cart" aria-hidden="true"></i>
                                         </div>
-                                        <span className="nav-link-text ms-1">Benefits</span>
+                                        <span className="nav-link-text ms-1">Benefits Shop</span>
+                                    </Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link to="/employer/ourbenefits" className="hoverableitem nav-link">
+                                        <div
+                                            className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                                            <i className="fas fa-trophy" aria-hidden="true"></i>
+                                        </div>
+                                        <span className="nav-link-text ms-1">Our Benefits</span>
                                     </Link>
                                 </li>
                                 <li className="nav-item">
@@ -115,10 +124,10 @@ export const EmployerEditBudgetPage = () => {
                                     </Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link to="/employer/budgets" className="hoverableitem nav-link active">
+                                    <Link to="/employer/budgets" className="hoverableitem nav-link">
                                         <div
                                             className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                                            <i className="fas fa-euro-sign selectedicon" aria-hidden="true"></i>
+                                            <i className="fas fa-euro-sign" aria-hidden="true"></i>
                                         </div>
                                         <span className="nav-link-text ms-1">Budgets</span>
                                     </Link>
@@ -182,7 +191,7 @@ export const EmployerEditBudgetPage = () => {
                                                         <select className="form-control" id="employee" aria-label="Employee" value={employee_id} onChange={(answer) => { setEmployeeID(answer.target.value) }}>
                                                             <option value="">Select Employee</option>
                                                             {
-                                                               employeeList && employeeList.length > 0 ? employeeList.map(employee =>
+                                                                employeeList && employeeList.length > 0 ? employeeList.map(employee =>
                                                                     <option value={employee.id}>{employee.name}</option>
                                                                 ) : (
                                                                     <span></span>

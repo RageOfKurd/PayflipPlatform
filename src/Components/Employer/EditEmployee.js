@@ -146,10 +146,10 @@ export const EmployerEditEmployeePage = () => {
                         <div className="collapse navbar-collapse  w-auto  max-height-vh-100 h-100" id="sidenav-collapse-main">
                             <ul className="navbar-nav">
                                 <li className="nav-item">
-                                    <Link to="/employer/dashboard" className="hoverableitem nav-link" >
+                                    <Link to="/employer/dashboard" className="hoverableitem nav-link active" >
                                         <div
                                             className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                                            <i className="fas fa-home" aria-hidden="true"></i>
+                                            <i className="fas fa-home selectedicon" aria-hidden="true"></i>
                                         </div>
                                         <span className="nav-link-text ms-1">Dashboard</span>
                                     </Link>
@@ -173,12 +173,21 @@ export const EmployerEditEmployeePage = () => {
                                     </Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link to="/employer/employees" className="hoverableitem nav-link active">
+                                    <Link to="/employer/employees" className="hoverableitem nav-link">
                                         <div
                                             className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                                            <i className="fas fa-users selectedicon" aria-hidden="true"></i>
+                                            <i className="fas fa-users" aria-hidden="true"></i>
                                         </div>
                                         <span className="nav-link-text ms-1">Employees</span>
+                                    </Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link to="/employer/budgets" className="hoverableitem nav-link">
+                                        <div
+                                            className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                                            <i className="fas fa-euro-sign" aria-hidden="true"></i>
+                                        </div>
+                                        <span className="nav-link-text ms-1">Budgets</span>
                                     </Link>
                                 </li>
                                 <li className="nav-item mt-3">

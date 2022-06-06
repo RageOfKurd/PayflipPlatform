@@ -75,10 +75,10 @@ export const EmployerSpecificBenefitsPage = () => {
               <div className="collapse navbar-collapse  w-auto  max-height-vh-100 h-100" id="sidenav-collapse-main">
                 <ul className="navbar-nav">
                   <li className="nav-item">
-                    <Link to="/employer/dashboard" className="hoverableitem nav-link" >
+                    <Link to="/employer/dashboard" className="hoverableitem nav-link active" >
                       <div
                         className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i className="fas fa-home" aria-hidden="true"></i>
+                        <i className="fas fa-home selectedicon" aria-hidden="true"></i>
                       </div>
                       <span className="nav-link-text ms-1">Dashboard</span>
                     </Link>
@@ -93,10 +93,10 @@ export const EmployerSpecificBenefitsPage = () => {
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link to="/employer/ourbenefits" className="hoverableitem nav-link active">
+                    <Link to="/employer/ourbenefits" className="hoverableitem nav-link">
                       <div
                         className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i className="fas fa-trophy selectedicon" aria-hidden="true"></i>
+                        <i className="fas fa-trophy" aria-hidden="true"></i>
                       </div>
                       <span className="nav-link-text ms-1">Our Benefits</span>
                     </Link>
@@ -108,6 +108,15 @@ export const EmployerSpecificBenefitsPage = () => {
                         <i className="fas fa-users" aria-hidden="true"></i>
                       </div>
                       <span className="nav-link-text ms-1">Employees</span>
+                    </Link>
+                  </li>
+                  <li className="nav-item">
+                    <Link to="/employer/budgets" className="hoverableitem nav-link">
+                      <div
+                        className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                        <i className="fas fa-euro-sign" aria-hidden="true"></i>
+                      </div>
+                      <span className="nav-link-text ms-1">Budgets</span>
                     </Link>
                   </li>
                   <li className="nav-item mt-3">
@@ -163,7 +172,7 @@ export const EmployerSpecificBenefitsPage = () => {
                             <MDBCard
                               key={benefit.id}
                               alignment="center"
-                              style={{ maxWidth: "25rem", maxHeight: "35rem", marginBottom: '30px'}}
+                              style={{ maxWidth: "25rem", maxHeight: "35rem", marginBottom: '30px' }}
                             >
                               <MDBCardImage src="https://media.idownloadblog.com/wp-content/uploads/2017/10/iphone-8-mockup-downloadable.jpg" position="top" alt="..." />
                               <MDBCardBody>
@@ -243,23 +252,23 @@ export const EmployerSpecificBenefitsPage = () => {
                   </Link>
                 </li>
                 <li className="nav-item">
-                    <Link to="/employer/benefits" className="hoverableitem nav-link">
-                      <div
-                        className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i className="fas fa-shopping-cart" aria-hidden="true"></i>
-                      </div>
-                      <span className="nav-link-text ms-1">Benefits Shop</span>
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link to="/employer/ourbenefits" className="hoverableitem nav-link active">
-                      <div
-                        className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i className="fas fa-trophy selectedicon" aria-hidden="true"></i>
-                      </div>
-                      <span className="nav-link-text ms-1">Our Benefits</span>
-                    </Link>
-                  </li>
+                  <Link to="/employer/benefits" className="hoverableitem nav-link">
+                    <div
+                      className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                      <i className="fas fa-shopping-cart" aria-hidden="true"></i>
+                    </div>
+                    <span className="nav-link-text ms-1">Benefits Shop</span>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link to="/employer/ourbenefits" className="hoverableitem nav-link active">
+                    <div
+                      className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                      <i className="fas fa-trophy selectedicon" aria-hidden="true"></i>
+                    </div>
+                    <span className="nav-link-text ms-1">Our Benefits</span>
+                  </Link>
+                </li>
                 <li className="nav-item">
                   <Link to="/employer/employees" className="hoverableitem nav-link">
                     <div
