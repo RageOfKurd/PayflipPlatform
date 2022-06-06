@@ -17,7 +17,7 @@ export const AdminEditBenefitPage = () => {
     data.preventDefault();
     axios
       .put(
-        `http://localhost:7000/benefit/${id}`,
+        `${process.env.REACT_APP_API_BASE_URL}/benefit/${id}`,
         {
           name: benefitName,
           cost: benefitCost,
@@ -42,12 +42,12 @@ export const AdminEditBenefitPage = () => {
     document.title = "Payflip - Benefits";
     const fetchItems = async () => {
       try {
-        const url = `http://localhost:7000/benefit/${id}`;
+        const url = `${process.env.REACT_APP_API_BASE_URL}/benefit/${id}`;
         const response = await fetch(url, { headers: headers });
         const benefit = await response.json();
         setBenefitName(benefit.data.name);
         setBenefitCost(benefit.data.cost);
-        setBenefitDesc(benefit.data.user.description);
+        setBenefitDesc(benefit.data.description);
         setCountry(benefit.data.country);
       } catch (err) {}
     };
@@ -158,18 +158,7 @@ export const AdminEditBenefitPage = () => {
             >
               <div className="container-fluid py-1 px-3">
                 <nav aria-label="breadcrumb">
-                  <ol className="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
-                    <li className="breadcrumb-item text-sm">
-                      <a className="opacity-5 text-dark">Admin</a>
-                    </li>
-                    <li
-                      className="breadcrumb-item text-sm text-dark active"
-                      aria-current="page"
-                    >
-                      Benefits
-                    </li>
-                  </ol>
-                  <h6 className="font-weight-bolder mb-0">Edit</h6>
+                <h4 className="font-weight-bolder mb-0">Benefits</h4>
                 </nav>
                 <div
                   className="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4"
@@ -197,7 +186,7 @@ export const AdminEditBenefitPage = () => {
                   <div className="card z-index-0">
                     <div className="extrashadow">
                       <div className="card-header text-center pt-4">
-                        <h3 className="text-info">Edit {benefitName}</h3>
+                        <h3 className="text-info">Edit Benefit</h3>
                       </div>
                       <div className="card-body">
                         <form className="formtext" onSubmit={submitHandling}>
@@ -231,7 +220,7 @@ export const AdminEditBenefitPage = () => {
                           </div>
                           <div className="mb-3">
                             <input
-                              type="email"
+                              type="text"
                               className="form-control"
                               value={benefitDesc}
                               onChange={(answer) => {

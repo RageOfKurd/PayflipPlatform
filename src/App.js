@@ -13,6 +13,8 @@ import { useEffect } from "react";
 import { EmployerBenefitsPage } from "./Components/Employer/Benefit";
 import { AuthenticationPage } from "./Components/BeingAuthenticated";
 import { EmployerBenefitsAssigningPage } from "./Components/Employer/BenefitAssigning";
+import { AdminAddBenefitPage } from "./Components/Admin/AddBenefit";
+import { AdminEditBenefitPage } from "./Components/Admin/EditBenefit";
 
 function App() {
   let api_base_url = `${process.env.REACT_APP_API_BASE_URL}`;
@@ -44,18 +46,18 @@ function App() {
       }
     }, 14 * 60 * 1000);
 
-    setInterval(() => {
-      const authentication = async () => {
-        if (localStorage.getItem("accessToken") != null) {
-          let response = await fetch(validateurl, { headers: { "Authorization": localStorage.getItem("accessToken") } });
-          let responseinjson = await response.json()
-          if (responseinjson.message != "Authorized") {
-            signout();
-          }
-        }
-      }
-      (async () => await authentication())();
-    }, 5000);
+    // setInterval(() => {
+    //   const authentication = async () => {
+    //     if (localStorage.getItem("accessToken") != null) {
+    //       let response = await fetch(validateurl, { headers: { "Authorization": localStorage.getItem("accessToken") } });
+    //       let responseinjson = await response.json()
+    //       if (responseinjson.message != "Authorized") {
+    //         signout();
+    //       }
+    //     }
+    //   }
+    //   (async () => await authentication())();
+    // }, 5000);
   })
 
   const signout = () => {
@@ -89,6 +91,8 @@ function App() {
       <Route path='employee/mybenefits' element={<EmployeeSpecificBenefitsPage />}></Route>
       <Route path='authentication' element={<AuthenticationPage />}></Route>
       <Route path='*' element={<Navigate to="/login" />}></Route>
+      <Route path="admin/benefits/add" element={<AdminAddBenefitPage />}></Route>
+      <Route path='admin/benefits/:id' element={<AdminEditBenefitPage />}></Route>
     </Routes>
   );
 }
