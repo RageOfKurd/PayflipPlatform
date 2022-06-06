@@ -16,7 +16,7 @@ export const AdminEditEmployerPage = () => {
     let navigate = useNavigate()
     const submitHandling = (data) => {
         data.preventDefault();
-        axios.put(`http://localhost:7000/employer/${id}`, {
+        axios.put(`${process.env.REACT_APP_API_BASE_URL}/employer/${id}`, {
             contact_name: contactName[0].toUpperCase() + contactName.substring(1).toLowerCase(),
             name: companyName[0].toUpperCase() + companyName.substring(1).toLowerCase(),
             email: companyMail.toLowerCase(),
@@ -38,7 +38,7 @@ export const AdminEditEmployerPage = () => {
         document.title = "Payflip - Employers";
         const fetchItems = async () => {
             try {
-                const url = `http://localhost:7000/employer/${id}`
+                const url = `${process.env.REACT_APP_API_BASE_URL}/employer/${id}`
                 const response = await fetch(url, { headers: headers })
                 const employer = await response.json()
                 console.log(employer.data.name)
@@ -147,11 +147,7 @@ export const AdminEditEmployerPage = () => {
                             navbar-scroll="true">
                             <div className="container-fluid py-1 px-3">
                                 <nav aria-label="breadcrumb">
-                                    <ol className="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
-                                        <li className="breadcrumb-item text-sm"><a className="opacity-5 text-dark">Admin</a></li>
-                                        <li className="breadcrumb-item text-sm text-dark active" aria-current="page">Companies</li>
-                                    </ol>
-                                    <h6 className="font-weight-bolder mb-0">Edit</h6>
+                                    <h4 className="font-weight-bolder mb-0">Employers</h4>
                                 </nav>
                                 <div className="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
                                     <div className="ms-md-auto pe-md-3 d-flex align-items-center">
@@ -174,7 +170,7 @@ export const AdminEditEmployerPage = () => {
                                     <div className="card z-index-0">
                                         <div className="extrashadow">
                                             <div className="card-header text-center pt-4">
-                                                <h3 className="text-info">Edit {companyName}</h3>
+                                                <h3 className="text-info">Edit an Employer</h3>
                                             </div>
                                             <div className="card-body">
                                                 <form className="formtext" onSubmit={submitHandling}>

@@ -14,33 +14,69 @@ import { AdminAddBenefitPage } from './AddBenefit';
 
 
 export const AdminBenefits = () => {
+    // let api_base_url = `${process.env.REACT_APP_API_BASE_URL}`;
+
+    // let params = useParams();
+
+    // const [dropDownOpen, setOpen] = useState(false);
+
+    // let headers = { Authorization: localStorage.getItem("accessToken") };
+
+
+    // const [benefits, setBenefits] = useState('');
+
+    // const getData = () => {
+    //     axios.get(
+    //         api_base_url + "/benefit",
+    //         params.post_id)
+    //     .then(benefits => {
+    //         setBenefits(benefits);
+    //         console.log(benefits);
+
+    //     })
+    //     .catch((err) => {
+    //         document.getElementById("existerror").hidden = false;
+    //     });
+    // };
+
+    // useEffect(() => { getData(); }, []);
     let api_base_url = `${process.env.REACT_APP_API_BASE_URL}`;
+    const url = api_base_url + "/benefit"
+    let headers = { "Authorization": localStorage.getItem("accessToken") }
+    let navigate = useNavigate()
+    const [dropDownOpen, setOpen] = useState(false)
+    const [benefits, setBenefits] = useState(null)
 
-    let params = useParams();
+    useEffect(() => {
+        document.title = "Payflip - Benefits";
+        const fetchItems = async () => {
+            try {
+                const response = await fetch(url, { headers: headers })
+                const benefitLists = await response.json()
+                setBenefits(benefitLists.data)
+            } catch (err) {
+                console.log("Error")
+            }
+        }
 
-    const [dropDownOpen, setOpen] = useState(false);
+        (async () => await fetchItems())()
+    }, [])
+    const deleteBenefit = (id) => {
+        try {
+            axios.delete(`${process.env.REACT_APP_API_BASE_URL}/benefit/${id.target.value}`, { headers: headers })
+            window.location.reload()
+        } catch (error) {
+            console.log(`Benefit with id ${id.target.value} couldn't be deleted.`)
+        }
+    }
 
-    let headers = { Authorization: localStorage.getItem("accessToken") };
+    const addBenefit = () => {
+        navigate("/admin/benefits/add")
+    }
 
-
-    const [benefits, setBenefits] = useState('');
-
-    const getData = () => {
-        axios.get(
-            api_base_url + "/admin/benefit",
-            params.post_id)
-        .then(benefits => {
-            setBenefits(benefits);
-            console.log(benefits);
-
-        })
-        .catch((err) => {
-            document.getElementById("existerror").hidden = false;
-        });
-    };
-
-    useEffect(() => { getData(); }, []);
-
+    const editBenefit = (id) => {
+        navigate(`/admin/benefits/${id.target.value}`)
+    }
     return (
         <>
             <div className="g-sidenav-show  bg-gray-100">
@@ -117,11 +153,7 @@ export const AdminBenefits = () => {
                             navbar-scroll="true">
                             <div className="container-fluid py-1 px-3">
                                 <nav aria-label="breadcrumb">
-                                    <ol className="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
-                                        <li className="breadcrumb-item text-sm"><a className="opacity-5 text-dark">Admin</a></li>
-                                        <li className="breadcrumb-item text-sm text-dark active" aria-current="page">Dashboard</li>
-                                    </ol>
-                                    <h6 className="font-weight-bolder mb-0">Dashboard</h6>
+                                    <h4 className="font-weight-bolder mb-0">Benefits</h4>
                                 </nav>
                                 <div className="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
                                     <div className="ms-md-auto pe-md-3 d-flex align-items-center">
@@ -166,21 +198,18 @@ export const AdminBenefits = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-12">
+                        <div className="container-fluid">
                             <div className="card mb-4">
                                 <div className="card-header pb-0">
-                                    <h6>Benefits table</h6>
-                                    <div className="input-group">
-                                        <span className="input-group-text text-body"><i className="fas fa-search" aria-hidden="true"></i></span>
-                                        <input type="text" className="form-control" placeholder="Type here..." />
-                                    </div>
-                                    <div className="card-header row-md-1 col-md-0">
-                                        <button className="btn btn-link text-secondary">
-                                            <Link to="/add" className="nav-link text-body font-weight-bold px-0" >
-                                                <a className="fa fa-plus text-xs" data-bs-toggle="modal" ></a>
+                                    <div className="row">
+                                        <div class="col-12 text-end ">
+                                            <button className="btn btn-link btn-info text-secondary" alt="Add Benefit" title="Add Benefit">
+                                                <Link to="/admin/benefits/add" className="font-weight-bold px-0 text-white" >
+                                                    <a className="fa fa-plus text-xs text-white" data-bs-toggle="modal" ></a> <span class="ms-1">Add Benefit</span>
+                                                </Link>
+                                            </button>
+                                        </div>
 
-                                            </Link>
-                                        </button>
                                     </div>
                                 </div>
                                 <div className="card-body px-0 pt-0 pb-2">
@@ -192,7 +221,7 @@ export const AdminBenefits = () => {
                                                 <tr>
                                                     <th
                                                         className="
-                              text-uppercase text-secondary text-xxs
+                              text-uppercase text-secondary text-sm text-center
                               font-weight-bolder
                               opacity-7
                             "
@@ -201,7 +230,7 @@ export const AdminBenefits = () => {
                                                     </th>
                                                     <th
                                                         className="
-                              text-uppercase text-secondary text-xxs
+                              text-uppercase text-secondary text-sm text-center
                               font-weight-bolder
                               opacity-7
                               ps-2
@@ -211,57 +240,61 @@ export const AdminBenefits = () => {
                                                     </th>
                                                     <th
                                                         className="
-                              text-uppercase text-secondary text-xxs
+                              text-uppercase text-secondary text-sm text-center
                               font-weight-bolder
                               opacity-7
                               ps-2
                             "
                                                     >Country
                                                     </th>
-                                                    <th></th>
+                                                    <th
+                                                        className="
+                              text-uppercase text-secondary text-sm text-center
+                              font-weight-bolder
+                              opacity-7
+                              ps-2
+                            "
+                                                    >Actions
+                                                    </th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 {
-                                                    <tr>
-                                                        <td>
-                                                            <div className="d-flex px-2">
-                                                                <div className="my-auto">
-                                                                    <h6 className="mb-0 text-sm">{benefits.name}</h6>
+                                                    benefits && benefits.length > 0 ? benefits.map(benefit =>
+                                                        <tr>
+                                                            <td>
+                                                                <p className="text-sm text-center font-weight-bold mb-0">
+                                                                    {benefit.name}
+                                                                </p>
+                                                            </td>
+                                                            <td>
+                                                                <p className="text-sm text-center font-weight-bold mb-0">
+                                                                    {benefit.cost}
+                                                                </p>
+                                                            </td>
+                                                            <td>
+                                                                <p className="text-sm text-center font-weight-bold mb-0">
+                                                                    {benefit.country}
+                                                                </p>
+                                                            </td>
+                                                            <td className="align-middle  text-center text-sm">
+                                                                <button onClick={editBenefit} className="fas fa-edit text-sm btn btn-link text-secondary mb-0" style={{ marginRight: "10px" }} value={benefit.id} title="Edit Benefit"></button>
+                                                                <button onClick={deleteBenefit} className="fa fa-trash text-sm btn btn-link text-secondary mb-0" value={benefit.id} title="Delete Benefit"></button>
+                                                            </td>
+
+                                                        </tr>
+                                                    ) : (
+                                                        <tr>
+                                                            <td colspan="4" className="text-center">
+                                                                <div className="px-2 text-center">
+                                                                    <div className="my-auto text-center">
+                                                                        No Benefit found
+                                                                    </div>
                                                                 </div>
-                                                            </div>
-                                                        </td>
-                                                        <td>
-                                                            <p className="text-sm font-weight-bold mb-0">
-                                                                {benefits.cost}
-                                                            </p>
-                                                        </td>
-                                                        <td>
-                                                            <span className="text-xs font-weight-bold">
-                                                                {benefits.country}
-                                                            </span>
-                                                        </td>
-                                                        <td className="align-middle">
-                                                            <ButtonDropdown toggle={() => { setOpen(!dropDownOpen) }}
-                                                                isOpen={dropDownOpen}>
-
-                                                                <DropdownToggle className='dropdown-item' >
-                                                                    <a href="#" className="fa fa-ellipsis-v text-xs" data-bs-toggle="dropdown">
-                                                                    </a>
-                                                                </DropdownToggle>
-                                                                <DropdownMenu>
-                                                                    <DropdownItem > <Link to='/:idben' > Edit </Link></DropdownItem>
-                                                                    <DropdownItem > <Link to='*' > Delete </Link></DropdownItem>
-                                                                </DropdownMenu>
-
-                                                            </ButtonDropdown>
-
-
-                                                        </td>
-
-                                                    </tr>
+                                                            </td>
+                                                        </tr>
+                                                    )
                                                 }
-
                                             </tbody>
                                         </table>
                                     </div>
@@ -296,7 +329,7 @@ export const AdminBenefits = () => {
                         </div>
                     </main>
                 </div>
-            </div>
+            </div >
         </>
     )
 }
