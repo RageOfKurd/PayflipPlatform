@@ -53,7 +53,7 @@ export const AdminEditBenefitPage = () => {
         setBenefitCost(benefit.data.cost);
         setBenefitDesc(benefit.data.description);
         setCountry(benefit.data.country);
-      } catch (err) { }
+      } catch (err) {}
     };
     (async () => await fetchItems())();
   }, []);
@@ -258,7 +258,8 @@ export const AdminEditBenefitPage = () => {
                               <option value="Portugal">Portugal</option>
                             </select>
                           </div>
-                          <p className="text-center"
+                          <p
+                            className="text-center"
                             hidden="true"
                             id="existerror"
                             style={{

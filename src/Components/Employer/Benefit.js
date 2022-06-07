@@ -42,8 +42,8 @@ export const EmployerBenefitsPage = () => {
 
             if (tempCompanyBenefitList.length > 0) {
                 tempCompanyBenefitList[0].benefits.forEach((benefit) => {
-                    companyBenefitsArray.push(tempAvailableBenefitList.find((benefit2) => benefit == benefit2.id));
-                    tempAvailableBenefitList.splice(tempAvailableBenefitList.indexOf(tempAvailableBenefitList.find((benefit2) => benefit == benefit2.id)), 1);
+                    companyBenefitsArray.push(tempAvailableBenefitList.find((benefit2) => benefit === benefit2.id));
+                    tempAvailableBenefitList.splice(tempAvailableBenefitList.indexOf(tempAvailableBenefitList.find((benefit2) => benefit === benefit2.id)), 1);
                 })
             }
 
@@ -59,10 +59,10 @@ export const EmployerBenefitsPage = () => {
 
     const addBenefit = (id) => {
         try {
-            companyBenefitsList.push(availableBenefitsList.find((benefit) => benefit.id == id.target.value));
+            companyBenefitsList.push(availableBenefitsList.find((benefit) => benefit.id === id.target.value));
             setCompanyBenefitsList([...companyBenefitsList]);
             console.log(companyBenefitsList)
-            availableBenefitsList.splice(availableBenefitsList.indexOf(availableBenefitsList.find((benefit) => benefit.id == id.target.value)), 1)
+            availableBenefitsList.splice(availableBenefitsList.indexOf(availableBenefitsList.find((benefit) => benefit.id === id.target.value)), 1)
             setAvailableBenefitsList([...availableBenefitsList])
             console.log(availableBenefitsList)
         } catch (error) {

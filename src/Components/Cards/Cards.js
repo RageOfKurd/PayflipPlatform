@@ -14,7 +14,11 @@ export const Card = (props) => {
       alignment="center"
       style={{ maxWidth: "22rem", maxHeight: "35rem" }}
     >
-      <MDBCardImage src="https://media.idownloadblog.com/wp-content/uploads/2017/10/iphone-8-mockup-downloadable.jpg" position="top" alt="..." />
+      <MDBCardImage
+        src="https://media.idownloadblog.com/wp-content/uploads/2017/10/iphone-8-mockup-downloadable.jpg"
+        position="top"
+        alt="..."
+      />
       <MDBCardBody>
         <MDBCardTitle>
           {props.name + " "}
