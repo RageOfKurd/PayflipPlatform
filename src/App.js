@@ -19,11 +19,12 @@ import { EmployerBudgetPage } from "./Components/Employer/Budget";
 import { EmployerAddBudgetPage } from "./Components/Employer/AddBudget";
 import { EmployerEditBudgetPage } from "./Components/Employer/EditBudget";
 import { EmployerAddEmployeePage } from "./Components/Employer/AddEmployee";
-import { EmployeeBenefitsShoppingPage } from "./Components/Employee/EmployeeBenefits";
+import { EmployerEmployeesPage } from "./Components/Employer/Employee";
 import { AdminEditEmployeePage } from "./Components/Admin/EditEmployee";
 import { EmployeeDash } from "./Components/Employee/Dashboard";
 import { EmployerEditEmployeePage } from "./Components/Employer/EditEmployee";
-
+import { EmployeeBenefitsShoppingPage } from "./Components/Employee/Benefit";
+import { EmployeeSpecificBenefitsPage } from "./Components/Employee/EmployeeBenefits";
 function App() {
   let api_base_url = `${process.env.REACT_APP_API_BASE_URL}`;
   let navigate = useNavigate();
@@ -32,14 +33,14 @@ function App() {
 
   useEffect(() => {
     setInterval(() => {
-      if (localStorage.getItem("accessToken") != null) {
+      if (localStorage.getItem("accessToken") !== null) {
         const refreshTokens = async () => {
           try {
             let response = await fetch(validateurl, {
               headers: { Authorization: localStorage.getItem("accessToken") },
             });
             let responseinjson = await response.json();
-            if (responseinjson.message == "Authorized") {
+            if (responseinjson.message === "Authorized") {
               let newtokenresponse = await fetch(refreshurl, {
                 headers: { Authorization: localStorage.getItem("accessToken") },
               });
@@ -89,7 +90,7 @@ function App() {
       <Route path="admin/employees" element={<AdminEmployeesPage />}></Route>
       <Route
         path="admin/employees/add"
-        element={<AdminAddEmployeePage />}
+        element={<EmployerEmployeesPage />}
       ></Route>
       <Route
         path="admin/employees/:id"
