@@ -26,7 +26,10 @@ import { EmployerEditEmployeePage } from "./Components/Employer/EditEmployee";
 import { EmployeeBenefitsShoppingPage } from "./Components/Employee/Benefit";
 import { EmployeeSpecificBenefitsPage } from "./Components/Employee/EmployeeBenefits";
 function App() {
-  let api_base_url = `${process.env.REACT_APP_API_BASE_URL}`;
+  let api_base_url =
+    process.env.NODE_ENV === "PRODUCTION"
+      ? `${process.env.REACT_APP_API_BASE_URL_NETLIFY}`
+      : `${process.env.REACT_APP_API_BASE_URL_LOCALLY}`;
   let navigate = useNavigate();
   let validateurl = api_base_url + "/auth/validate";
   let refreshurl = api_base_url + "/auth/refreshToken";

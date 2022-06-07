@@ -2,7 +2,10 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 export function AdminDash() {
-  let api_base_url = `${process.env.REACT_APP_API_BASE_URL}`;
+  let api_base_url =
+    process.env.NODE_ENV === "PRODUCTION"
+      ? `${process.env.REACT_APP_API_BASE_URL_NETLIFY}`
+      : `${process.env.REACT_APP_API_BASE_URL_LOCALLY}`;
   let navigate = useNavigate();
   const url = api_base_url + "/dashboard";
 

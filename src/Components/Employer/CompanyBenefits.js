@@ -10,7 +10,10 @@ import {
   MDBCol,
   MDBBtn,
 } from "mdb-react-ui-kit";
-let api_base_url = process.env.REACT_APP_API_BASE_URL;
+let api_base_url =
+  process.env.NODE_ENV === "PRODUCTION"
+    ? process.env.REACT_APP_API_BASE_URL_NETLIFY
+    : process.env.REACT_APP_API_BASE_URL_LOCALLY;
 export const EmployerSpecificBenefitsPage = () => {
   const urlavailablebenefits = api_base_url + "/employer-benefit/country";
   const urlcompanybenefits = api_base_url + "/employer-benefit";

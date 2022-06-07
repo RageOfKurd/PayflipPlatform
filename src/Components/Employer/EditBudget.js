@@ -3,7 +3,10 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
 export const EmployerEditBudgetPage = () => {
-  let api_base_url = `${process.env.REACT_APP_API_BASE_URL}`;
+  let api_base_url =
+    process.env.NODE_ENV === "PRODUCTION"
+      ? `${process.env.REACT_APP_API_BASE_URL_NETLIFY}`
+      : `${process.env.REACT_APP_API_BASE_URL_LOCALLY}`;
   let headers = { Authorization: localStorage.getItem("accessToken") };
   const { id } = useParams();
   const employee_url = api_base_url + "/employee";
@@ -31,7 +34,7 @@ export const EmployerEditBudgetPage = () => {
     data.preventDefault();
     axios
       .put(
-        `${process.env.REACT_APP_API_BASE_URL}/budget/${id}`,
+        `${process.env.REACT_APP_API_BASE_URL_LOCALLY}/budget/${id}`,
         {
           amount: amount,
           budget_type: budget_type,
@@ -58,7 +61,7 @@ export const EmployerEditBudgetPage = () => {
     document.title = "Payflip - Budgets";
     const fetchItems = async () => {
       try {
-        const detail_url = `${process.env.REACT_APP_API_BASE_URL}/budget/${id}`;
+        const detail_url = `${process.env.REACT_APP_API_BASE_URL_LOCALLY}/budget/${id}`;
         const response = await fetch(detail_url, { headers: headers });
         const budget = await response.json();
         setAmount(budget.data.amount);

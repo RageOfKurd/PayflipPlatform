@@ -3,7 +3,10 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
 export const AdminEditEmployerPage = () => {
-  let api_base_url = `${process.env.REACT_APP_API_BASE_URL}`;
+  let api_base_url =
+    process.env.NODE_ENV === "PRODUCTION"
+      ? `${process.env.REACT_APP_API_BASE_URL_NETLIFY}`
+      : `${process.env.REACT_APP_API_BASE_URL_LOCALLY}`;
   let headers = { Authorization: localStorage.getItem("accessToken") };
   const { id } = useParams();
 
@@ -36,7 +39,7 @@ export const AdminEditEmployerPage = () => {
         document.getElementById("existerror").hidden = true;
         axios
           .put(
-            `${process.env.REACT_APP_API_BASE_URL}/employer/${id}`,
+            `${process.env.REACT_APP_API_BASE_URL_LOCALLY}/employer/${id}`,
             {
               contact_name:
                 contactName[0].toUpperCase() +
@@ -94,7 +97,7 @@ export const AdminEditEmployerPage = () => {
         document.getElementById("existerror").hidden = true;
         axios
           .put(
-            `${process.env.REACT_APP_API_BASE_URL}/employer/${id}`,
+            `${process.env.REACT_APP_API_BASE_URL_LOCALLY}/employer/${id}`,
             {
               contact_name:
                 contactName[0].toUpperCase() +
@@ -133,7 +136,7 @@ export const AdminEditEmployerPage = () => {
     document.title = "Payflip - Employers";
     const fetchItems = async () => {
       try {
-        const url = `${process.env.REACT_APP_API_BASE_URL}/employer/${id}`;
+        const url = `${process.env.REACT_APP_API_BASE_URL_LOCALLY}/employer/${id}`;
         const response = await fetch(url, { headers: headers });
         const employer = await response.json();
         console.log(employer.data.name);

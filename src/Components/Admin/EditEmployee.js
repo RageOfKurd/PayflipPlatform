@@ -1,7 +1,10 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-let api_base_url = `${process.env.REACT_APP_API_BASE_URL}`;
+let api_base_url =
+  process.env.NODE_ENV === "PRODUCTION"
+    ? `${process.env.REACT_APP_API_BASE_URL_NETLIFY}`
+    : `${process.env.REACT_APP_API_BASE_URL_LOCALLY}`;
 
 export const AdminEditEmployeePage = () => {
   let headers = { Authorization: localStorage.getItem("accessToken") };

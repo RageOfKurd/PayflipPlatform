@@ -14,7 +14,10 @@ import axios from "axios";
 import { AdminAddBenefitPage } from "./AddBenefit";
 
 export const AdminBenefits = () => {
-  // let api_base_url = `${process.env.REACT_APP_API_BASE_URL}`;
+  let api_base_url =
+    process.env.NODE_ENV === "PRODUCTION"
+      ? `${process.env.REACT_APP_API_BASE_URL_NETLIFY}`
+      : `${process.env.REACT_APP_API_BASE_URL_LOCALLY}`;
 
   // let params = useParams();
 
@@ -39,7 +42,10 @@ export const AdminBenefits = () => {
   // };
 
   // useEffect(() => { getData(); }, []);
-  let api_base_url = `${process.env.REACT_APP_API_BASE_URL}`;
+  /*  let api_base_url =
+    process.env.NODE_ENV === "PRODUCTION"
+      ? `${process.env.REACT_APP_API_BASE_URL_NETLIFY}`
+      : `${process.env.REACT_APP_API_BASE_URL_LOCALLY}`; */
   const url = api_base_url + "/benefit";
   let headers = { Authorization: localStorage.getItem("accessToken") };
   let navigate = useNavigate();
@@ -63,7 +69,7 @@ export const AdminBenefits = () => {
   const deleteBenefit = (id) => {
     try {
       axios.delete(
-        `${process.env.REACT_APP_API_BASE_URL}/benefit/${id.target.value}`,
+        `${process.env.REACT_APP_API_BASE_URL_LOCALLY}/benefit/${id.target.value}`,
         { headers: headers }
       );
       window.location.reload();
