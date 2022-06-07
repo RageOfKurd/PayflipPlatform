@@ -1,7 +1,5 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { AuthenticationPage } from "../BeingAuthenticated";
 
 export function AdminDash() {
   let api_base_url = `${process.env.REACT_APP_API_BASE_URL}`;

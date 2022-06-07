@@ -1,10 +1,7 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 export const AuthenticationPage = () => {
-  let api_base_url = `${process.env.REACT_APP_API_BASE_URL}`;
-
   return (
     <div>
       <div className="g-sidenav-show  bg-gray-100">

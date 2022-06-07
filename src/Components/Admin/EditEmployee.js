@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
+let api_base_url = `${process.env.REACT_APP_API_BASE_URL}`;
 
 export const AdminEditEmployeePage = () => {
   let headers = { Authorization: localStorage.getItem("accessToken") };
@@ -19,7 +20,7 @@ export const AdminEditEmployeePage = () => {
   const submitHandling = (data) => {
     data.preventDefault();
     axios
-      .get("http://localhost:7000/employer/" + employerId, { headers: headers })
+      .get(api_base_url + "/employer/" + employerId, { headers: headers })
       .then((res) => {
         if (res.data.success) {
           if (password !== "" && password.length >= 8) {
@@ -41,7 +42,7 @@ export const AdminEditEmployeePage = () => {
               document.getElementById("existerror").hidden = true;
               axios
                 .put(
-                  `http://localhost:7000/employee/${id}`,
+                  api_base_url + `employee/${id}`,
                   {
                     name: employeeName.toLowerCase(),
                     employer_id: employerId,
@@ -96,7 +97,7 @@ export const AdminEditEmployeePage = () => {
               document.getElementById("existerror").hidden = true;
               axios
                 .put(
-                  `http://localhost:7000/employee/${id}`,
+                  api_base_url + `/employee/${id}`,
                   {
                     name: employeeName.toLowerCase(),
                     employer_id: employerId,
@@ -140,7 +141,7 @@ export const AdminEditEmployeePage = () => {
     document.title = "Payflip - Employees";
     const fetchItems = async () => {
       try {
-        const url = `http://localhost:7000/employee/${id}`;
+        const url = api_base_url + `/employee/${id}`;
         const response = await fetch(url, { headers: headers });
         const employee = await response.json();
         console.log(employee.data.name);

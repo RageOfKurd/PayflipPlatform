@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 export const AdminAddEmployeePage = () => {
   let headers = { Authorization: localStorage.getItem("accessToken") };
+  let api_base_url = `${process.env.REACT_APP_API_BASE_URL}`;
 
   const [employeeName, setEmployeeName] = useState("");
   const [employerId, setEmployerId] = useState("");
@@ -21,7 +22,7 @@ export const AdminAddEmployeePage = () => {
 
     if (!accountcreationprocessing) {
       axios
-        .get("http://localhost:7000/employer/" + employerId, {
+        .get(api_base_url + "/employer/" + employerId, {
           headers: headers,
         })
         .then((res) => {

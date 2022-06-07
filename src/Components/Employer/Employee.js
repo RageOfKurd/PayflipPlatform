@@ -1,9 +1,9 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
+const api_base_url = process.env.REACT_APP_API_BASE_URL;
 export const EmployerEmployeesPage = () => {
-  const url = "http://localhost:7000/employee";
+  const url = api_base_url + "/employee";
   let headers = { Authorization: localStorage.getItem("accessToken") };
   let navigate = useNavigate();
 
@@ -27,7 +27,7 @@ export const EmployerEmployeesPage = () => {
   const deleteEmployee = (id) => {
     console.log(id.target.value);
     try {
-      axios.delete(`http://localhost:7000/employee/${id.target.value}`, {
+      axios.delete(url + `/${id.target.value}`, {
         headers: headers,
       });
       window.location.reload();

@@ -1,10 +1,9 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-
+const api_base_url = process.env.REACT_APP_API_BASE_URL;
 export function EmployeeDash() {
   let navigate = useNavigate();
-  const url = "http://localhost:7000/dashboard";
+  const url = api_base_url + "/dashboard";
 
   const [stats, setStats] = useState(null);
 

@@ -1,4 +1,3 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
@@ -11,10 +10,10 @@ import {
   MDBCol,
   MDBBtn,
 } from "mdb-react-ui-kit";
-
+let api_base_url = process.env.REACT_APP_API_BASE_URL;
 export const EmployerSpecificBenefitsPage = () => {
-  const urlavailablebenefits = "http://localhost:7000/employer-benefit/country";
-  const urlcompanybenefits = "http://localhost:7000/employer-benefit";
+  const urlavailablebenefits = api_base_url + "/employer-benefit/country";
+  const urlcompanybenefits = api_base_url + "/employer-benefit";
   let headers = { Authorization: localStorage.getItem("accessToken") };
   let navigate = useNavigate();
   const [availableBenefitsList, setAvailableBenefitsList] = useState(null);

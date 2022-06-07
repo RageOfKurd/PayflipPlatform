@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-
+const api_base_url = process.env.REACT_APP_API_BASE_URL;
 export const EmployerEditEmployeePage = () => {
   let headers = { Authorization: localStorage.getItem("accessToken") };
   const { id } = useParams();
@@ -29,7 +29,7 @@ export const EmployerEditEmployeePage = () => {
         document.getElementById("existerror").hidden = true;
         axios
           .put(
-            `http://localhost:7000/employee/${id}`,
+            `${process.env.REACT_APP_API_BASE_URL}/employee/${id}`,
             {
               name: employeeName.toLowerCase(),
               employer_id: employerId,
@@ -76,7 +76,7 @@ export const EmployerEditEmployeePage = () => {
         document.getElementById("existerror").hidden = true;
         axios
           .put(
-            `http://localhost:7000/employee/${id}`,
+            `${process.env.REACT_APP_API_BASE_URL}employee/${id}`,
             {
               name: employeeName.toLowerCase(),
               employer_id: employerId,
@@ -113,7 +113,7 @@ export const EmployerEditEmployeePage = () => {
     document.title = "Payflip - Employees";
     const fetchItems = async () => {
       try {
-        const url = `http://localhost:7000/employee/${id}`;
+        const url = api_base_url + `/employee/${id}`;
         const response = await fetch(url, { headers: headers });
         const employee = await response.json();
         console.log(employee.data.name);
