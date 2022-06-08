@@ -152,13 +152,13 @@ export const AdminEmployersPage = () => {
                           <table className="table align-items-center justify-content-center mb-0">
                             <thead>
                               <tr>
-                              <th className="
+                              {/* <th className="
                             text-uppercase text-secondary text-xxs
                             font-weight-bolder
                             opacity-7
                           ">
                                   Company Id
-                                </th>
+                                </th> */}
                                 <th className="
                             text-uppercase text-secondary text-sm text-center
                             font-weight-bolder
