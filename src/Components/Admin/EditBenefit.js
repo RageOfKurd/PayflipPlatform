@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
 export const AdminEditBenefitPage = () => {
-  let api_base_url = `${process.env.REACT_APP_API_BASE_URL}`;
   let headers = { Authorization: localStorage.getItem("accessToken") };
   const { id } = useParams();
 
@@ -53,7 +52,7 @@ export const AdminEditBenefitPage = () => {
         setBenefitCost(benefit.data.cost);
         setBenefitDesc(benefit.data.description);
         setCountry(benefit.data.country);
-      } catch (err) { }
+      } catch (err) {}
     };
     (async () => await fetchItems())();
   }, []);
@@ -258,7 +257,8 @@ export const AdminEditBenefitPage = () => {
                               <option value="Portugal">Portugal</option>
                             </select>
                           </div>
-                          <p className="text-center"
+                          <p
+                            className="text-center"
                             hidden="true"
                             id="existerror"
                             style={{
