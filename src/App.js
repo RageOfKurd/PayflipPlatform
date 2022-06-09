@@ -8,7 +8,7 @@ import { EmployerDash } from "./Components/Employer/Dashboard";
 import { AdminEditEmployerPage } from "./Components/Admin/EditEmployer";
 import { AdminEmployeesPage } from "./Components/Admin/Employee";
 import { AdminEmployersPage } from "./Components/Admin/Employer";
-import Login from "./Components/Login";
+import { Login } from "./Components/Login";
 import { Signup } from "./Components/Signup";
 import { useEffect } from "react";
 import { EmployerBenefitsPage } from "./Components/Employer/Benefit";
@@ -25,6 +25,8 @@ import { EmployeeDash } from "./Components/Employee/Dashboard";
 import { EmployerEditEmployeePage } from "./Components/Employer/EditEmployee";
 import { EmployeeBenefitsShoppingPage } from "./Components/Employee/Benefit";
 import { EmployeeSpecificBenefitsPage } from "./Components/Employee/EmployeeBenefits";
+import { UpdatePasswordPage } from "./Components/UpdatePassword";
+import { UpdateProfilePage } from "./Components/UpdateProfile";
 function App() {
   let api_base_url = `${process.env.REACT_APP_API_BASE_URL}`;
   let navigate = useNavigate();
@@ -90,7 +92,7 @@ function App() {
       <Route path="admin/employees" element={<AdminEmployeesPage />}></Route>
       <Route
         path="admin/employees/add"
-        element={<EmployerEmployeesPage />}
+        element={<AdminAddEmployeePage />}
       ></Route>
       <Route
         path="admin/employees/:id"
@@ -149,6 +151,14 @@ function App() {
       <Route
         path="employer/budgets/:id"
         element={<EmployerEditBudgetPage />}
+      ></Route>
+      <Route
+        path="/admin/updateProfile"
+        element={<UpdateProfilePage />}
+      ></Route>
+      <Route
+        path="/admin/updatePassword"
+        element={<UpdatePasswordPage />}
       ></Route>
     </Routes>
   );
