@@ -29,9 +29,9 @@ import { UpdatePasswordPage } from "./Components/UpdatePassword";
 import { UpdateProfilePage } from "./Components/UpdateProfile";
 function App() {
   let api_base_url =
-    process.env.NODE_ENV === "PRODUCTION"
-      ? `${process.env.REACT_APP_API_BASE_URL_NETLIFY}`
-      : `${process.env.REACT_APP_API_BASE_URL_LOCALLY}`;
+    process.env.NODE_ENV === "local"
+      ? `${process.env.REACT_APP_API_BASE_URL_LOCALLY}`
+      : `${process.env.REACT_APP_API_BASE_URL_NETLIFY}`;
   let navigate = useNavigate();
   let validateurl = api_base_url + "/auth/validate";
   let refreshurl = api_base_url + "/auth/refreshToken";

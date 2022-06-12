@@ -4,9 +4,9 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 
 export const AdminEditEmployerPage = () => {
   let api_base_url =
-    process.env.NODE_ENV === "PRODUCTION"
-      ? `${process.env.REACT_APP_API_BASE_URL_NETLIFY}`
-      : `${process.env.REACT_APP_API_BASE_URL_LOCALLY}`;
+    process.env.NODE_ENV === "local"
+      ? `${process.env.REACT_APP_API_BASE_URL_LOCALLY}`
+      : `${process.env.REACT_APP_API_BASE_URL_NETLIFY}`;
   let headers = { Authorization: localStorage.getItem("accessToken") };
   const { id } = useParams();
 
@@ -26,7 +26,7 @@ export const AdminEditEmployerPage = () => {
     data.preventDefault();
     axios
       .put(
-        `${process.env.REACT_APP_API_BASE_URL}/employer/${id}`,
+        `${api_base_url}/employer/${id}`,
         {
           name:
             companyName[0].toUpperCase() +
@@ -55,7 +55,7 @@ export const AdminEditEmployerPage = () => {
     document.title = "Payflip - Employers";
     const fetchItems = async () => {
       try {
-        const url = `${process.env.REACT_APP_API_BASE_URL_LOCALLY}/employer/${id}`;
+        const url = `${api_base_url}/employer/${id}`;
         const response = await fetch(url, { headers: headers });
         const employer = await response.json();
         setCompanyName(employer.data.name);

@@ -4,9 +4,9 @@ import { Link, useNavigate } from "react-router-dom";
 
 export const AdminEmployersPage = () => {
   let api_base_url =
-    process.env.NODE_ENV === "PRODUCTION"
-      ? `${process.env.REACT_APP_API_BASE_URL_NETLIFY}`
-      : `${process.env.REACT_APP_API_BASE_URL_LOCALLY}`;
+    process.env.NODE_ENV === "local"
+      ? `${process.env.REACT_APP_API_BASE_URL_LOCALLY}`
+      : `${process.env.REACT_APP_API_BASE_URL_NETLIFY}`;
   const url = api_base_url + "/employer";
   let headers = { Authorization: localStorage.getItem("accessToken") };
   let navigate = useNavigate();
@@ -28,7 +28,7 @@ export const AdminEmployersPage = () => {
         const response = await fetch(url, { headers: headers });
         const employers = await response.json();
         setEmployerList(employers.data);
-      } catch (err) { }
+      } catch (err) {}
     };
 
     (async () => await fetchItems())();
@@ -57,7 +57,13 @@ export const AdminEmployersPage = () => {
 
   return (
     <>
-      <div className={isActive ? 'g-sidenav-pinned g-sidenav-show  bg-gray-100' : "g-sidenav-show  bg-gray-100"}>
+      <div
+        className={
+          isActive
+            ? "g-sidenav-pinned g-sidenav-show  bg-gray-100"
+            : "g-sidenav-show  bg-gray-100"
+        }
+      >
         <div className="backgroundimg">
           <aside
             className="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3  ps ps--active-y bg-white"
@@ -69,10 +75,7 @@ export const AdminEmployersPage = () => {
                 aria-hidden="true"
                 id="iconSidenav"
               ></i>
-              <a
-                className="navbar-brand m-0"
-                href="/admin/dashboard"
-              >
+              <a className="navbar-brand m-0" href="/admin/dashboard">
                 <img
                   src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmiro.medium.com%2Fproxy%2F0*kYj1aQljmDquuw7Z&f=1&nofb=1"
                   className="navbar-brand-img h-100"
@@ -92,19 +95,13 @@ export const AdminEmployersPage = () => {
                     className="hoverableitem nav-link "
                   >
                     <div className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                      <i
-                        className="fas fa-home "
-                        aria-hidden="true"
-                      ></i>
+                      <i className="fas fa-home " aria-hidden="true"></i>
                     </div>
                     <span className="nav-link-text ms-1">Dashboard</span>
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link
-                    to="/admin/benefits"
-                    className="hoverableitem nav-link"
-                  >
+                  <Link to="/admin/benefits" className="hoverableitem nav-link">
                     <div className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                       <i className="fas fa-trophy" aria-hidden="true"></i>
                     </div>
@@ -128,7 +125,10 @@ export const AdminEmployersPage = () => {
                     className="hoverableitem nav-link active"
                   >
                     <div className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                      <i className="fas fa-building selectedicon" aria-hidden="true"></i>
+                      <i
+                        className="fas fa-building selectedicon"
+                        aria-hidden="true"
+                      ></i>
                     </div>
                     <span className="nav-link-text ms-1">Companies</span>
                   </Link>
@@ -137,7 +137,8 @@ export const AdminEmployersPage = () => {
                   <h6 className="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">
                     Account pages
                   </h6>
-                </li><li className="nav-item">
+                </li>
+                <li className="nav-item">
                   <Link
                     to="/admin/updateProfile"
                     className="hoverableitem nav-link"
@@ -201,7 +202,12 @@ export const AdminEmployersPage = () => {
                       </Link>
                     </li>
                     <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
-                      <a href="javascript:;" onClick={handleSideBar} class="nav-link text-body p-0" id="iconNavbarSidenav">
+                      <a
+                        href="javascript:;"
+                        onClick={handleSideBar}
+                        class="nav-link text-body p-0"
+                        id="iconNavbarSidenav"
+                      >
                         <div class="sidenav-toggler-inner">
                           <i class="sidenav-toggler-line"></i>
                           <i class="sidenav-toggler-line"></i>

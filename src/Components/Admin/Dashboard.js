@@ -3,9 +3,9 @@ import { Link, useNavigate } from "react-router-dom";
 
 export function AdminDash() {
   let api_base_url =
-    process.env.NODE_ENV === "PRODUCTION"
-      ? `${process.env.REACT_APP_API_BASE_URL_NETLIFY}`
-      : `${process.env.REACT_APP_API_BASE_URL_LOCALLY}`;
+    process.env.NODE_ENV === "local"
+      ? `${process.env.REACT_APP_API_BASE_URL_LOCALLY}`
+      : `${process.env.REACT_APP_API_BASE_URL_NETLIFY}`;
   let navigate = useNavigate();
   const url = api_base_url + "/dashboard";
   let users_count = 0;
@@ -36,7 +36,10 @@ export function AdminDash() {
         console.log(statslist);
         if (statslist.success == true) {
           setStats(statslist);
-        } else if (statslist.success == false && statslist.message == "Unauthorized") {
+        } else if (
+          statslist.success == false &&
+          statslist.message == "Unauthorized"
+        ) {
           localStorage.removeItem("accessToken");
           navigate("/login");
         } else {
@@ -56,7 +59,6 @@ export function AdminDash() {
     navigate("/login") */
   };
 
-
   // let total_users = 0;
   // let total_benefits = 0;
   // let total_employees = 0;
@@ -70,7 +72,13 @@ export function AdminDash() {
 
   return (
     <>
-      <div className={isActive ? 'g-sidenav-pinned g-sidenav-show  bg-gray-100' : "g-sidenav-show  bg-gray-100"}>
+      <div
+        className={
+          isActive
+            ? "g-sidenav-pinned g-sidenav-show  bg-gray-100"
+            : "g-sidenav-show  bg-gray-100"
+        }
+      >
         <div className="backgroundimg">
           <aside
             className="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3  ps ps--active-y bg-white"
@@ -82,10 +90,7 @@ export function AdminDash() {
                 aria-hidden="true"
                 id="iconSidenav"
               ></i>
-              <a
-                className="navbar-brand m-0"
-                href="/admin/dashboard"
-              >
+              <a className="navbar-brand m-0" href="/admin/dashboard">
                 <img
                   src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmiro.medium.com%2Fproxy%2F0*kYj1aQljmDquuw7Z&f=1&nofb=1"
                   className="navbar-brand-img h-100"
@@ -114,10 +119,7 @@ export function AdminDash() {
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link
-                    to="/admin/benefits"
-                    className="hoverableitem nav-link"
-                  >
+                  <Link to="/admin/benefits" className="hoverableitem nav-link">
                     <div className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                       <i className="fas fa-trophy" aria-hidden="true"></i>
                     </div>
@@ -150,7 +152,8 @@ export function AdminDash() {
                   <h6 className="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">
                     Account pages
                   </h6>
-                </li><li className="nav-item">
+                </li>
+                <li className="nav-item">
                   <Link
                     to="/admin/updateProfile"
                     className="hoverableitem nav-link"
@@ -204,7 +207,6 @@ export function AdminDash() {
                 >
                   <div className="ms-md-auto pe-md-3 d-flex align-items-center"></div>
                   <ul className="navbar-nav  justify-content-end">
-
                     <li className="nav-item d-flex align-items-center">
                       <Link
                         to="/login"
@@ -216,7 +218,12 @@ export function AdminDash() {
                       </Link>
                     </li>
                     <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
-                      <a href="javascript:;" onClick={handleSideBar} class="nav-link text-body p-0" id="iconNavbarSidenav">
+                      <a
+                        href="javascript:;"
+                        onClick={handleSideBar}
+                        class="nav-link text-body p-0"
+                        id="iconNavbarSidenav"
+                      >
                         <div class="sidenav-toggler-inner">
                           <i class="sidenav-toggler-line"></i>
                           <i class="sidenav-toggler-line"></i>
@@ -268,7 +275,6 @@ export function AdminDash() {
                             </p>
                             <h5 className="font-weight-bolder mb-0">
                               {employers_count}
-
                             </h5>
                           </div>
                         </div>
@@ -295,7 +301,6 @@ export function AdminDash() {
                             </p>
                             <h5 className="font-weight-bolder mb-0">
                               {benefits_count}
-
                             </h5>
                           </div>
                         </div>
