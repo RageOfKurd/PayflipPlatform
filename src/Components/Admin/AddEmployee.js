@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 export const AdminAddEmployeePage = () => {
@@ -17,86 +17,69 @@ export const AdminAddEmployeePage = () => {
   const [country, setCountry] = useState("Belgium");
   const [designation, setDesignation] = useState("");
   const [employementType, setEmployementType] = useState("full-time");
+
   let accountcreationprocessing = false;
   let navigate = useNavigate();
+  const [isActive, setActive] = useState("false");
+  const handleSideBar = () => {
+    setActive(!isActive);
+  };
 
+  const [employersList, setEmployersList] = useState([]);
+
+  useEffect(() => {
+    const fetchItems = async () => {
+      try {
+        const response = await fetch(api_base_url + '/employer', { headers: headers });
+        const employers = await response.json();
+        console.log(employers);
+        setEmployersList(employers.data);
+      } catch (err) { }
+    };
+
+    (async () => await fetchItems())();
+  }, []);
+  const signout = () => {
+    /* localStorage.clear()
+    navigate("/login") */
+  };
   const submitHandling = (data) => {
     data.preventDefault();
-
-    if (!accountcreationprocessing) {
-      axios
-        .get(api_base_url + "/employer/" + employerId, {
-          headers: headers,
-        })
-        .then((res) => {
-          if (res.data.success) {
-            if (
-              email
-                .toLowerCase()
-                .includes("@gmail.com", email.length - 1 - 10) ||
-              email
-                .toLowerCase()
-                .includes("@payflip.be", email.length - 1 - 11) ||
-              email
-                .toLowerCase()
-                .includes("@outlook.com", email.length - 1 - 12) ||
-              email
-                .toLowerCase()
-                .includes("@protonmail.com", email.length - 1 - 15)
-            ) {
-              accountcreationprocessing = true;
-              document.getElementById("alertprocessing").hidden = false;
-              document.getElementById("existerror").hidden = true;
-              axios
-                .post(
-                  "http://localhost:7000/employee",
-                  {
-                    name: employeeName.toLowerCase(),
-                    employer_id: employerId,
-                    email: email.toLowerCase(),
-                    address: employeeAddress,
-                    password: password,
-                    country: country,
-                    designation: designation,
-                    employement_type: employementType,
-                  },
-                  { headers: headers }
-                )
-                .then((res) => {
-                  console.log(res);
-                  if (res.status === 201) {
-                    navigate("/admin/employees");
-                  }
-                })
-                .catch((err) => {
-                  accountcreationprocessing = false;
-                  document.getElementById("alertprocessing").hidden = true;
-                  document.getElementById("existerror").innerText =
-                    "Account couldn't be created (email might already be registered). Try again later.";
-                  document.getElementById("existerror").hidden = false;
-                });
-            } else {
-              document.getElementById("alertprocessing").hidden = true;
-              document.getElementById("existerror").innerText =
-                "The given email is not valid.";
-              document.getElementById("existerror").hidden = false;
-            }
-          } else {
-            document.getElementById("alertprocessing").hidden = true;
-            document.getElementById("existerror").innerText =
-              "The given employerId is not valid.";
-            document.getElementById("existerror").hidden = false;
-          }
-        });
-    }
+    axios
+      .post(
+        `${process.env.REACT_APP_API_BASE_URL}/employee`,
+        {
+          name: employeeName.toLowerCase(),
+          employer_id: employerId,
+          email: email.toLowerCase(),
+          address: employeeAddress,
+          password: password,
+          country: country,
+          designation: designation,
+          employement_type: employementType,
+        },
+        { headers: headers }
+      )
+      .then((res) => {
+        console.log(res);
+        if (res.status === 201 && res.data.success==true) {
+          navigate("/admin/employees");
+        } else{ 
+          document.getElementById("existerror").innerHTML = res.data.message;
+          document.getElementById("existerror").hidden = false;
+        }
+      })
+      .catch((err) => {
+        document.getElementById("existerror").hidden = false;
+      });
   };
 
   return (
     <>
-      <div className="g-sidenav-show  bg-gray-100">
+      <div className={isActive ? 'g-sidenav-pinned g-sidenav-show  bg-gray-100' : "g-sidenav-show  bg-gray-100"}>
         <div className="backgroundimg">
           <aside
-            className="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 "
+            className="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3  ps ps--active-y bg-white"
             id="sidenav-main"
           >
             <div className="sidenav-header">
@@ -107,8 +90,7 @@ export const AdminAddEmployeePage = () => {
               ></i>
               <a
                 className="navbar-brand m-0"
-                href="https://demos.creative-tim.com/soft-ui-dashboard/pages/dashboard.html"
-                target="_blank"
+                href="/admin/dashboard"
               >
                 <img
                   src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmiro.medium.com%2Fproxy%2F0*kYj1aQljmDquuw7Z&f=1&nofb=1"
@@ -119,7 +101,7 @@ export const AdminAddEmployeePage = () => {
             </div>
             <hr className="horizontal dark mt-0" />
             <div
-              className="collapse navbar-collapse  w-auto  max-height-vh-100 h-100"
+              className="collapse navbar-collapse w-auto"
               id="sidenav-collapse-main"
             >
               <ul className="navbar-nav">
@@ -129,13 +111,19 @@ export const AdminAddEmployeePage = () => {
                     className="hoverableitem nav-link"
                   >
                     <div className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                      <i className="fas fa-home" aria-hidden="true"></i>
+                      <i
+                        className="fas fa-home"
+                        aria-hidden="true"
+                      ></i>
                     </div>
                     <span className="nav-link-text ms-1">Dashboard</span>
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link to="/admin/benefits" className="hoverableitem nav-link">
+                  <Link
+                    to="/admin/benefits"
+                    className="hoverableitem nav-link"
+                  >
                     <div className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                       <i className="fas fa-trophy" aria-hidden="true"></i>
                     </div>
@@ -148,10 +136,7 @@ export const AdminAddEmployeePage = () => {
                     className="hoverableitem nav-link active"
                   >
                     <div className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                      <i
-                        className="fas fa-users selectedicon"
-                        aria-hidden="true"
-                      ></i>
+                      <i className="fas fa-users selectedicon" aria-hidden="true"></i>
                     </div>
                     <span className="nav-link-text ms-1">Employees</span>
                   </Link>
@@ -171,9 +156,34 @@ export const AdminAddEmployeePage = () => {
                   <h6 className="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">
                     Account pages
                   </h6>
+                </li><li className="nav-item">
+                  <Link
+                    to="/admin/updateProfile"
+                    className="hoverableitem nav-link"
+                  >
+                    <div className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                      <i className="fa fa-user" aria-hidden="true"></i>
+                    </div>
+                    <span className="nav-link-text ms-1">Update Profile</span>
+                  </Link>
                 </li>
                 <li className="nav-item">
-                  <Link to="/login" className="hoverableitem nav-link">
+                  <Link
+                    to="/admin/updatePassword"
+                    className="hoverableitem nav-link"
+                  >
+                    <div className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                      <i className="fa fa-key" aria-hidden="true"></i>
+                    </div>
+                    <span className="nav-link-text ms-1">Update Password</span>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link
+                    to="/login"
+                    onClick={signout}
+                    className="hoverableitem nav-link"
+                  >
                     <div className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                       <i className="fa fa-sign-out" aria-hidden="true"></i>
                     </div>
@@ -192,18 +202,7 @@ export const AdminAddEmployeePage = () => {
             >
               <div className="container-fluid py-1 px-3">
                 <nav aria-label="breadcrumb">
-                  <ol className="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
-                    <li className="breadcrumb-item text-sm">
-                      <a className="opacity-5 text-dark">Admin</a>
-                    </li>
-                    <li
-                      className="breadcrumb-item text-sm text-dark active"
-                      aria-current="page"
-                    >
-                      Employees
-                    </li>
-                  </ol>
-                  <h6 className="font-weight-bolder mb-0">Add</h6>
+                  <h4 className="font-weight-bolder mb-0">Employees</h4>
                 </nav>
                 <div
                   className="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4"
@@ -219,6 +218,15 @@ export const AdminAddEmployeePage = () => {
                         <i className="fa fa-user me-sm-1"></i>
                         <span className="d-sm-inline d-none">Sign out</span>
                       </Link>
+                    </li>
+                    <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
+                      <a href="javascript:;" onClick={handleSideBar} class="nav-link text-body p-0" id="iconNavbarSidenav">
+                        <div class="sidenav-toggler-inner">
+                          <i class="sidenav-toggler-line"></i>
+                          <i class="sidenav-toggler-line"></i>
+                          <i class="sidenav-toggler-line"></i>
+                        </div>
+                      </a>
                     </li>
                   </ul>
                 </div>
@@ -246,7 +254,7 @@ export const AdminAddEmployeePage = () => {
                   <div className="card z-index-0">
                     <div className="extrashadow">
                       <div className="card-header text-center pt-4">
-                        <h3 className="text-info">Add an employee</h3>
+                        <h3 className="text-info">Add an Employee</h3>
                       </div>
                       <div className="card-body">
                         <form className="formtext" onSubmit={submitHandling}>
@@ -265,18 +273,27 @@ export const AdminAddEmployeePage = () => {
                             />
                           </div>
                           <div className="mb-3">
-                            <input
-                              type="text"
+                            <select
                               className="form-control"
+                              id="employer"
+                              aria-label="Employer"
                               value={employerId}
+                              required
                               onChange={(answer) => {
                                 setEmployerId(answer.target.value);
                               }}
-                              placeholder="Employer Id (eg. hy5c47b6bggfa75a1fpp4seb)"
-                              aria-label="EmployerId"
-                              aria-describedby="email-addon"
-                              required
-                            />
+                            >
+                              <option value="">Select Employer</option>
+                              {employersList && employersList.length > 0 ? (
+                                employersList.map((employer) => (
+                                  <option value={employer.id}>
+                                    {employer.name}
+                                  </option>
+                                ))
+                              ) : (
+                                <span></span>
+                              )}
+                            </select>
                           </div>
                           <div className="mb-3">
                             <input
@@ -375,15 +392,8 @@ export const AdminAddEmployeePage = () => {
                               <option value="Portugal">Portugal</option>
                             </select>
                           </div>
-                          <div className="text-center">
-                            <button
-                              type="submit"
-                              className="btn bg-redpayflip text-white w-100 my-4 mb-2"
-                            >
-                              Add the employee
-                            </button>
-                          </div>
                           <p
+                            className="text-center"
                             hidden="true"
                             id="existerror"
                             style={{
@@ -394,6 +404,14 @@ export const AdminAddEmployeePage = () => {
                           >
                             Account with given email already exists
                           </p>
+                          <div className="text-center">
+                            <button
+                              type="submit"
+                              className="btn bg-redpayflip text-white w-100 my-4 mb-2"
+                            >
+                              Add the employee
+                            </button>
+                          </div>
                         </form>
                       </div>
                     </div>
