@@ -14,9 +14,9 @@ import {
 
 export const EmployerBenefitsPage = () => {
   let api_base_url =
-     process.env.NODE_ENV === "PRODUCTION"
-    ? process.env.REACT_APP_API_BASE_URL_NETLIFY
-    : process.env.REACT_APP_API_BASE_URL_LOCALLY;
+    process.env.NODE_ENV === "local"
+      ? process.env.REACT_APP_API_BASE_URL_LOCALLY
+      : process.env.REACT_APP_API_BASE_URL_NETLIFY;
 
   const urlavailablebenefits = api_base_url + "/employer-benefit/country";
   const urlcompanybenefits = api_base_url + "/employer-benefit";

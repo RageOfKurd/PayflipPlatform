@@ -4,9 +4,9 @@ import { Link, useNavigate } from "react-router-dom";
 
 export function EmployerDash() {
   let api_base_url =
-     process.env.NODE_ENV === "PRODUCTION"
-    ? process.env.REACT_APP_API_BASE_URL_NETLIFY
-    : process.env.REACT_APP_API_BASE_URL_LOCALLY;
+    process.env.NODE_ENV === "local"
+      ? process.env.REACT_APP_API_BASE_URL_LOCALLY
+      : process.env.REACT_APP_API_BASE_URL_NETLIFY;
   let navigate = useNavigate();
   const url = api_base_url + "/dashboard";
   let country_benefits_count = 0;
@@ -34,13 +34,16 @@ export function EmployerDash() {
         console.log(statslist);
         if (statslist.success == true) {
           setStats(statslist);
-        }  else if (statslist.success == false && statslist.message == "Unauthorized") {
+        } else if (
+          statslist.success == false &&
+          statslist.message == "Unauthorized"
+        ) {
           localStorage.removeItem("accessToken");
           navigate("/login");
         } else {
           navigate(-1);
         }
-      } catch (err) { }
+      } catch (err) {}
     };
 
     (async () => await fetchItems())();
@@ -57,7 +60,13 @@ export function EmployerDash() {
 
   return (
     <>
-      <div className={isActive ? 'g-sidenav-pinned g-sidenav-show  bg-gray-100' : "g-sidenav-show  bg-gray-100"}>
+      <div
+        className={
+          isActive
+            ? "g-sidenav-pinned g-sidenav-show  bg-gray-100"
+            : "g-sidenav-show  bg-gray-100"
+        }
+      >
         <div className="backgroundimg">
           <aside
             className="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 ps ps--active-y bg-white"
@@ -214,7 +223,12 @@ export function EmployerDash() {
                       </Link>
                     </li>
                     <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
-                      <a href="javascript:;" onClick={handleSideBar} class="nav-link text-body p-0" id="iconNavbarSidenav">
+                      <a
+                        href="javascript:;"
+                        onClick={handleSideBar}
+                        class="nav-link text-body p-0"
+                        id="iconNavbarSidenav"
+                      >
                         <div class="sidenav-toggler-inner">
                           <i class="sidenav-toggler-line"></i>
                           <i class="sidenav-toggler-line"></i>

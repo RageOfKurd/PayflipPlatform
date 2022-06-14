@@ -4,9 +4,9 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 
 export const EmployerEditBudgetPage = () => {
   let api_base_url =
-     process.env.NODE_ENV === "PRODUCTION"
-    ? process.env.REACT_APP_API_BASE_URL_NETLIFY
-    : process.env.REACT_APP_API_BASE_URL_LOCALLY;
+    process.env.NODE_ENV === "local"
+      ? process.env.REACT_APP_API_BASE_URL_LOCALLY
+      : process.env.REACT_APP_API_BASE_URL_NETLIFY;
   let headers = { Authorization: localStorage.getItem("accessToken") };
   const { id } = useParams();
   const employee_url = api_base_url + "/employee";
@@ -24,7 +24,7 @@ export const EmployerEditBudgetPage = () => {
         const response = await fetch(employee_url, { headers: headers });
         const employees = await response.json();
         setEmployeeList(employees.data);
-      } catch (err) { }
+      } catch (err) {}
     };
 
     (async () => await fetchItems())();
@@ -67,7 +67,7 @@ export const EmployerEditBudgetPage = () => {
         setAmount(budget.data.amount);
         setBudgetType(budget.data.budget_type);
         setEmployeeID(budget.data.employee_id);
-      } catch (err) { }
+      } catch (err) {}
     };
 
     (async () => await fetchItems())();
@@ -80,7 +80,13 @@ export const EmployerEditBudgetPage = () => {
 
   return (
     <>
-      <div className={isActive ? 'g-sidenav-pinned g-sidenav-show  bg-gray-100' : "g-sidenav-show  bg-gray-100"}>
+      <div
+        className={
+          isActive
+            ? "g-sidenav-pinned g-sidenav-show  bg-gray-100"
+            : "g-sidenav-show  bg-gray-100"
+        }
+      >
         <div className="backgroundimg">
           <aside
             className="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 ps ps--active-y bg-white"
@@ -116,10 +122,7 @@ export const EmployerEditBudgetPage = () => {
                     className="hoverableitem nav-link "
                   >
                     <div className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                      <i
-                        className="fas fa-home "
-                        aria-hidden="true"
-                      ></i>
+                      <i className="fas fa-home " aria-hidden="true"></i>
                     </div>
                     <span className="nav-link-text ms-1">Dashboard</span>
                   </Link>
@@ -166,7 +169,10 @@ export const EmployerEditBudgetPage = () => {
                     className="hoverableitem nav-link active"
                   >
                     <div className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                      <i className="fas fa-euro-sign selectedicon" aria-hidden="true"></i>
+                      <i
+                        className="fas fa-euro-sign selectedicon"
+                        aria-hidden="true"
+                      ></i>
                     </div>
                     <span className="nav-link-text ms-1">Budgets</span>
                   </Link>
@@ -236,7 +242,12 @@ export const EmployerEditBudgetPage = () => {
                       </Link>
                     </li>
                     <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
-                      <a href="javascript:;" onClick={handleSideBar} class="nav-link text-body p-0" id="iconNavbarSidenav">
+                      <a
+                        href="javascript:;"
+                        onClick={handleSideBar}
+                        class="nav-link text-body p-0"
+                        id="iconNavbarSidenav"
+                      >
                         <div class="sidenav-toggler-inner">
                           <i class="sidenav-toggler-line"></i>
                           <i class="sidenav-toggler-line"></i>

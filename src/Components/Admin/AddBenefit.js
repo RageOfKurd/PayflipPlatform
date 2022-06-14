@@ -4,9 +4,9 @@ import { Link, useNavigate } from "react-router-dom";
 
 export const AdminAddBenefitPage = () => {
   let api_base_url =
-     process.env.NODE_ENV === "PRODUCTION"
-    ? process.env.REACT_APP_API_BASE_URL_NETLIFY
-    : process.env.REACT_APP_API_BASE_URL_LOCALLY;
+    process.env.NODE_ENV === "local"
+      ? process.env.REACT_APP_API_BASE_URL_LOCALLY
+      : process.env.REACT_APP_API_BASE_URL_NETLIFY;
   let headers = { Authorization: localStorage.getItem("accessToken") };
 
   const [benefitName, setBenefitName] = useState("");
@@ -140,7 +140,7 @@ export const AdminAddBenefitPage = () => {
                 </li>
                 <li className="nav-item">
                   <Link
-                    to = "/admin/updateProfile"
+                    to="/admin/updateProfile"
                     className="hoverableitem nav-link"
                   >
                     <div className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -151,7 +151,7 @@ export const AdminAddBenefitPage = () => {
                 </li>
                 <li className="nav-item">
                   <Link
-                    to = "/admin/updatePassword"
+                    to="/admin/updatePassword"
                     className="hoverableitem nav-link"
                   >
                     <div className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
