@@ -27,6 +27,8 @@ import { EmployeeBenefitsShoppingPage } from "./Components/Employee/Benefit";
 import { EmployeeSpecificBenefitsPage } from "./Components/Employee/EmployeeBenefits";
 import { UpdatePasswordPage } from "./Components/UpdatePassword";
 import { UpdateProfilePage } from "./Components/UpdateProfile";
+import { EmployerUpdateProfilePage } from "./Components/Employer/UpdateProfile";
+import { EmployerUpdatePasswordPage } from "./Components/Employer/UpdatePassword";
 function App() {
   let api_base_url =
     process.env.NODE_ENV === "local"
@@ -162,6 +164,14 @@ function App() {
       <Route
         path="/admin/updatePassword"
         element={<UpdatePasswordPage />}
+      ></Route>
+      <Route
+        path="/employer/updateProfile"
+        element={<EmployerUpdateProfilePage />}
+      ></Route>
+      <Route
+        path="/employer/updatePassword"
+        element={<EmployerUpdatePasswordPage />}
       ></Route>
     </Routes>
   );

@@ -11,9 +11,7 @@ export const EmployerEditEmployeePage = () => {
 
   const [employeeName, setEmployeeName] = useState("");
   const [employerId, setEmployerId] = useState("");
-  const [email, setMail] = useState("");
   const [employeeAddress, setEmployeeAddress] = useState("");
-  const [password, setPassword] = useState("");
   const [country, setCountry] = useState("Belgium");
   const [designation, setDesignation] = useState("");
   const [employementType, setEmployementType] = useState("full-time");
@@ -21,97 +19,32 @@ export const EmployerEditEmployeePage = () => {
   let navigate = useNavigate();
   const submitHandling = (data) => {
     data.preventDefault();
-    if (password !== "" && password.length >= 8) {
-      if (
-        email.toLowerCase().includes("@gmail.com", email.length - 1 - 10) ||
-        email.toLowerCase().includes("@payflip.be", email.length - 1 - 11) ||
-        email.toLowerCase().includes("@outlook.com", email.length - 1 - 12) ||
-        email.toLowerCase().includes("@protonmail.com", email.length - 1 - 15)
-      ) {
-        document.getElementById("alertprocessing").hidden = false;
+    axios
+      .put(`${process.env.REACT_APP_API_BASE_URL}/employee/${id}`,
+        {
+          name: employeeName.toLowerCase(),
+          employer_id: employerId,
+          address: employeeAddress,
+          country: country,
+          designation: designation,
+          employement_type: employementType,
+        },
+        { headers: headers }
+      )
+      .then((res) => {
+        console.log(res);
+        if (res.status === 200 && res.data.success == true) {
+          navigate("/employer/employees");
+        } else {
+          document.getElementById("existerror").innerHTML = res.data.message;
+          document.getElementById("existerror").hidden = false;
+        }
+      })
+      .catch((err) => {
+        console.log(err);
         document.getElementById("existerror").hidden = true;
-        axios
-          .put(
-            `${process.env.REACT_APP_API_BASE_URL_LOCALLY}/employee/${id}`,
-            {
-              name: employeeName.toLowerCase(),
-              employer_id: employerId,
-              email: email.toLowerCase(),
-              address: employeeAddress,
-              password: password,
-              country: country,
-              designation: designation,
-              employement_type: employementType,
-            },
-            { headers: headers }
-          )
-          .then((res) => {
-            console.log(res);
-            if (res.status === 200) {
-              navigate("/employer/employees");
-            }
-          })
-          .catch((err) => {
-            document.getElementById("alertprocessing").hidden = true;
-            document.getElementById("existerror").innerText =
-              "Employee data couldn't be updated. Try again later.";
-            document.getElementById("existerror").hidden = false;
-          });
-      } else {
-        document.getElementById("alertprocessing").hidden = true;
-        document.getElementById("existerror").innerText =
-          "The given email is not valid.";
-        document.getElementById("existerror").hidden = false;
-      }
-    } else if (password !== "" && password.length < 8) {
-      document.getElementById("alertprocessing").hidden = true;
-      document.getElementById("existerror").innerText =
-        "Password should be at least 8 characters.";
-      document.getElementById("existerror").hidden = false;
-    } else {
-      if (
-        email.toLowerCase().includes("@gmail.com", email.length - 1 - 10) ||
-        email.toLowerCase().includes("@payflip.be", email.length - 1 - 11) ||
-        email.toLowerCase().includes("@outlook.com", email.length - 1 - 12) ||
-        email.toLowerCase().includes("@protonmail.com", email.length - 1 - 15)
-      ) {
-        document.getElementById("alertprocessing").hidden = false;
-        document.getElementById("existerror").hidden = true;
-        axios
-          .put(
-            `${process.env.REACT_APP_API_BASE_URL_LOCALLY}employee/${id}`,
-            {
-              name: employeeName.toLowerCase(),
-              employer_id: employerId,
-              email: email.toLowerCase(),
-              address: employeeAddress,
-              country: country,
-              designation: designation,
-              employement_type: employementType,
-            },
-            { headers: headers }
-          )
-          .then((res) => {
-            console.log(res);
-            if (res.status === 200) {
-              navigate("/employer/employees");
-            }
-          })
-          .catch((err) => {
-            document.getElementById("alertprocessing").hidden = true;
-            document.getElementById("existerror").innerText =
-              "Employer data couldn't be updated. Try again later.";
-            document.getElementById("existerror").hidden = false;
-          });
-      } else {
-        document.getElementById("alertprocessing").hidden = true;
-        document.getElementById("existerror").innerText =
-          "The given email is not valid.";
-        document.getElementById("existerror").hidden = false;
-      }
-    }
+      });
   };
-
   useEffect(() => {
     document.title = "Payflip - Employees";
     const fetchItems = async () => {
@@ -122,18 +55,21 @@ export const EmployerEditEmployeePage = () => {
         console.log(employee.data.name);
         setEmployeeName(employee.data.name);
         setEmployerId(employee.data.employer_id);
-        setMail(employee.data.user.email);
         setEmployeeAddress(employee.data.address);
         setCountry(employee.data.country);
         setDesignation(employee.data.designation);
         setEmployementType(employee.data.employement_type);
-      } catch (err) {}
+      } catch (err) { }
     };
 
     (async () => await fetchItems())();
     //(async () => await roleAuthentication())()
   }, []);
 
+  const [isActive, setActive] = useState("false");
+  const handleSideBar = () => {
+    setActive(!isActive);
+  };
   /* const roleAuthentication = async () => {
         let roleUrl = "http://localhost:7000/auth/role";
         const roleResponse = await fetch(roleUrl, { headers: { "Authorization": localStorage.getItem("accessToken") } })
@@ -151,10 +87,10 @@ export const EmployerEditEmployeePage = () => {
 
   return (
     <>
-      <div className="g-sidenav-show  bg-gray-100">
+      <div className={isActive ? 'g-sidenav-pinned g-sidenav-show  bg-gray-100' : "g-sidenav-show  bg-gray-100"}>
         <div className="backgroundimg">
           <aside
-            className="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 "
+            className="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 ps ps--active-y bg-white"
             id="sidenav-main"
           >
             <div className="sidenav-header">
@@ -165,7 +101,7 @@ export const EmployerEditEmployeePage = () => {
               ></i>
               <a
                 className="navbar-brand m-0"
-                href="https://demos.creative-tim.com/soft-ui-dashboard/pages/dashboard.html"
+                href="employer/dashboard"
                 target="_blank"
               >
                 <img
@@ -177,18 +113,18 @@ export const EmployerEditEmployeePage = () => {
             </div>
             <hr className="horizontal dark mt-0" />
             <div
-              className="collapse navbar-collapse  w-auto  max-height-vh-100 h-100"
+              className="collapse navbar-collapse  w-auto   "
               id="sidenav-collapse-main"
             >
               <ul className="navbar-nav">
                 <li className="nav-item">
                   <Link
                     to="/employer/dashboard"
-                    className="hoverableitem nav-link active"
+                    className="hoverableitem nav-link "
                   >
                     <div className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                       <i
-                        className="fas fa-home selectedicon"
+                        className="fas fa-home "
                         aria-hidden="true"
                       ></i>
                     </div>
@@ -223,10 +159,10 @@ export const EmployerEditEmployeePage = () => {
                 <li className="nav-item">
                   <Link
                     to="/employer/employees"
-                    className="hoverableitem nav-link"
+                    className="hoverableitem nav-link active"
                   >
                     <div className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                      <i className="fas fa-users" aria-hidden="true"></i>
+                      <i className="fas fa-users selectedicon" aria-hidden="true"></i>
                     </div>
                     <span className="nav-link-text ms-1">Employees</span>
                   </Link>
@@ -248,6 +184,28 @@ export const EmployerEditEmployeePage = () => {
                   </h6>
                 </li>
                 <li className="nav-item">
+                  <Link
+                    to="/employer/updateProfile"
+                    className="hoverableitem nav-link"
+                  >
+                    <div className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                      <i className="fa fa-user" aria-hidden="true"></i>
+                    </div>
+                    <span className="nav-link-text ms-1">Update Profile</span>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link
+                    to="/employer/updatePassword"
+                    className="hoverableitem nav-link"
+                  >
+                    <div className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                      <i className="fa fa-key" aria-hidden="true"></i>
+                    </div>
+                    <span className="nav-link-text ms-1">Update Password</span>
+                  </Link>
+                </li>
+                <li className="nav-item">
                   <Link to="/login" className="hoverableitem nav-link">
                     <div className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                       <i className="fa fa-sign-out" aria-hidden="true"></i>
@@ -258,7 +216,7 @@ export const EmployerEditEmployeePage = () => {
               </ul>
             </div>
           </aside>
-          <main className="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg ">
+          <main className="main-content position-relative  mt-1 border-radius-lg ">
             {/* <!-- Navbar --> */}
             <nav
               className="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl"
@@ -267,18 +225,7 @@ export const EmployerEditEmployeePage = () => {
             >
               <div className="container-fluid py-1 px-3">
                 <nav aria-label="breadcrumb">
-                  <ol className="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
-                    <li className="breadcrumb-item text-sm">
-                      <a className="opacity-5 text-dark">Employer</a>
-                    </li>
-                    <li
-                      className="breadcrumb-item text-sm text-dark active"
-                      aria-current="page"
-                    >
-                      Employees
-                    </li>
-                  </ol>
-                  <h6 className="font-weight-bolder mb-0">Edit</h6>
+                  <h4 className="font-weight-bolder mb-0">Employees</h4>
                 </nav>
                 <div
                   className="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4"
@@ -294,6 +241,15 @@ export const EmployerEditEmployeePage = () => {
                         <i className="fa fa-user me-sm-1"></i>
                         <span className="d-sm-inline d-none">Sign out</span>
                       </Link>
+                    </li>
+                    <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
+                      <a href="javascript:;" onClick={handleSideBar} class="nav-link text-body p-0" id="iconNavbarSidenav">
+                        <div class="sidenav-toggler-inner">
+                          <i class="sidenav-toggler-line"></i>
+                          <i class="sidenav-toggler-line"></i>
+                          <i class="sidenav-toggler-line"></i>
+                        </div>
+                      </a>
                     </li>
                   </ul>
                 </div>
@@ -321,7 +277,7 @@ export const EmployerEditEmployeePage = () => {
                   <div className="card z-index-0">
                     <div className="extrashadow">
                       <div className="card-header text-center pt-4">
-                        <h3 className="text-info">Edit {employeeName}</h3>
+                        <h3 className="text-info">Edit an Employee</h3>
                       </div>
                       <div className="card-body">
                         <form className="formtext" onSubmit={submitHandling}>
@@ -337,33 +293,6 @@ export const EmployerEditEmployeePage = () => {
                               aria-label="EmployeeName"
                               aria-describedby="email-addon"
                               required
-                            />
-                          </div>
-                          <div className="mb-3">
-                            <input
-                              type="email"
-                              className="form-control"
-                              value={email}
-                              onChange={(answer) => {
-                                setMail(answer.target.value);
-                              }}
-                              placeholder="Employee Email (eg. jonasberkels@payflip.be)"
-                              aria-label="Email"
-                              aria-describedby="email-addon"
-                              required
-                            />
-                          </div>
-                          <div className="mb-3">
-                            <input
-                              type="password"
-                              className="form-control"
-                              value={password}
-                              onChange={(answer) => {
-                                setPassword(answer.target.value);
-                              }}
-                              placeholder="Password (optional)"
-                              aria-label="Password"
-                              aria-describedby="email-addon"
                             />
                           </div>
                           <div className="mb-3">
@@ -435,15 +364,8 @@ export const EmployerEditEmployeePage = () => {
                               <option value="Portugal">Portugal</option>
                             </select>
                           </div>
-                          <div className="text-center">
-                            <button
-                              type="submit"
-                              className="btn bg-redpayflip text-white w-100 my-4 mb-2"
-                            >
-                              Update information
-                            </button>
-                          </div>
                           <p
+                            className="text-center"
                             hidden="true"
                             id="existerror"
                             style={{
@@ -454,6 +376,14 @@ export const EmployerEditEmployeePage = () => {
                           >
                             Account with given email already exists
                           </p>
+                          <div className="text-center">
+                            <button
+                              type="submit"
+                              className="btn bg-redpayflip text-white w-100 my-4 mb-2"
+                            >
+                              Update information
+                            </button>
+                          </div>
                         </form>
                       </div>
                     </div>

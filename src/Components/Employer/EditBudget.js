@@ -24,7 +24,7 @@ export const EmployerEditBudgetPage = () => {
         const response = await fetch(employee_url, { headers: headers });
         const employees = await response.json();
         setEmployeeList(employees.data);
-      } catch (err) {}
+      } catch (err) { }
     };
 
     (async () => await fetchItems())();
@@ -67,19 +67,23 @@ export const EmployerEditBudgetPage = () => {
         setAmount(budget.data.amount);
         setBudgetType(budget.data.budget_type);
         setEmployeeID(budget.data.employee_id);
-      } catch (err) {}
+      } catch (err) { }
     };
 
     (async () => await fetchItems())();
     //(async () => await roleAuthentication())()
   }, []);
+  const [isActive, setActive] = useState("false");
+  const handleSideBar = () => {
+    setActive(!isActive);
+  };
 
   return (
     <>
-      <div className="g-sidenav-show  bg-gray-100">
+      <div className={isActive ? 'g-sidenav-pinned g-sidenav-show  bg-gray-100' : "g-sidenav-show  bg-gray-100"}>
         <div className="backgroundimg">
           <aside
-            className="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 "
+            className="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 ps ps--active-y bg-white"
             id="sidenav-main"
           >
             <div className="sidenav-header">
@@ -90,7 +94,7 @@ export const EmployerEditBudgetPage = () => {
               ></i>
               <a
                 className="navbar-brand m-0"
-                href="https://demos.creative-tim.com/soft-ui-dashboard/pages/dashboard.html"
+                href="employer/dashboard"
                 target="_blank"
               >
                 <img
@@ -102,18 +106,18 @@ export const EmployerEditBudgetPage = () => {
             </div>
             <hr className="horizontal dark mt-0" />
             <div
-              className="collapse navbar-collapse  w-auto  max-height-vh-100 h-100"
+              className="collapse navbar-collapse  w-auto   "
               id="sidenav-collapse-main"
             >
               <ul className="navbar-nav">
                 <li className="nav-item">
                   <Link
                     to="/employer/dashboard"
-                    className="hoverableitem nav-link active"
+                    className="hoverableitem nav-link "
                   >
                     <div className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                       <i
-                        className="fas fa-home selectedicon"
+                        className="fas fa-home "
                         aria-hidden="true"
                       ></i>
                     </div>
@@ -159,10 +163,10 @@ export const EmployerEditBudgetPage = () => {
                 <li className="nav-item">
                   <Link
                     to="/employer/budgets"
-                    className="hoverableitem nav-link"
+                    className="hoverableitem nav-link active"
                   >
                     <div className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                      <i className="fas fa-euro-sign" aria-hidden="true"></i>
+                      <i className="fas fa-euro-sign selectedicon" aria-hidden="true"></i>
                     </div>
                     <span className="nav-link-text ms-1">Budgets</span>
                   </Link>
@@ -171,6 +175,28 @@ export const EmployerEditBudgetPage = () => {
                   <h6 className="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">
                     Account pages
                   </h6>
+                </li>
+                <li className="nav-item">
+                  <Link
+                    to="/employer/updateProfile"
+                    className="hoverableitem nav-link"
+                  >
+                    <div className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                      <i className="fa fa-user" aria-hidden="true"></i>
+                    </div>
+                    <span className="nav-link-text ms-1">Update Profile</span>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link
+                    to="/employer/updatePassword"
+                    className="hoverableitem nav-link"
+                  >
+                    <div className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                      <i className="fa fa-key" aria-hidden="true"></i>
+                    </div>
+                    <span className="nav-link-text ms-1">Update Password</span>
+                  </Link>
                 </li>
                 <li className="nav-item">
                   <Link to="/login" className="hoverableitem nav-link">
@@ -183,7 +209,7 @@ export const EmployerEditBudgetPage = () => {
               </ul>
             </div>
           </aside>
-          <main className="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg ">
+          <main className="main-content position-relative   mt-1 border-radius-lg ">
             {/* <!-- Navbar --> */}
             <nav
               className="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl"
@@ -208,6 +234,15 @@ export const EmployerEditBudgetPage = () => {
                         <i className="fa fa-user me-sm-1"></i>
                         <span className="d-sm-inline d-none">Sign out</span>
                       </Link>
+                    </li>
+                    <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
+                      <a href="javascript:;" onClick={handleSideBar} class="nav-link text-body p-0" id="iconNavbarSidenav">
+                        <div class="sidenav-toggler-inner">
+                          <i class="sidenav-toggler-line"></i>
+                          <i class="sidenav-toggler-line"></i>
+                          <i class="sidenav-toggler-line"></i>
+                        </div>
+                      </a>
                     </li>
                   </ul>
                 </div>
