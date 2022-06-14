@@ -42,78 +42,134 @@ export const EmployerBudgetPage = () => {
     const editBudget = (id) => {
         navigate(`/employer/budgets/${id.target.value}`)
     }
+    const [isActive, setActive] = useState("false");
+    const handleSideBar = () => {
+        setActive(!isActive);
+    };
 
     return (
         <>
-            <div className="g-sidenav-show  bg-gray-100">
+            <div className={isActive ? 'g-sidenav-pinned g-sidenav-show  bg-gray-100' : "g-sidenav-show  bg-gray-100"}>
                 <div className="backgroundimg">
-                    <aside className="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 "
-                        id="sidenav-main">
+                    <aside
+                        className="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 ps ps--active-y bg-white"
+                        id="sidenav-main"
+                    >
                         <div className="sidenav-header">
-                            <i className="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
-                                aria-hidden="true" id="iconSidenav"></i>
-                            <a className="navbar-brand m-0" href="https://demos.creative-tim.com/soft-ui-dashboard/pages/dashboard.html"
-                                target="_blank">
+                            <i
+                                className="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
+                                aria-hidden="true"
+                                id="iconSidenav"
+                            ></i>
+                            <a
+                                className="navbar-brand m-0"
+                                href="employer/dashboard"
+                                target="_blank"
+                            >
                                 <img
                                     src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmiro.medium.com%2Fproxy%2F0*kYj1aQljmDquuw7Z&f=1&nofb=1"
-                                    className="navbar-brand-img h-100" alt="main_logo" />
+                                    className="navbar-brand-img h-100"
+                                    alt="main_logo"
+                                />
                             </a>
                         </div>
                         <hr className="horizontal dark mt-0" />
-                        <div className="collapse navbar-collapse  w-auto  max-height-vh-100 h-100" id="sidenav-collapse-main">
+                        <div
+                            className="collapse navbar-collapse  w-auto   "
+                            id="sidenav-collapse-main"
+                        >
                             <ul className="navbar-nav">
                                 <li className="nav-item">
-                                    <Link to="/employer/dashboard" className="hoverableitem nav-link active" >
-                                        <div
-                                            className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                                            <i className="fas fa-home selectedicon" aria-hidden="true"></i>
+                                    <Link
+                                        to="/employer/dashboard"
+                                        className="hoverableitem nav-link "
+                                    >
+                                        <div className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                                            <i
+                                                className="fas fa-home "
+                                                aria-hidden="true"
+                                            ></i>
                                         </div>
                                         <span className="nav-link-text ms-1">Dashboard</span>
                                     </Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link to="/employer/benefits" className="hoverableitem nav-link">
-                                        <div
-                                            className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                                            <i className="fas fa-shopping-cart" aria-hidden="true"></i>
+                                    <Link
+                                        to="/employer/benefits"
+                                        className="hoverableitem nav-link"
+                                    >
+                                        <div className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                                            <i
+                                                className="fas fa-shopping-cart"
+                                                aria-hidden="true"
+                                            ></i>
                                         </div>
                                         <span className="nav-link-text ms-1">Benefits Shop</span>
                                     </Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link to="/employer/ourbenefits" className="hoverableitem nav-link">
-                                        <div
-                                            className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                                    <Link
+                                        to="/employer/ourbenefits"
+                                        className="hoverableitem nav-link"
+                                    >
+                                        <div className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                                             <i className="fas fa-trophy" aria-hidden="true"></i>
                                         </div>
                                         <span className="nav-link-text ms-1">Our Benefits</span>
                                     </Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link to="/employer/employees" className="hoverableitem nav-link">
-                                        <div
-                                            className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                                    <Link
+                                        to="/employer/employees"
+                                        className="hoverableitem nav-link"
+                                    >
+                                        <div className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                                             <i className="fas fa-users" aria-hidden="true"></i>
                                         </div>
                                         <span className="nav-link-text ms-1">Employees</span>
                                     </Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link to="/employer/budgets" className="hoverableitem nav-link">
-                                        <div
-                                            className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                                            <i className="fas fa-euro-sign" aria-hidden="true"></i>
+                                    <Link
+                                        to="/employer/budgets"
+                                        className="hoverableitem nav-link active"
+                                    >
+                                        <div className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                                            <i className="fas fa-euro-sign selectedicon" aria-hidden="true"></i>
                                         </div>
                                         <span className="nav-link-text ms-1">Budgets</span>
                                     </Link>
                                 </li>
                                 <li className="nav-item mt-3">
-                                    <h6 className="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account pages</h6>
+                                    <h6 className="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">
+                                        Account pages
+                                    </h6>
+                                </li>
+                                <li className="nav-item">
+                                    <Link
+                                        to="/employer/updateProfile"
+                                        className="hoverableitem nav-link"
+                                    >
+                                        <div className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                                            <i className="fa fa-user" aria-hidden="true"></i>
+                                        </div>
+                                        <span className="nav-link-text ms-1">Update Profile</span>
+                                    </Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link
+                                        to="/employer/updatePassword"
+                                        className="hoverableitem nav-link"
+                                    >
+                                        <div className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                                            <i className="fa fa-key" aria-hidden="true"></i>
+                                        </div>
+                                        <span className="nav-link-text ms-1">Update Password</span>
+                                    </Link>
                                 </li>
                                 <li className="nav-item">
                                     <Link to="/login" className="hoverableitem nav-link">
-                                        <div
-                                            className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                                        <div className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                                             <i className="fa fa-sign-out" aria-hidden="true"></i>
                                         </div>
                                         <span className="nav-link-text ms-1">Sign Out</span>
@@ -122,7 +178,7 @@ export const EmployerBudgetPage = () => {
                             </ul>
                         </div>
                     </aside>
-                    <main className="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg ">
+                    <main className="main-content position-relative   ">
                         {/* <!-- Navbar --> */}
                         <nav className="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur"
                             navbar-scroll="true">
@@ -139,6 +195,15 @@ export const EmployerBudgetPage = () => {
                                                 <i className="fa fa-user me-sm-1"></i>
                                                 <span className="d-sm-inline d-none">Sign out</span>
                                             </Link>
+                                        </li>
+                                        <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
+                                            <a href="javascript:;" onClick={handleSideBar} class="nav-link text-body p-0" id="iconNavbarSidenav">
+                                                <div class="sidenav-toggler-inner">
+                                                    <i class="sidenav-toggler-line"></i>
+                                                    <i class="sidenav-toggler-line"></i>
+                                                    <i class="sidenav-toggler-line"></i>
+                                                </div>
+                                            </a>
                                         </li>
                                     </ul>
                                 </div>

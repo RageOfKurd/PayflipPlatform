@@ -148,7 +148,7 @@ export const EmployerBenefitsPage = () => {
               </div>
               <hr className="horizontal dark mt-0" />
               <div
-                className="collapse navbar-collapse  w-auto  max-height-vh-100 h-100"
+                className="collapse navbar-collapse  w-auto   "
                 id="sidenav-collapse-main"
               >
                 <ul className="navbar-nav">
@@ -229,7 +229,7 @@ export const EmployerBenefitsPage = () => {
                 </ul>
               </div>
             </aside>
-            <main className="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg ">
+            <main className="main-content position-relative   mt-1 border-radius-lg ">
               {/* <!-- Navbar --> */}
               <nav
                 className="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl"
@@ -473,7 +473,7 @@ export const EmployerBenefitsPage = () => {
             </div>
             <hr className="horizontal dark mt-0" />
             <div
-              className="collapse navbar-collapse  w-auto  max-height-vh-100 h-100"
+              className="collapse navbar-collapse  w-auto   "
               id="sidenav-collapse-main"
             >
               <ul className="navbar-nav">
@@ -540,7 +540,7 @@ export const EmployerBenefitsPage = () => {
               </ul>
             </div>
           </aside>
-          <main className="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg ">
+          <main className="main-content position-relative   mt-1 border-radius-lg ">
             {/* <!-- Navbar --> */}
             <nav
               className="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl"
@@ -651,7 +651,7 @@ export const EmployerBenefitsPage = () => {
   //                             </a>
   //                         </div>
   //                         <hr className="horizontal dark mt-0" />
-  //                         <div className="collapse navbar-collapse  w-auto  max-height-vh-100 h-100" id="sidenav-collapse-main">
+  //                         <div className="collapse navbar-collapse  w-auto   " id="sidenav-collapse-main">
   //                             <ul className="navbar-nav">
   //                                 <li className="nav-item">
   //                                     <Link to="/employer/dashboard" className="hoverableitem nav-link" >
@@ -704,7 +704,7 @@ export const EmployerBenefitsPage = () => {
   //                             </ul>
   //                         </div>
   //                     </aside>
-  //                     <main className="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg ">
+  //                     <main className="main-content position-relative   mt-1 border-radius-lg ">
   //                         {/* <!-- Navbar --> */}
   //                         <nav className="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur"
   //                             navbar-scroll="true">

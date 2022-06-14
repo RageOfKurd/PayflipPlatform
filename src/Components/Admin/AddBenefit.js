@@ -131,9 +131,10 @@ export const AdminAddBenefitPage = () => {
                   <h6 className="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">
                     Account pages
                   </h6>
-                </li><li className="nav-item">
+                </li>
+                <li className="nav-item">
                   <Link
-                    to="/admin/updateProfile"
+                    to = "/admin/updateProfile"
                     className="hoverableitem nav-link"
                   >
                     <div className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -144,7 +145,7 @@ export const AdminAddBenefitPage = () => {
                 </li>
                 <li className="nav-item">
                   <Link
-                    to="/admin/updatePassword"
+                    to = "/admin/updatePassword"
                     className="hoverableitem nav-link"
                   >
                     <div className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
@@ -168,7 +169,7 @@ export const AdminAddBenefitPage = () => {
               </ul>
             </div>
           </aside>
-          <main className="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg ">
+          <main className="main-content position-relative   mt-1 border-radius-lg ">
             {/* <!-- Navbar --> */}
             <nav
               className="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl"

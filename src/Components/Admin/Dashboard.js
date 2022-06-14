@@ -92,7 +92,7 @@ export function AdminDash() {
             </div>
             <hr className="horizontal dark mt-0" />
             <div
-              className="collapse navbar-collapse w-auto"
+              className="collapse navbar-collapse  w-auto   "
               id="sidenav-collapse-main"
             >
               <ul className="navbar-nav">
@@ -147,7 +147,8 @@ export function AdminDash() {
                   <h6 className="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">
                     Account pages
                   </h6>
-                </li><li className="nav-item">
+                </li>
+                <li className="nav-item">
                   <Link
                     to="/admin/updateProfile"
                     className="hoverableitem nav-link"
@@ -184,7 +185,7 @@ export function AdminDash() {
               </ul>
             </div>
           </aside>
-          <main className="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg ">
+          <main className="main-content position-relative   mt-1 border-radius-lg ">
             {/* <!-- Navbar --> */}
             <nav
               className="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl"
@@ -228,7 +229,7 @@ export function AdminDash() {
             {/* <!-- End Navbar --> */}
             <div className="container-fluid py-4">
               <div className="row">
-                <div className="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+                <div className="col-xl-4 col-sm-6 mb-4">
                   <div className="card hoverablecnt">
                     <div className="card-body p-3">
                       <div className="row">
@@ -254,7 +255,7 @@ export function AdminDash() {
                     </div>
                   </div>
                 </div>
-                <div className="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+                <div className="col-xl-4 col-sm-6 mb-4">
                   <div className="card hoverablecnt">
                     <div className="card-body p-3">
                       <div className="row">
@@ -281,7 +282,7 @@ export function AdminDash() {
                     </div>
                   </div>
                 </div>
-                <div className="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+                <div className="col-xl-4 col-sm-6 mb-4">
                   <div className="card hoverablecnt">
                     <div className="card-body p-3">
                       <div className="row">
@@ -308,7 +309,7 @@ export function AdminDash() {
                     </div>
                   </div>
                 </div>
-                <div className="col-xl-3 col-sm-6 mb-xl-0 mb-4">
+                <div className="col-xl-4 col-sm-6 mb-4">
                   <div className="card hoverablecnt">
                     <div className="card-body p-3">
                       <div className="row">

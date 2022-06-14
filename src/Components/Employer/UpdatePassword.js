@@ -2,12 +2,13 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-export const UpdateProfilePage = () => {
+export const EmployerUpdatePasswordPage = () => {
+    document.title = "Payflip - Update Password";
     let headers = { Authorization: localStorage.getItem("accessToken") };
     let api_base_url = `${process.env.REACT_APP_API_BASE_URL}`;
 
-    const [name, setName] = useState("");
-    const [country, setCountry] = useState("");
+    const [new_password, setNewPassword] = useState("");
+    const [confirm_new_password, setConfirmNewPassword] = useState("");
 
     let navigate = useNavigate();
     const [isActive, setActive] = useState("false");
@@ -19,28 +20,14 @@ export const UpdateProfilePage = () => {
         /* localStorage.clear()
         navigate("/login") */
     };
-
-    useEffect(() => {
-        document.title = "Payflip - Update Profile";
-        const fetchItems = async () => {
-            try {
-                const url = `${process.env.REACT_APP_API_BASE_URL}/auth/profile`;
-                const response = await fetch(url, { headers: headers });
-                const profile = await response.json();
-                setName(profile.data.name);
-                setCountry(profile.data.country);
-            } catch (err) { }
-        };
-        (async () => await fetchItems())();
-    }, []);
     const submitHandling = (data) => {
         data.preventDefault();
         axios
             .put(
-                `${process.env.REACT_APP_API_BASE_URL}/auth/updateProfile`,
+                `${process.env.REACT_APP_API_BASE_URL}/auth/updatePassword`,
                 {
-                    name: name,
-                    country: country,
+                    new_password: new_password,
+                    confirm_new_password: confirm_new_password,
                 },
                 { headers: headers }
             )
@@ -71,7 +58,7 @@ export const UpdateProfilePage = () => {
             <div className={isActive ? 'g-sidenav-pinned g-sidenav-show  bg-gray-100' : "g-sidenav-show  bg-gray-100"}>
                 <div className="backgroundimg">
                     <aside
-                        className="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3  ps ps--active-y bg-white"
+                        className="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 ps ps--active-y bg-white"
                         id="sidenav-main"
                     >
                         <div className="sidenav-header">
@@ -82,7 +69,8 @@ export const UpdateProfilePage = () => {
                             ></i>
                             <a
                                 className="navbar-brand m-0"
-                                href="/admin/dashboard"
+                                href="employer/dashboard"
+                                target="_blank"
                             >
                                 <img
                                     src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmiro.medium.com%2Fproxy%2F0*kYj1aQljmDquuw7Z&f=1&nofb=1"
@@ -93,18 +81,18 @@ export const UpdateProfilePage = () => {
                         </div>
                         <hr className="horizontal dark mt-0" />
                         <div
-                            className="collapse navbar-collapse w-auto"
+                            className="collapse navbar-collapse  w-auto   "
                             id="sidenav-collapse-main"
                         >
                             <ul className="navbar-nav">
                                 <li className="nav-item">
                                     <Link
-                                        to="/admin/dashboard"
-                                        className="hoverableitem nav-link"
+                                        to="/employer/dashboard"
+                                        className="hoverableitem nav-link "
                                     >
                                         <div className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                                             <i
-                                                className="fas fa-home"
+                                                className="fas fa-home "
                                                 aria-hidden="true"
                                             ></i>
                                         </div>
@@ -113,69 +101,80 @@ export const UpdateProfilePage = () => {
                                 </li>
                                 <li className="nav-item">
                                     <Link
-                                        to="/admin/benefits"
+                                        to="/employer/benefits"
+                                        className="hoverableitem nav-link"
+                                    >
+                                        <div className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                                            <i
+                                                className="fas fa-shopping-cart"
+                                                aria-hidden="true"
+                                            ></i>
+                                        </div>
+                                        <span className="nav-link-text ms-1">Benefits Shop</span>
+                                    </Link>
+                                </li>
+                                <li className="nav-item">
+                                    <Link
+                                        to="/employer/ourbenefits"
                                         className="hoverableitem nav-link"
                                     >
                                         <div className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                                             <i className="fas fa-trophy" aria-hidden="true"></i>
                                         </div>
-                                        <span className="nav-link-text ms-1">Benefits</span>
+                                        <span className="nav-link-text ms-1">Our Benefits</span>
                                     </Link>
                                 </li>
                                 <li className="nav-item">
                                     <Link
-                                        to="/admin/employees"
-                                        className="hoverableitem nav-link "
+                                        to="/employer/employees"
+                                        className="hoverableitem nav-link"
                                     >
                                         <div className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                                            <i className="fas fa-users " aria-hidden="true"></i>
+                                            <i className="fas fa-users" aria-hidden="true"></i>
                                         </div>
                                         <span className="nav-link-text ms-1">Employees</span>
                                     </Link>
                                 </li>
                                 <li className="nav-item">
                                     <Link
-                                        to="/admin/companies"
+                                        to="/employer/budgets"
                                         className="hoverableitem nav-link"
                                     >
                                         <div className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                                            <i className="fas fa-building" aria-hidden="true"></i>
+                                            <i className="fas fa-euro-sign" aria-hidden="true"></i>
                                         </div>
-                                        <span className="nav-link-text ms-1">Companies</span>
+                                        <span className="nav-link-text ms-1">Budgets</span>
                                     </Link>
                                 </li>
                                 <li className="nav-item mt-3">
                                     <h6 className="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">
                                         Account pages
                                     </h6>
-                                </li><li className="nav-item">
+                                </li>
+                                <li className="nav-item">
                                     <Link
-                                        to="/admin/updateProfile"
-                                        className="hoverableitem nav-link active"
+                                        to= "/employer/updateProfile"
+                                        className="hoverableitem nav-link"
                                     >
                                         <div className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                                            <i className="fa fa-user selectedicon" aria-hidden="true"></i>
+                                            <i className="fa fa-user" aria-hidden="true"></i>
                                         </div>
                                         <span className="nav-link-text ms-1">Update Profile</span>
                                     </Link>
                                 </li>
                                 <li className="nav-item">
                                     <Link
-                                        to="/admin/updatePassword"
-                                        className="hoverableitem nav-link "
+                                        to= "/employer/updatePassword"
+                                        className="hoverableitem nav-link active"
                                     >
                                         <div className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                                            <i className="fa fa-key " aria-hidden="true"></i>
+                                            <i className="fa fa-key selectedicon" aria-hidden="true"></i>
                                         </div>
                                         <span className="nav-link-text ms-1">Update Password</span>
                                     </Link>
                                 </li>
                                 <li className="nav-item">
-                                    <Link
-                                        to="/login"
-                                        onClick={signout}
-                                        className="hoverableitem nav-link"
-                                    >
+                                    <Link to="/login" className="hoverableitem nav-link">
                                         <div className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                                             <i className="fa fa-sign-out" aria-hidden="true"></i>
                                         </div>
@@ -194,7 +193,7 @@ export const UpdateProfilePage = () => {
                         >
                             <div className="container-fluid py-1 px-3">
                                 <nav aria-label="breadcrumb">
-                                    <h4 className="font-weight-bolder mb-0">Update Profile</h4>
+                                    <h4 className="font-weight-bolder mb-0">Update Password</h4>
                                 </nav>
                                 <div
                                     className="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4"
@@ -230,38 +229,37 @@ export const UpdateProfilePage = () => {
                                     <div className="card z-index-0">
                                         <div className="extrashadow">
                                             <div className="card-header text-center pt-4">
-                                                <h3 className="text-info">Update Profile</h3>
+                                                <h3 className="text-info">Update Password</h3>
                                             </div>
                                             <div className="card-body">
                                                 <form className="formtext" onSubmit={submitHandling}>
                                                     <div className="mb-3">
                                                         <input
-                                                            type="text"
+                                                            type="password"
                                                             className="form-control"
-                                                            value={name}
+                                                            value={new_password}
                                                             onChange={(answer) => {
-                                                                setName(answer.target.value);
+                                                                setNewPassword(answer.target.value);
                                                             }}
-                                                            placeholder="Name"
-                                                            aria-label="Name"
+                                                            placeholder="New Password"
+                                                            aria-label="New Password"
                                                             aria-describedby="email-addon"
                                                             required
                                                         />
                                                     </div>
                                                     <div className="mb-3">
-                                                        <select
+                                                        <input
+                                                            type="password"
                                                             className="form-control"
-                                                            id="country"
-                                                            aria-label="Country"
-                                                            value={country}
+                                                            value={confirm_new_password}
                                                             onChange={(answer) => {
-                                                                setCountry(answer.target.value);
+                                                                setConfirmNewPassword(answer.target.value);
                                                             }}
-                                                        >
-                                                            <option value="Belgium">Belgium</option>
-                                                            <option value="Slovenia">Slovenia</option>
-                                                            <option value="Portugal">Portugal</option>
-                                                        </select>
+                                                            placeholder="Confirm New Password"
+                                                            aria-label="Confirm New Password"
+                                                            aria-describedby="email-addon"
+                                                            required
+                                                        />
                                                     </div>
                                                     <p
                                                         className="text-center"
@@ -273,7 +271,7 @@ export const UpdateProfilePage = () => {
                                                             fontSize: "14px",
                                                         }}
                                                     >
-                                                        Profile updated successfully
+                                                        Password updated successfully
                                                     </p>
                                                     <p
                                                         className="text-center"
@@ -345,8 +343,8 @@ export const UpdateProfilePage = () => {
                             </footer>
                         </div>
                     </main>
-                </div >
-            </div >
+                </div>
+            </div>
         </>
     );
 };

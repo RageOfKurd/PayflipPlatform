@@ -64,7 +64,7 @@ export function EmployeeDash() {
               </div>
               <hr className="horizontal dark mt-0" />
               <div
-                className="collapse navbar-collapse  w-auto  max-height-vh-100 h-100"
+                className="collapse navbar-collapse  w-auto   "
                 id="sidenav-collapse-main"
               >
                 <ul className="navbar-nav">
@@ -123,7 +123,7 @@ export function EmployeeDash() {
                 </ul>
               </div>
             </aside>
-            <main className="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg ">
+            <main className="main-content position-relative   mt-1 border-radius-lg ">
               {/* <!-- Navbar --> */}
               <nav
                 className="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl"
@@ -325,7 +325,7 @@ export function EmployeeDash() {
             </div>
             <hr className="horizontal dark mt-0" />
             <div
-              className="collapse navbar-collapse  w-auto  max-height-vh-100 h-100"
+              className="collapse navbar-collapse  w-auto   "
               id="sidenav-collapse-main"
             >
               <ul className="navbar-nav">
@@ -388,7 +388,7 @@ export function EmployeeDash() {
               </ul>
             </div>
           </aside>
-          <main className="main-content position-relative max-height-vh-100 h-100 mt-1 border-radius-lg ">
+          <main className="main-content position-relative   mt-1 border-radius-lg ">
             {/* <!-- Navbar --> */}
             <nav
               className="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl"
