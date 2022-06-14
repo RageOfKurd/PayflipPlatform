@@ -11,7 +11,7 @@ export const EmployerBudgetPage = () => {
   let headers = { Authorization: localStorage.getItem("accessToken") };
   let navigate = useNavigate();
 
-  const [budgetList, setBudgetList] = useState(null);
+  const [budgetList, setBudgetList] = useState([]);
 
   useEffect(() => {
     document.title = "Payflip - Budgets";
