@@ -6,9 +6,9 @@ import axios from "axios";
 
 export const Signup = () => {
   let api_base_url =
-    process.env.NODE_ENV === "local"
-      ? `${process.env.REACT_APP_API_BASE_URL_LOCALLY}`
-      : `${process.env.REACT_APP_API_BASE_URL_NETLIFY}`;
+     process.env.NODE_ENV === "PRODUCTION"
+    ? process.env.REACT_APP_API_BASE_URL_NETLIFY
+    : process.env.REACT_APP_API_BASE_URL_LOCALLY;
   const [companyName, setCompanyName] = useState("");
   const [contactName, setContactName] = useState("");
   const [companyMail, setCompanyMail] = useState("");
