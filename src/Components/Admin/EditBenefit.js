@@ -24,7 +24,7 @@ export const AdminEditBenefitPage = () => {
     data.preventDefault();
     axios
       .put(
-        `${process.env.REACT_APP_API_BASE_URL_LOCALLY}/benefit/${id}`,
+        `${process.env.REACT_APP_API_BASE_URL}/benefit/${id}`,
         {
           name: benefitName,
           cost: benefitCost,
@@ -53,7 +53,7 @@ export const AdminEditBenefitPage = () => {
     document.title = "Payflip - Benefits";
     const fetchItems = async () => {
       try {
-        const url = `${process.env.REACT_APP_API_BASE_URL_LOCALLY}/benefit/${id}`;
+        const url = `${process.env.REACT_APP_API_BASE_URL}/benefit/${id}`;
         const response = await fetch(url, { headers: headers });
         const benefit = await response.json();
         setBenefitName(benefit.data.name);

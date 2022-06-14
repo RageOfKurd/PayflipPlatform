@@ -3,10 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 export const EmployerAddBudgetPage = () => {
-  let api_base_url =
-    process.env.NODE_ENV === "local"
-      ? process.env.REACT_APP_API_BASE_URL_LOCALLY
-      : process.env.REACT_APP_API_BASE_URL_NETLIFY;
+  let api_base_url = `${process.env.REACT_APP_API_BASE_URL}`;
   const employee_url = api_base_url + "/employee";
   let headers = { Authorization: localStorage.getItem("accessToken") };
 

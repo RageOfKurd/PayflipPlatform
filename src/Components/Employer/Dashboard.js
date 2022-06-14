@@ -3,10 +3,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 export function EmployerDash() {
-  let api_base_url =
-    process.env.NODE_ENV === "local"
-      ? process.env.REACT_APP_API_BASE_URL_LOCALLY
-      : process.env.REACT_APP_API_BASE_URL_NETLIFY;
+  let api_base_url = `${process.env.REACT_APP_API_BASE_URL}`;
   let navigate = useNavigate();
   const url = api_base_url + "/dashboard";
   let country_benefits_count = 0;

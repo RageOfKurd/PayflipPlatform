@@ -3,10 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 export const AdminEmployeesPage = () => {
-  let api_base_url =
-    process.env.NODE_ENV === "local"
-      ? process.env.REACT_APP_API_BASE_URL_LOCALLY
-      : process.env.REACT_APP_API_BASE_URL_NETLIFY;
+  let api_base_url = `${process.env.REACT_APP_API_BASE_URL}`;
   const url = api_base_url + "/employee";
   let headers = { Authorization: localStorage.getItem("accessToken") };
   let navigate = useNavigate();
@@ -49,7 +46,7 @@ export const AdminEmployeesPage = () => {
     console.log(id.target.value);
     try {
       axios.delete(
-        `${process.env.REACT_APP_API_BASE_URL_LOCALLY}/employee/${id.target.value}`,
+        `${process.env.REACT_APP_API_BASE_URL}/employee/${id.target.value}`,
         { headers: headers }
       );
       window.location.reload();

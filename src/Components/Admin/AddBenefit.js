@@ -3,10 +3,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 export const AdminAddBenefitPage = () => {
-  let api_base_url =
-    process.env.NODE_ENV === "local"
-      ? process.env.REACT_APP_API_BASE_URL_LOCALLY
-      : process.env.REACT_APP_API_BASE_URL_NETLIFY;
+  let api_base_url = `${process.env.REACT_APP_API_BASE_URL}`;
   let headers = { Authorization: localStorage.getItem("accessToken") };
 
   const [benefitName, setBenefitName] = useState("");

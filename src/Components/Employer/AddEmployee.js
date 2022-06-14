@@ -14,10 +14,7 @@ export const EmployerAddEmployeePage = () => {
   const [employementType, setEmployementType] = useState("full-time");
   let accountcreationprocessing = false;
   let navigate = useNavigate();
-  let api_base_url =
-    process.env.NODE_ENV === "PRODUCTION"
-      ? process.env.REACT_APP_API_BASE_URL_NETLIFY
-      : process.env.REACT_APP_API_BASE_URL_LOCALLY;
+  let api_base_url = `${process.env.REACT_APP_API_BASE_URL}`;
   useEffect(() => {
     document.title = "Payflip - Employees";
     (async () => await fetchEmployerId())();
@@ -41,7 +38,7 @@ export const EmployerAddEmployeePage = () => {
     data.preventDefault();
     axios
       .post(
-        `${process.env.REACT_APP_API_BASE_URL}/employee`,
+        api_base_url + "/employee",
         {
           name: employeeName.toLowerCase(),
           employer_id: employerId,

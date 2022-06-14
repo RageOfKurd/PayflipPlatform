@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-const api_base_url =
-  process.env.NODE_ENV === "PRODUCTION"
-    ? process.env.REACT_APP_API_BASE_URL_NETLIFY
-    : process.env.REACT_APP_API_BASE_URL_LOCALLY;
+let api_base_url = `${process.env.REACT_APP_API_BASE_URL}`;
 export function EmployeeDash() {
   let navigate = useNavigate();
   const url = api_base_url + "/dashboard";

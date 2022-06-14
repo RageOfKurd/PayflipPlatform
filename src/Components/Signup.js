@@ -5,10 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export const Signup = () => {
-  let api_base_url =
-    process.env.NODE_ENV === "local"
-      ? process.env.REACT_APP_API_BASE_URL_LOCALLY
-      : process.env.REACT_APP_API_BASE_URL_NETLIFY;
+  let api_base_url = `${process.env.REACT_APP_API_BASE_URL}`;
   const [companyName, setCompanyName] = useState("");
   const [contactName, setContactName] = useState("");
   const [companyMail, setCompanyMail] = useState("");

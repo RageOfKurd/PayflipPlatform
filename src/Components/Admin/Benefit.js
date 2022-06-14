@@ -14,10 +14,7 @@ import axios from "axios";
 import { AdminAddBenefitPage } from "./AddBenefit";
 
 export const AdminBenefits = () => {
-  let api_base_url =
-    process.env.NODE_ENV === "local"
-      ? process.env.REACT_APP_API_BASE_URL_LOCALLY
-      : process.env.REACT_APP_API_BASE_URL_NETLIFY;
+  let api_base_url = `${process.env.REACT_APP_API_BASE_URL}`;
 
   // let params = useParams();
 
