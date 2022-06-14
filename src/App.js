@@ -29,6 +29,7 @@ import { UpdatePasswordPage } from "./Components/UpdatePassword";
 import { UpdateProfilePage } from "./Components/UpdateProfile";
 import { EmployerUpdateProfilePage } from "./Components/Employer/UpdateProfile";
 import { EmployerUpdatePasswordPage } from "./Components/Employer/UpdatePassword";
+import { CompanyBenefitPage } from "./Components/Employer/CompanyBenefits";
 function App() {
   let api_base_url = `${process.env.REACT_APP_API_BASE_URL}`;
   let navigate = useNavigate();
@@ -153,6 +154,10 @@ function App() {
       <Route
         path="employer/budgets/:id"
         element={<EmployerEditBudgetPage />}
+      ></Route>
+      <Route
+        path="/employer/ourbenefits"
+        element={<CompanyBenefitPage />}
       ></Route>
       <Route
         path="/admin/updateProfile"
