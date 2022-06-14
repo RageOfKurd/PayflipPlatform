@@ -92,7 +92,7 @@ export const EmployerSpecificBenefitsPage = () => {
               </div>
               <hr className="horizontal dark mt-0" />
               <div
-                className="collapse navbar-collapse  w-auto   
+                className="collapse navbar-collapse  w-auto  "
                 id="sidenav-collapse-main"
               >
                 <ul className="navbar-nav">
@@ -173,8 +173,7 @@ export const EmployerSpecificBenefitsPage = () => {
                 </ul>
               </div>
             </aside>
-            <main className="main-content position-relative  
-              {/* <!-- Navbar --> */}
+            <main className="main-content position-relative  ">
               <nav
                 className="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl"
                 id="navbarBlur"
@@ -341,7 +340,7 @@ export const EmployerSpecificBenefitsPage = () => {
             </div>
             <hr className="horizontal dark mt-0" />
             <div
-              className="collapse navbar-collapse  w-auto   
+              className="collapse navbar-collapse  w-auto "
               id="sidenav-collapse-main"
             >
               <ul className="navbar-nav">
@@ -411,7 +410,7 @@ export const EmployerSpecificBenefitsPage = () => {
               </ul>
             </div>
           </aside>
-          <main className="main-content position-relative  
+          <main className="main-content position-relative">
             {/* <!-- Navbar --> */}
             <nav
               className="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl"
@@ -522,7 +521,7 @@ export const EmployerSpecificBenefitsPage = () => {
   //                             </a>
   //                         </div>
   //                         <hr className="horizontal dark mt-0" />
-  //                         <div className="collapse navbar-collapse  w-auto   
+  //                         <div className="collapse navbar-collapse  w-auto
   //                             <ul className="navbar-nav">
   //                                 <li className="nav-item">
   //                                     <Link to="/employer/dashboard" className="hoverableitem nav-link" >
@@ -575,7 +574,7 @@ export const EmployerSpecificBenefitsPage = () => {
   //                             </ul>
   //                         </div>
   //                     </aside>
-  //                     <main className="main-content position-relative  
+  //                     <main className="main-content position-relative
   //                         {/* <!-- Navbar --> */}
   //                         <nav className="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur"
   //                             navbar-scroll="true">
