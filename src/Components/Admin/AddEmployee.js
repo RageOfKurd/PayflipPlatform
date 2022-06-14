@@ -395,6 +395,9 @@ export const AdminAddEmployeePage = () => {
                                 setCountry(answer.target.value);
                               }}
                             >
+                              <option value="Germany">Germany</option>
+                              <option value="France">France</option>
+                              <option value="Netherlands">Netherlands</option>
                               <option value="Belgium">Belgium</option>
                               <option value="Slovenia">Slovenia</option>
                               <option value="Portugal">Portugal</option>
