@@ -73,7 +73,7 @@ export const EmployerAddEmployeePage = () => {
     localStorage.clear();
     navigate("/login");
   };
-  const [role, setRole] = useState([]);
+  const [role, setRole] = useState("");
   const role_url = api_base_url + '/auth/role';
   useEffect(async () => {
     const fetchItems = async () => {
@@ -96,7 +96,7 @@ export const EmployerAddEmployeePage = () => {
     // (async () => await roleAuthentication())();
     (async () => await fetchItems())();
   }, []);
-  if (role !== "employer") {
+  if (role !== "" && role !== "employer") {
     return (
       <>
         <div className="col-xl-4 offset-4 col-sm-6 mb-4 mt-5">

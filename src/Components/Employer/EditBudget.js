@@ -79,7 +79,7 @@ export const EmployerEditBudgetPage = () => {
     localStorage.clear();
     navigate("/login");
   };
-  const [role, setRole] = useState([]);
+  const [role, setRole] = useState("");
   const role_url = api_base_url + '/auth/role';
   useEffect(async () => {
     const fetchItems = async () => {
@@ -102,36 +102,7 @@ export const EmployerEditBudgetPage = () => {
     // (async () => await roleAuthentication())();
     (async () => await fetchItems())();
   }, []);
-  if (role !== "employer") {
-    return (
-      <>
-        <div className="col-xl-4 offset-4 col-sm-6 mb-4 mt-5">
-          <div className="card hoverablecnt">
-            <div className="card-body p-3">
-              <div className="row">
-                <div className="col-12">
-                  <div class="error-box">
-                    <div class="error-body text-center">
-                      <h1 class="error-title text-danger">404</h1>
-                      <h3 class="text-uppercase error-subtitle">PAGE NOT FOUND !</h3>
-                      <p class="text-muted mt-4 mb-4">YOU SEEM TO BE TRYING TO FIND WAY HOME</p>
-                      <Link
-                        to={role == "admin" ? "/admin/dashboard" : role == "employer" ? "/employer/dashboard" : "/employee/dashboard"}
-                        className="btn btn-danger btn-rounded waves-effect waves-light mb-5 text-white"
-                      >
-                        Back to home
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-      </>
-    );
-  } else {
+  if (role === "employer") {
     return (
       <>
         <div
@@ -449,6 +420,36 @@ export const EmployerEditBudgetPage = () => {
             </main>
           </div>
         </div>
+      </>
+    );
+   
+  } else {
+    return (
+      <>
+        <div className="col-xl-4 offset-4 col-sm-6 mb-4 mt-5">
+          <div className="card hoverablecnt">
+            <div className="card-body p-3">
+              <div className="row">
+                <div className="col-12">
+                  <div class="error-box">
+                    <div class="error-body text-center">
+                      <h1 class="error-title text-danger">404</h1>
+                      <h3 class="text-uppercase error-subtitle">PAGE NOT FOUND !</h3>
+                      <p class="text-muted mt-4 mb-4">YOU SEEM TO BE TRYING TO FIND WAY HOME</p>
+                      <Link
+                        to={role == "admin" ? "/admin/dashboard" : role == "employer" ? "/employer/dashboard" : "/employee/dashboard"}
+                        className="btn btn-danger btn-rounded waves-effect waves-light mb-5 text-white"
+                      >
+                        Back to home
+                      </Link>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
       </>
     );
   }
