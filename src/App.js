@@ -30,6 +30,8 @@ import { UpdateProfilePage } from "./Components/UpdateProfile";
 import { EmployerUpdateProfilePage } from "./Components/Employer/UpdateProfile";
 import { EmployerUpdatePasswordPage } from "./Components/Employer/UpdatePassword";
 import { CompanyBenefitPage } from "./Components/Employer/CompanyBenefits";
+import { EmployeeUpdatePasswordPage } from "./Components/Employee/UpdatePassword";
+import { EmployeeUpdateProfilePage } from "./Components/Employee/UpdateProfile";
 function App() {
   let api_base_url = `${process.env.REACT_APP_API_BASE_URL}`;
   let navigate = useNavigate();
@@ -174,6 +176,14 @@ function App() {
       <Route
         path="/employer/updatePassword"
         element={<EmployerUpdatePasswordPage />}
+      ></Route>
+      <Route
+        path="/employee/updatePassword"
+        element={<EmployeeUpdatePasswordPage />}
+      ></Route>
+      <Route
+        path="/employee/updateProfile"
+        element={<EmployeeUpdateProfilePage />}
       ></Route>
     </Routes>
   );

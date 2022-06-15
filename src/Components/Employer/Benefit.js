@@ -23,7 +23,7 @@ export const EmployerBenefitsPage = () => {
   const [availableBenefitsList, setAvailableBenefitsList] = useState(null);
 
   useEffect(() => {
-    document.title = "Payflip - Benefits";
+    document.title = "Payflip - Benefits Shop";
     (async () => await fetchItems())();
   }, []);
 
@@ -39,9 +39,6 @@ export const EmployerBenefitsPage = () => {
 
 
       if (tempCompanyBenefitList.length > 0) {
-        tempCompanyBenefitList.forEach(benefit => {
-
-        });
         tempCompanyBenefitList.forEach((benefit) => {
           tempAvailableBenefitList.splice(
             tempAvailableBenefitList.indexOf(
@@ -163,7 +160,7 @@ export const EmployerBenefitsPage = () => {
               ></i>
               <a
                 className="navbar-brand m-0"
-                href="employer/dashboard"
+                href="/employer/dashboard"
                 target="_blank"
               >
                 <img

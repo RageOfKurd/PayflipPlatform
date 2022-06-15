@@ -10,6 +10,7 @@ import {
   MDBCol,
   MDBBtn,
 } from "mdb-react-ui-kit";
+import axios from "axios";
 let api_base_url = `${process.env.REACT_APP_API_BASE_URL}`;
 export const EmployeeBenefitsShoppingPage = () => {
   const urlavailablebenefits = api_base_url + "/employee-benefit/available";
@@ -18,10 +19,9 @@ export const EmployeeBenefitsShoppingPage = () => {
   let navigate = useNavigate();
 
   const [availableBenefitsList, setAvailableBenefitsList] = useState(null);
-  const [employeeBenefitsList, setEmployeeBenefitsList] = useState([]);
 
   useEffect(() => {
-    document.title = "Payflip - Benefits";
+    document.title = "Payflip - Benefits Shop";
     (async () => await fetchItems())();
   }, []);
 
@@ -32,376 +32,111 @@ export const EmployeeBenefitsShoppingPage = () => {
       const availablebenefits = await response.json();
       const employeebenefits = await response2.json();
 
-      let tempAvailableBenefitList = availablebenefits.data;
-      let tempEmployeeBenefitList = employeebenefits.data;
+      // let tempAvailableBenefitList = availablebenefits.data;
+      // let tempEmployeeBenefitList = employeebenefits.data;
 
-      let companyBenefitsArray = [];
 
-      if (tempEmployeeBenefitList.length > 0) {
-        tempEmployeeBenefitList[0].benefits.forEach((benefit) => {
-          companyBenefitsArray.push(
-            tempAvailableBenefitList.find((benefit2) => benefit === benefit2.id)
-          );
-          tempAvailableBenefitList.splice(
-            tempAvailableBenefitList.indexOf(
-              tempAvailableBenefitList.find(
-                (benefit2) => benefit == benefit2.id
-              )
-            ),
-            1
-          );
-        });
-      }
+      // if (tempEmployeeBenefitList.length > 0) {
+      //   tempEmployeeBenefitList.forEach((benefit) => {
+      //     tempAvailableBenefitList.splice(
+      //       tempAvailableBenefitList.indexOf(
+      //         tempAvailableBenefitList.find(
+      //           (benefit2) => benefit.benefit_id == benefit2.benefit_id
+      //         )
+      //       ),
+      //       1
+      //     );
+      //   });
+      // }
 
-      setEmployeeBenefitsList(companyBenefitsArray);
-      setAvailableBenefitsList(tempAvailableBenefitList);
+      setAvailableBenefitsList(availablebenefits.data);
     } catch (err) {
-      console.log(err);
-      console.log("Error while trying to retrieve benefit data.");
+      document.getElementById("existerror").innerHTML = "Error while trying to retrieve benefit data";
+      document.getElementById("existerror").hidden = false;
+      document.getElementById("existsuccess").innerHTML = "";
+      document.getElementById("existsuccess").hidden = true;
     }
   };
 
   const addBenefit = (id) => {
-    try {
-      employeeBenefitsList.push(
-        availableBenefitsList.find((benefit) => benefit.id === id.target.value)
-      );
-      setEmployeeBenefitsList([...employeeBenefitsList]);
-      console.log(employeeBenefitsList);
-      availableBenefitsList.splice(
-        availableBenefitsList.indexOf(
-          availableBenefitsList.find(
-            (benefit) => benefit.id === id.target.value
-          )
-        ),
-        1
-      );
-      setAvailableBenefitsList([...availableBenefitsList]);
-      console.log(availableBenefitsList);
-    } catch (error) {
-      console.log(error);
-      console.log("Benefit couldn't be added");
-    }
+    document.getElementById("existerror").innerHTML = "";
+    document.getElementById("existerror").hidden = true;
+    document.getElementById("existsuccess").innerHTML = "";
+    document.getElementById("existsuccess").hidden = true;
+    axios
+      .post(
+        api_base_url + "/employee-benefit",
+        {
+          benefit_id: id.target.value,
+        },
+        { headers: headers }
+      )
+      .then((res) => {
+        console.log(res);
+        if (res.status === 201 && res.data.success === true) {
+          // availableBenefitsList.splice(
+          //   availableBenefitsList.indexOf(
+          //     availableBenefitsList.find(
+          //       (benefit) => benefit.id === id.target.value
+          //     )
+          //   ),
+          //   1
+          // );
+          // setAvailableBenefitsList([...availableBenefitsList]);
+
+          document.getElementById("existerror").innerHTML = "";
+          document.getElementById("existerror").hidden = true;
+          document.getElementById("existsuccess").innerHTML = res.data.message;
+          document.getElementById("existsuccess").hidden = false;
+          navigate("/employee/benefits");
+        } else {
+          document.getElementById("existerror").innerHTML = res.data.message;
+          document.getElementById("existerror").hidden = false;
+          document.getElementById("existsuccess").innerHTML = "";
+          document.getElementById("existsuccess").hidden = true;
+          console.log(res.data.message);
+        }
+      })
+      .catch((err) => {
+        document.getElementById("existerror").innerHTML = err;
+        document.getElementById("existerror").hidden = false;
+        document.getElementById("existsuccess").innerHTML = "";
+        document.getElementById("existsuccess").hidden = true;
+      });
+    // try {
+
+    //   availableBenefitsList.splice(
+    //     availableBenefitsList.indexOf(
+    //       availableBenefitsList.find(
+    //         (benefit) => benefit.id === id.target.value
+    //       )
+    //     ),
+    //     1
+    //   );
+    //   setAvailableBenefitsList([...availableBenefitsList]);
+    //   console.log(availableBenefitsList);
+    // } catch (error) {
+    //   console.log(error);
+    //   console.log("Benefit couldn't be added");
+    // }
   };
-  // !! Code below is not functional and still has to be adapted to the info of employee !! -- onclick was removed in the button, when code works don't forget to add it back in submit button
 
-  // const saveBenefits = async (benefit) => {
-  //     axios.post("http://localhost:7000/employee-benefit", {
-  //         benefit_id: benefit.id,
-  //         benefit_cost: benefit.cost
-  //     }, { headers: headers }).then((res) => {
-  //         console.log(res)
-  //         document.getElementById("alertsuccess").hidden = false;
-  //         setInterval(() => document.getElementById("alertsuccess").hidden = true, 5000)
-  //     }).catch((err) => {
-  //         document.getElementById("alertdanger").hidden = false;
-  //         setInterval(() => document.getElementById("alertdanger").hidden = true, 5000)
-  //     })
-  // }
-
-  if (availableBenefitsList) {
-    return (
-      <div>
-        <div className="g-sidenav-show  bg-gray-100">
-          <div className="backgroundimg">
-            <aside
-              className="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 "
-              id="sidenav-main"
-            >
-              <div className="sidenav-header">
-                <i
-                  className="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
-                  aria-hidden="true"
-                  id="iconSidenav"
-                ></i>
-                <a
-                  className="navbar-brand m-0"
-                  href="https://demos.creative-tim.com/soft-ui-dashboard/pages/dashboard.html"
-                  target="_blank"
-                >
-                  <img
-                    src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmiro.medium.com%2Fproxy%2F0*kYj1aQljmDquuw7Z&f=1&nofb=1"
-                    className="navbar-brand-img h-100"
-                    alt="main_logo"
-                  />
-                </a>
-              </div>
-              <hr className="horizontal dark mt-0" />
-              <div
-                className="collapse navbar-collapse  w-auto   "
-                id="sidenav-collapse-main"
-              >
-                <ul className="navbar-nav">
-                  <li className="nav-item">
-                    <Link
-                      to="/employee/dashboard"
-                      className="hoverableitem nav-link"
-                    >
-                      <div className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i className="fas fa-home" aria-hidden="true"></i>
-                      </div>
-                      <span className="nav-link-text ms-1">Dashboard</span>
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link
-                      to="/employee/benefits"
-                      className="hoverableitem nav-link active"
-                    >
-                      <div className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i
-                          className="fas fa-shopping-cart selectedicon"
-                          aria-hidden="true"
-                        ></i>
-                      </div>
-                      <span className="nav-link-text ms-1">Benefits Shop</span>
-                    </Link>
-                  </li>
-                  <li className="nav-item">
-                    <Link
-                      to="/employee/mybenefits"
-                      className="hoverableitem nav-link"
-                    >
-                      <div className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i className="fas fa-trophy" aria-hidden="true"></i>
-                      </div>
-                      <span className="nav-link-text ms-1">My Benefits</span>
-                    </Link>
-                  </li>
-                  <li className="nav-item mt-3">
-                    <h6 className="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">
-                      Account pages
-                    </h6>
-                  </li>
-                  <li className="nav-item">
-                    <Link to="/login" className="hoverableitem nav-link">
-                      <div className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                        <i className="fa fa-sign-out" aria-hidden="true"></i>
-                      </div>
-                      <span className="nav-link-text ms-1">Sign Out</span>
-                    </Link>
-                  </li>
-                </ul>
-              </div>
-            </aside>
-            <main className="main-content position-relative   mt-1 border-radius-lg ">
-              {/* <!-- Navbar --> */}
-              <nav
-                className="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl"
-                id="navbarBlur"
-                navbar-scroll="true"
-              >
-                <div className="container-fluid py-1 px-3">
-                  <nav aria-label="breadcrumb">
-                    <ol className="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
-                      <li className="breadcrumb-item text-sm">
-                        <a className="opacity-5 text-dark">Company</a>
-                      </li>
-                      <li
-                        className="breadcrumb-item text-sm text-dark active"
-                        aria-current="page"
-                      >
-                        Benefits
-                      </li>
-                    </ol>
-                    <h6 className="font-weight-bolder mb-0">Benefits</h6>
-                  </nav>
-                  <div
-                    className="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4"
-                    id="navbar"
-                  >
-                    <div className="ms-md-auto pe-md-3 d-flex align-items-center"></div>
-                    <ul className="navbar-nav  justify-content-end">
-                      <li className="nav-item d-flex align-items-center">
-                        <Link
-                          to="/login"
-                          className="nav-link text-body font-weight-bold px-0"
-                        >
-                          <i className="fa fa-user me-sm-1"></i>
-                          <span className="d-sm-inline d-none">Sign out</span>
-                        </Link>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </nav>
-              {/* <!-- End Navbar --> */}
-              <div className="container-fluid py-4">
-                <div
-                  className="alert alert-success"
-                  style={{ color: "white" }}
-                  role="alert"
-                  id="alertsuccess"
-                  hidden={true}
-                >
-                  Benefits are saved.
-                </div>
-                <div
-                  className="alert alert-danger"
-                  style={{ color: "white" }}
-                  role="alert"
-                  id="alertdanger"
-                  hidden={true}
-                >
-                  Error while trying to save the benefits. Please try again
-                  later.
-                </div>
-                <div>
-                  <ul
-                    className="list-group p-3"
-                    style={{
-                      listStyle: "none",
-                      position: "fixed",
-                      zIndex: 1,
-                      right: 0,
-                      width: "400px",
-                    }}
-                  >
-                    <a
-                      href="#"
-                      className="list-group-item list-group-item-action active"
-                    >
-                      The benefits in your package:
-                    </a>
-                    {employeeBenefitsList.length > 0 ? (
-                      employeeBenefitsList.map((benefit) => {
-                        return (
-                          <a
-                            key={benefit.id}
-                            href="#"
-                            className="list-group-item list-group-item-action disabled  d-flex justify-content-between align-items-center"
-                          >
-                            {benefit.name} (€{benefit.cost})
-                          </a>
-                        );
-                      })
-                    ) : (
-                      <div className="list-group-item list-group-item-action disabled  d-flex justify-content-between align-items-center">
-                        No benefits in your company package.
-                      </div>
-                    )}
-                  </ul>
-                </div>
-                <div className="justify-content-between">
-                  <p>--- All available benefits in your company ---</p>
-                  <MDBRow>
-                    {availableBenefitsList.length > 0
-                      ? availableBenefitsList.map((benefit) => {
-                          return (
-                            <MDBCol md={5}>
-                              <MDBCard
-                                key={benefit.id}
-                                alignment="center"
-                                style={{
-                                  maxWidth: "25rem",
-                                  maxHeight: "35rem",
-                                  marginBottom: "30px",
-                                }}
-                              >
-                                <MDBCardImage
-                                  src="https://media.idownloadblog.com/wp-content/uploads/2017/10/iphone-8-mockup-downloadable.jpg"
-                                  position="top"
-                                  alt="..."
-                                />
-                                <MDBCardBody>
-                                  <MDBCardTitle>
-                                    {benefit.name + " "}
-                                    {
-                                      <span
-                                        style={{ fontSize: 15, color: "green" }}
-                                      >
-                                        {"€" + benefit.cost}
-                                      </span>
-                                    }
-                                  </MDBCardTitle>
-
-                                  <MDBCardText>
-                                    {benefit.description}
-                                  </MDBCardText>
-                                  <button
-                                    type="submit"
-                                    className="btn bg-redpayflip text-white w-80 mt-1 mb-0"
-                                    value={benefit.id}
-                                    onClick={addBenefit}
-                                  >
-                                    Purchase
-                                  </button>
-                                </MDBCardBody>
-                              </MDBCard>
-                            </MDBCol>
-                          );
-                        })
-                      : null}
-                  </MDBRow>
-                </div>
-                <div className="d-flex justify-content-between">
-                  <button
-                    onClick={fetchItems}
-                    type="button"
-                    className="btn btn-danger"
-                  >
-                    Cancel
-                  </button>
-                  <button type="button" className="btn btn-success">
-                    Save
-                  </button>
-                </div>
-                <footer className="footer pt-3  ">
-                  <div className="container-fluid">
-                    <div className="row align-items-center justify-content-lg-between">
-                      <div className="col-lg-6 mb-lg-0 mb-4">
-                        <div className="copyright text-center text-sm text-muted text-lg-start">
-                          ©2022, Payflip
-                        </div>
-                      </div>
-                      <div className="col-lg-6">
-                        <ul className="nav nav-footer justify-content-center justify-content-lg-end">
-                          <li className="nav-item">
-                            <a
-                              href="https://en.payflip.be/team"
-                              className="nav-link text-muted"
-                              target="_blank"
-                            >
-                              About Us
-                            </a>
-                          </li>
-                          <li className="nav-item">
-                            <a
-                              href="https://en.payflip.be/blogs"
-                              className="nav-link text-muted"
-                              target="_blank"
-                            >
-                              Blog
-                            </a>
-                          </li>
-                          <li className="nav-item">
-                            <a
-                              href="https://en.payflip.be/partners"
-                              className="nav-link pe-0 text-muted"
-                              target="_blank"
-                            >
-                              Partners
-                            </a>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </div>
-                </footer>
-              </div>
-            </main>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
+  const [isActive, setActive] = useState("false");
+  const handleSideBar = () => {
+    setActive(!isActive);
+  };
   return (
     <div>
-      <div className="g-sidenav-show  bg-gray-100">
+      <div
+        className={
+          isActive
+            ? "g-sidenav-pinned g-sidenav-show  bg-gray-100"
+            : "g-sidenav-show  bg-gray-100"
+        }
+      >
         <div className="backgroundimg">
           <aside
-            className="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 "
+            className="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 ps ps--active-y bg-white"
             id="sidenav-main"
           >
             <div className="sidenav-header">
@@ -412,7 +147,7 @@ export const EmployeeBenefitsShoppingPage = () => {
               ></i>
               <a
                 className="navbar-brand m-0"
-                href="https://demos.creative-tim.com/soft-ui-dashboard/pages/dashboard.html"
+                href="/employee/dashboard"
                 target="_blank"
               >
                 <img
@@ -431,10 +166,13 @@ export const EmployeeBenefitsShoppingPage = () => {
                 <li className="nav-item">
                   <Link
                     to="/employee/dashboard"
-                    className="hoverableitem nav-link"
+                    className="hoverableitem nav-link "
                   >
                     <div className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                      <i className="fas fa-home" aria-hidden="true"></i>
+                      <i
+                        className="fas fa-home "
+                        aria-hidden="true"
+                      ></i>
                     </div>
                     <span className="nav-link-text ms-1">Dashboard</span>
                   </Link>
@@ -470,6 +208,28 @@ export const EmployeeBenefitsShoppingPage = () => {
                   </h6>
                 </li>
                 <li className="nav-item">
+                  <Link
+                    to="/employee/updateProfile"
+                    className="hoverableitem nav-link"
+                  >
+                    <div className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                      <i className="fa fa-user" aria-hidden="true"></i>
+                    </div>
+                    <span className="nav-link-text ms-1">Update Profile</span>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link
+                    to="/employee/updatePassword"
+                    className="hoverableitem nav-link"
+                  >
+                    <div className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                      <i className="fa fa-key" aria-hidden="true"></i>
+                    </div>
+                    <span className="nav-link-text ms-1">Update Password</span>
+                  </Link>
+                </li>
+                <li className="nav-item">
                   <Link to="/login" className="hoverableitem nav-link">
                     <div className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                       <i className="fa fa-sign-out" aria-hidden="true"></i>
@@ -480,7 +240,7 @@ export const EmployeeBenefitsShoppingPage = () => {
               </ul>
             </div>
           </aside>
-          <main className="main-content position-relative   mt-1 border-radius-lg ">
+          <main className="main-content position-relative mt-1 border-radius-lg ">
             {/* <!-- Navbar --> */}
             <nav
               className="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl"
@@ -489,18 +249,7 @@ export const EmployeeBenefitsShoppingPage = () => {
             >
               <div className="container-fluid py-1 px-3">
                 <nav aria-label="breadcrumb">
-                  <ol className="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
-                    <li className="breadcrumb-item text-sm">
-                      <a className="opacity-5 text-dark">Company</a>
-                    </li>
-                    <li
-                      className="breadcrumb-item text-sm text-dark active"
-                      aria-current="page"
-                    >
-                      Benefits
-                    </li>
-                  </ol>
-                  <h6 className="font-weight-bolder mb-0">Benefits</h6>
+                  <h4 className="font-weight-bolder mb-0">Available Benefits From Your Employer</h4>
                 </nav>
                 <div
                   className="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4"
@@ -517,13 +266,102 @@ export const EmployeeBenefitsShoppingPage = () => {
                         <span className="d-sm-inline d-none">Sign out</span>
                       </Link>
                     </li>
+                    <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
+                      <a
+                        href="javascript:;"
+                        onClick={handleSideBar}
+                        class="nav-link text-body p-0"
+                        id="iconNavbarSidenav"
+                      >
+                        <div class="sidenav-toggler-inner">
+                          <i class="sidenav-toggler-line"></i>
+                          <i class="sidenav-toggler-line"></i>
+                          <i class="sidenav-toggler-line"></i>
+                        </div>
+                      </a>
+                    </li>
                   </ul>
                 </div>
               </div>
             </nav>
             {/* <!-- End Navbar --> */}
             <div className="container-fluid py-4">
-              <p>Benefits data is being loaded.</p>
+              <h6
+                hidden="true"
+                class="text-center mb-4"
+                id="existerror"
+                style={{
+                  color: "red",
+                  fontWeight: "bold",
+                  fontSize: "14px",
+                }}
+              ></h6>
+              <h6
+                hidden="true"
+                class="text-center mb-4"
+                id="existsuccess"
+                style={{
+                  color: "green",
+                  fontWeight: "bold",
+                  fontSize: "14px",
+                }}
+              ></h6>
+              <div className="justify-content-between">
+                <MDBRow>
+                  {availableBenefitsList && availableBenefitsList.length > 0 ? (
+                    availableBenefitsList.map((benefit) => (
+                      <MDBCol md={4}>
+                        <MDBCard
+                          key={benefit.id}
+                          alignment="center"
+                          style={{
+                            maxWidth: "25rem",
+                            maxHeight: "35rem",
+                            marginBottom: "30px",
+                          }}
+                        >
+                          <MDBCardImage
+                            src="https://media.idownloadblog.com/wp-content/uploads/2017/10/iphone-8-mockup-downloadable.jpg"
+                            position="top"
+                            alt="..."
+                          />
+                          <MDBCardBody>
+                            <MDBCardTitle>
+                              {benefit.benefit_name + " "}
+                              {
+                                <span
+                                  style={{ fontSize: 15, color: "green" }}
+                                >
+                                  {"€" + benefit.benefit_cost}
+                                </span>
+                              }
+                            </MDBCardTitle>
+
+                            <MDBCardText>
+                              {benefit.benefit_description}
+                            </MDBCardText>
+                            <button
+                              type="submit"
+                              className="btn bg-redpayflip text-white w-80 mt-1 mb-0"
+                              value={benefit.benefit_id}
+                              onClick={addBenefit}
+                            >
+                              Purchase
+                            </button>
+                          </MDBCardBody>
+                        </MDBCard>
+                      </MDBCol>
+                    ))
+                  ) : (
+
+                    <h6 className="px-2 text-center">
+                      <div className="my-auto text-center">
+                        No Benefit available from Employer
+                      </div>
+                    </h6>
+                  )}
+                </MDBRow>
+              </div>
               <footer className="footer pt-3  ">
                 <div className="container-fluid">
                   <div className="row align-items-center justify-content-lg-between">
@@ -572,175 +410,4 @@ export const EmployeeBenefitsShoppingPage = () => {
       </div>
     </div>
   );
-
-  //   if (availableBenefitsList) {
-  //     return (
-  //         <div>
-  //             <div className="g-sidenav-show  bg-gray-100">
-  //                 <div className="backgroundimg">
-  //                     <aside className="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 "
-  //                         id="sidenav-main">
-  //                         <div className="sidenav-header">
-  //                             <i className="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none"
-  //                                 aria-hidden="true" id="iconSidenav"></i>
-  //                             <a className="navbar-brand m-0" href="https://demos.creative-tim.com/soft-ui-dashboard/pages/dashboard.html"
-  //                                 target="_blank">
-  //                                 <img
-  //                                     src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmiro.medium.com%2Fproxy%2F0*kYj1aQljmDquuw7Z&f=1&nofb=1"
-  //                                     className="navbar-brand-img h-100" alt="main_logo" />
-  //                             </a>
-  //                         </div>
-  //                         <hr className="horizontal dark mt-0" />
-  //                         <div className="collapse navbar-collapse  w-auto   " id="sidenav-collapse-main">
-  //                             <ul className="navbar-nav">
-  //                                 <li className="nav-item">
-  //                                     <Link to="/employer/dashboard" className="hoverableitem nav-link" >
-  //                                         <div
-  //                                             className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-  //                                             <i className="fas fa-home" aria-hidden="true"></i>
-  //                                         </div>
-  //                                         <span className="nav-link-text ms-1">Dashboard</span>
-  //                                     </Link>
-  //                                 </li>
-  //                                 <li className="nav-item">
-  //                                     <Link to="/employer/benefits" className="hoverableitem nav-link active">
-  //                                         <div
-  //                                             className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-  //                                             <i className="fas fa-trophy selectedicon" aria-hidden="true"></i>
-  //                                         </div>
-  //                                         <span className="nav-link-text ms-1">Benefits</span>
-  //                                     </Link>
-  //                                 </li>
-  //                                 <li className="nav-item">
-  //                                     <Link to="/employer/employees" className="hoverableitem nav-link">
-  //                                         <div
-  //                                             className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-  //                                             <i className="fas fa-users" aria-hidden="true"></i>
-  //                                         </div>
-  //                                         <span className="nav-link-text ms-1">Employees</span>
-  //                                     </Link>
-  //                                 </li>
-  //                                 <li className="nav-item">
-  //                                     <Link to="/employer/companies" className="hoverableitem nav-link">
-  //                                         <div
-  //                                             className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-  //                                             <i className="fas fa-building" aria-hidden="true"></i>
-  //                                         </div>
-  //                                         <span className="nav-link-text ms-1">Companies</span>
-  //                                     </Link>
-  //                                 </li>
-  //                                 <li className="nav-item mt-3">
-  //                                     <h6 className="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account pages</h6>
-  //                                 </li>
-  //                                 <li className="nav-item">
-  //                                     <Link to="/login" className="hoverableitem nav-link">
-  //                                         <div
-  //                                             className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-  //                                             <i className="fa fa-sign-out" aria-hidden="true"></i>
-  //                                         </div>
-  //                                         <span className="nav-link-text ms-1">Sign Out</span>
-  //                                     </Link>
-  //                                 </li>
-  //                             </ul>
-  //                         </div>
-  //                     </aside>
-  //                     <main className="main-content position-relative   mt-1 border-radius-lg ">
-  //                         {/* <!-- Navbar --> */}
-  //                         <nav className="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl" id="navbarBlur"
-  //                             navbar-scroll="true">
-  //                             <div className="container-fluid py-1 px-3">
-  //                                 <nav aria-label="breadcrumb">
-  //                                     <ol className="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
-  //                                         <li className="breadcrumb-item text-sm"><a className="opacity-5 text-dark">Company</a></li>
-  //                                         <li className="breadcrumb-item text-sm text-dark active" aria-current="page">Benefits</li>
-  //                                     </ol>
-  //                                     <h6 className="font-weight-bolder mb-0">Benefits</h6>
-  //                                 </nav>
-  //                                 <div className="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
-  //                                     <div className="ms-md-auto pe-md-3 d-flex align-items-center">
-  //                                     </div>
-  //                                     <ul className="navbar-nav  justify-content-end">
-  //                                         <li className="nav-item d-flex align-items-center">
-  //                                             <Link to="/login" className="nav-link text-body font-weight-bold px-0">
-  //                                                 <i className="fa fa-user me-sm-1"></i>
-  //                                                 <span className="d-sm-inline d-none">Sign out</span>
-  //                                             </Link>
-  //                                         </li>
-  //                                     </ul>
-  //                                 </div>
-  //                             </div>
-  //                         </nav>
-  //                         {/* <!-- End Navbar --> */}
-  //                         <div className="container-fluid py-4">
-  //                             <div className="alert alert-success" style={{ color: 'white' }} role="alert" id="alertsuccess" hidden={true}>
-  //                                 Benefits are saved.
-  //                             </div>
-  //                             <div className="alert alert-danger" style={{ color: 'white' }} role="alert" id="alertdanger" hidden={true}>
-  //                                 Error while trying to save the benefits. Please try again later.
-  //                             </div>
-  //                             <div className="d-flex justify-content-between">
-  //                                 <ul className="list-group w-30 p-3">
-  //                                     <a href="#" className="list-group-item list-group-item-action active"
-  //                                     >Available benefits:
-  //                                     </a>
-  //                                     {availableBenefitsList.length > 0 ?
-  //                                         availableBenefitsList.map((benefit) => {
-  //                                             return (
-  //                                                 <button key={benefit.id} value={benefit.id} onClick={addBenefit} className="list-group-item">
-  //                                                     {benefit.name}
-  //                                                 </button>
-  //                                             )
-  //                                         }) : <div className="list-group-item list-group-item-action disabled  d-flex justify-content-between align-items-center">No more benefits to add.</div>}
-  //                                 </ul>
-  //                                 <ul className="list-group w-30 p-3" style={{ listStyle: 'none' }}>
-
-  //                                     <a href="#" className="list-group-item list-group-item-action active"
-  //                                     >The benefits in your package:
-  //                                     </a>
-  //                                     {companyBenefitsList.length > 0 ?
-  //                                         companyBenefitsList.map((benefit) => {
-  //                                             return (
-  //                                                 <a key={benefit.id} href="#" className="list-group-item list-group-item-action disabled  d-flex justify-content-between align-items-center">
-  //                                                     {benefit.name}</a>
-  //                                             )
-  //                                         }) : <div className="list-group-item list-group-item-action disabled  d-flex justify-content-between align-items-center">No benefits in your company package.</div>}
-  //                                 </ul>
-  //                             </div>
-  //                             <div className="d-flex justify-content-between">
-  //                                 <button onClick={fetchItems} type="button" className="btn btn-danger">Cancel</button>
-  //                                 <button onClick={saveBenefits} type="button" className="btn btn-success">Save</button>
-  //                             </div>
-  //                             <footer className="footer pt-3  ">
-  //                                 <div className="container-fluid">
-  //                                     <div className="row align-items-center justify-content-lg-between">
-  //                                         <div className="col-lg-6 mb-lg-0 mb-4">
-  //                                             <div className="copyright text-center text-sm text-muted text-lg-start">
-  //                                                 ©2022,
-  //                                                 Payflip
-  //                                             </div>
-  //                                         </div>
-  //                                         <div className="col-lg-6">
-  //                                             <ul className="nav nav-footer justify-content-center justify-content-lg-end">
-  //                                                 <li className="nav-item">
-  //                                                     <a href="https://en.payflip.be/team" className="nav-link text-muted" target="_blank">About
-  //                                                         Us</a>
-  //                                                 </li>
-  //                                                 <li className="nav-item">
-  //                                                     <a href="https://en.payflip.be/blogs" className="nav-link text-muted" target="_blank">Blog</a>
-  //                                                 </li>
-  //                                                 <li className="nav-item">
-  //                                                     <a href="https://en.payflip.be/partners" className="nav-link pe-0 text-muted" target="_blank">Partners</a>
-  //                                                 </li>
-  //                                             </ul>
-  //                                         </div>
-  //                                     </div>
-  //                                 </div>
-  //                             </footer>
-  //                         </div>
-  //                     </main>
-  //                 </div>
-  //             </div>
-  //         </div >
-  //     )
-  // }
 };

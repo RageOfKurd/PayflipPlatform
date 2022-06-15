@@ -11,7 +11,7 @@ export const CompanyBenefitPage = () => {
   const [benefitList, setBenefitList] = useState([]);
 
   useEffect(() => {
-    document.title = "Payflip - Budgets";
+    document.title = "Payflip - Our Benefits";
     const fetchItems = async () => {
       try {
         const response = await fetch(url, { headers: headers });
@@ -62,7 +62,7 @@ export const CompanyBenefitPage = () => {
               ></i>
               <a
                 className="navbar-brand m-0"
-                href="employer/dashboard"
+                href="/employer/dashboard"
                 target="_blank"
               >
                 <img
@@ -293,7 +293,7 @@ export const CompanyBenefitPage = () => {
                                     </p>
                                   </td>
                                   <td>
-                                    <p className="text-sm text-center font-weight-bold">
+                                    <p className="text-sm text-center font-weight-bold  mb-0">
                                       {benefit.benefit_description}
                                     </p>
                                   </td>

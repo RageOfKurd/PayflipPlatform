@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-export const UpdateProfilePage = () => {
+export const EmployeeUpdateProfilePage = () => {
   let headers = { Authorization: localStorage.getItem("accessToken") };
   let api_base_url = `${process.env.REACT_APP_API_BASE_URL}`;
 
@@ -29,7 +29,7 @@ export const UpdateProfilePage = () => {
         const profile = await response.json();
         setName(profile.data.name);
         setCountry(profile.data.country);
-      } catch (err) {}
+      } catch (err) { }
     };
     (async () => await fetchItems())();
   }, []);
@@ -51,7 +51,7 @@ export const UpdateProfilePage = () => {
           document.getElementById("existsuccess").innerHTML = res.data.message;
           document.getElementById("existsuccess").hidden = false;
           setTimeout(() => {
-            navigate("/admin/dashboard");
+            navigate("/employee/dashboard");
           }, 2000);
         } else {
           document.getElementById("existsuccess").hidden = true;
@@ -75,7 +75,7 @@ export const UpdateProfilePage = () => {
       >
         <div className="backgroundimg">
           <aside
-            className="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3  ps ps--active-y bg-white"
+            className="sidenav navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-3 ps ps--active-y bg-white"
             id="sidenav-main"
           >
             <div className="sidenav-header">
@@ -84,7 +84,11 @@ export const UpdateProfilePage = () => {
                 aria-hidden="true"
                 id="iconSidenav"
               ></i>
-              <a className="navbar-brand m-0" href="/admin/dashboard">
+              <a
+                className="navbar-brand m-0"
+                href="/employee/dashboard"
+                target="_blank"
+              >
                 <img
                   src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fmiro.medium.com%2Fproxy%2F0*kYj1aQljmDquuw7Z&f=1&nofb=1"
                   className="navbar-brand-img h-100"
@@ -94,49 +98,47 @@ export const UpdateProfilePage = () => {
             </div>
             <hr className="horizontal dark mt-0" />
             <div
-              className="collapse navbar-collapse w-auto"
+              className="collapse navbar-collapse  w-auto   "
               id="sidenav-collapse-main"
             >
               <ul className="navbar-nav">
                 <li className="nav-item">
                   <Link
-                    to="/admin/dashboard"
-                    className="hoverableitem nav-link"
+                    to="/employee/dashboard"
+                    className="hoverableitem nav-link "
                   >
                     <div className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                      <i className="fas fa-home" aria-hidden="true"></i>
+                      <i
+                        className="fas fa-home "
+                        aria-hidden="true"
+                      ></i>
                     </div>
                     <span className="nav-link-text ms-1">Dashboard</span>
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link to="/admin/benefits" className="hoverableitem nav-link">
-                    <div className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                      <i className="fas fa-trophy" aria-hidden="true"></i>
-                    </div>
-                    <span className="nav-link-text ms-1">Benefits</span>
-                  </Link>
-                </li>
-                <li className="nav-item">
                   <Link
-                    to="/admin/employees"
-                    className="hoverableitem nav-link "
-                  >
-                    <div className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                      <i className="fas fa-users " aria-hidden="true"></i>
-                    </div>
-                    <span className="nav-link-text ms-1">Employees</span>
-                  </Link>
-                </li>
-                <li className="nav-item">
-                  <Link
-                    to="/admin/companies"
+                    to="/employee/benefits"
                     className="hoverableitem nav-link"
                   >
                     <div className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                      <i className="fas fa-building" aria-hidden="true"></i>
+                      <i
+                        className="fas fa-shopping-cart"
+                        aria-hidden="true"
+                      ></i>
                     </div>
-                    <span className="nav-link-text ms-1">Companies</span>
+                    <span className="nav-link-text ms-1">Benefits Shop</span>
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link
+                    to="/employee/mybenefits"
+                    className="hoverableitem nav-link"
+                  >
+                    <div className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
+                      <i className="fas fa-trophy" aria-hidden="true"></i>
+                    </div>
+                    <span className="nav-link-text ms-1">My Benefits</span>
                   </Link>
                 </li>
                 <li className="nav-item mt-3">
@@ -146,35 +148,28 @@ export const UpdateProfilePage = () => {
                 </li>
                 <li className="nav-item">
                   <Link
-                    to="/admin/updateProfile"
+                    to="/employee/updateProfile"
                     className="hoverableitem nav-link active"
                   >
                     <div className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                      <i
-                        className="fa fa-user selectedicon"
-                        aria-hidden="true"
-                      ></i>
+                      <i className="fa fa-user selectedicon" aria-hidden="true"></i>
                     </div>
                     <span className="nav-link-text ms-1">Update Profile</span>
                   </Link>
                 </li>
                 <li className="nav-item">
                   <Link
-                    to="/admin/updatePassword"
-                    className="hoverableitem nav-link "
+                    to="/employee/updatePassword"
+                    className="hoverableitem nav-link"
                   >
                     <div className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
-                      <i className="fa fa-key " aria-hidden="true"></i>
+                      <i className="fa fa-key" aria-hidden="true"></i>
                     </div>
                     <span className="nav-link-text ms-1">Update Password</span>
                   </Link>
                 </li>
                 <li className="nav-item">
-                  <Link
-                    to="/login"
-                    onClick={signout}
-                    className="hoverableitem nav-link"
-                  >
+                  <Link to="/login" className="hoverableitem nav-link">
                     <div className="icon icon-sm shadow border-radius-md bg-white text-center me-2 d-flex align-items-center justify-content-center">
                       <i className="fa fa-sign-out" aria-hidden="true"></i>
                     </div>

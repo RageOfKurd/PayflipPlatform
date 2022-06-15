@@ -79,7 +79,7 @@ export const EmployerAddBudgetPage = () => {
               ></i>
               <a
                 className="navbar-brand m-0"
-                href="employer/dashboard"
+                href="/employer/dashboard"
                 target="_blank"
               >
                 <img
