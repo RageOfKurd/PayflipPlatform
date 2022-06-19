@@ -332,13 +332,13 @@ export const EmployeeBenefitsShoppingPage = () => {
                             key={benefit.id}
                             alignment="center"
                             style={{
-                              maxWidth: "25rem",
-                              maxHeight: "35rem",
+                              maxWidth: "380px !important",
+                              maxHeight: "380px !important",
                               marginBottom: "30px",
                             }}
                           >
                             <MDBCardImage
-                              src="https://media.idownloadblog.com/wp-content/uploads/2017/10/iphone-8-mockup-downloadable.jpg"
+                              src={benefit.imageUrl}
                               position="top"
                               alt="..."
                             />

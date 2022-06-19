@@ -15,7 +15,7 @@ export const Card = (props) => {
       style={{ maxWidth: "22rem", maxHeight: "35rem" }}
     >
       <MDBCardImage
-        src="https://media.idownloadblog.com/wp-content/uploads/2017/10/iphone-8-mockup-downloadable.jpg"
+        src={props.imageUrl}
         position="top"
         alt="..."
       />

@@ -11,6 +11,7 @@ export const AdminEditBenefitPage = () => {
   const [benefitCost, setBenefitCost] = useState("");
   const [benefitDesc, setBenefitDesc] = useState("");
   const [country, setCountry] = useState("Belgium");
+  const [imageUrl, setImageUrl] = useState("https://media.idownloadblog.com/wp-content/uploads/2017/10/iphone-8-mockup-downloadable.jpg");
   let navigate = useNavigate();
   const [isActive, setActive] = useState("false");
   const handleSideBar = () => {
@@ -30,8 +31,8 @@ export const AdminEditBenefitPage = () => {
           name: benefitName,
           cost: benefitCost,
           country: country,
-
           description: benefitDesc,
+          imageUrl: imageUrl,
         },
         { headers: headers }
       )
@@ -61,6 +62,7 @@ export const AdminEditBenefitPage = () => {
         setBenefitCost(benefit.data.cost);
         setBenefitDesc(benefit.data.description);
         setCountry(benefit.data.country);
+        setImageUrl(benefit.data.imageUrl);
       } catch (err) { }
     };
     (async () => await fetchItems())();
@@ -298,6 +300,20 @@ export const AdminEditBenefitPage = () => {
                         </div>
                         <div className="card-body">
                           <form className="formtext" onSubmit={submitHandling}>
+                            <div className="mb-3">
+                              <input
+                                type="text"
+                                className="form-control"
+                                value={imageUrl}
+                                onChange={(answer) => {
+                                  setImageUrl(answer.target.value);
+                                }}
+                                placeholder="Benefit Image Url"
+                                aria-label="BenefitImageUrl"
+                                aria-describedby="email-addon"
+                                required
+                              />
+                            </div>
                             <div className="mb-3">
                               <input
                                 type="text"

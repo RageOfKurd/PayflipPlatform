@@ -9,6 +9,7 @@ export const AdminAddBenefitPage = () => {
   const [benefitName, setBenefitName] = useState("");
   const [benefitCost, setBenefitCost] = useState("");
   const [benefitDesc, setBenefitDesc] = useState("");
+  const [imageUrl, setImageUrl] = useState("https://media.idownloadblog.com/wp-content/uploads/2017/10/iphone-8-mockup-downloadable.jpg");
   const [country, setCountry] = useState("Belgium");
   const [isActive, setActive] = useState("false");
   const handleSideBar = () => {
@@ -27,6 +28,7 @@ export const AdminAddBenefitPage = () => {
           cost: benefitCost,
           country: country,
           description: benefitDesc,
+          imageUrl: imageUrl,
         },
         { headers: headers }
       )
@@ -281,6 +283,20 @@ export const AdminAddBenefitPage = () => {
                         </div>
                         <div className="card-body">
                           <form className="formtext" onSubmit={submitHandling}>
+                            <div className="mb-3">
+                              <input
+                                type="text"
+                                className="form-control"
+                                value={imageUrl}
+                                onChange={(answer) => {
+                                  setImageUrl(answer.target.value);
+                                }}
+                                placeholder="Benefit Image Url"
+                                aria-label="BenefitImageUrl"
+                                aria-describedby="email-addon"
+                                required
+                              />
+                            </div>
                             <div className="mb-3">
                               <input
                                 type="text"
