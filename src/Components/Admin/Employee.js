@@ -25,16 +25,6 @@ export const AdminEmployeesPage = () => {
         const response = await fetch(url, { headers: headers });
         const employees = await response.json();
         console.log(employees.data);
-
-        employees.data.sort(function (employee1, employee2) {
-          if (employee1.employer_id < employee2.employer_id) {
-            return -1;
-          } else if (employee1.employer_id === employee2.employer_id) {
-            return 0;
-          } else {
-            return 1;
-          }
-        });
         setEmployeeList(employees.data);
       } catch (err) { }
     };

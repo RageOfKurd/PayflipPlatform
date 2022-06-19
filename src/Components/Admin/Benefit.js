@@ -46,7 +46,7 @@ export const AdminBenefits = () => {
   const deleteBenefit = (id) => {
     try {
       axios.delete(
-        `${process.env.REACT_APP_API_BASE_URL_LOCALLY}/benefit/${id.target.value}`,
+        `${process.env.REACT_APP_API_BASE_URL}/benefit/${id.target.value}`,
         { headers: headers }
       );
       window.location.reload();
