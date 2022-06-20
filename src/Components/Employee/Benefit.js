@@ -332,12 +332,15 @@ export const EmployeeBenefitsShoppingPage = () => {
                             key={benefit.id}
                             alignment="center"
                             style={{
-                              maxWidth: "380px !important",
-                              maxHeight: "380px !important",
+                              width: "100%",
                               marginBottom: "30px",
                             }}
                           >
                             <MDBCardImage
+                              style={{
+                                backgroundColor: "linen",
+                                height: "23.75rem",
+                              }} 
                               src={benefit.imageUrl}
                               position="top"
                               alt="..."
