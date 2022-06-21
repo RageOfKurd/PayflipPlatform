@@ -11,7 +11,7 @@ export const AdminEditBenefitPage = () => {
   const [benefitCost, setBenefitCost] = useState("");
   const [benefitDesc, setBenefitDesc] = useState("");
   const [country, setCountry] = useState("Belgium");
-  const [imageUrl, setImageUrl] = useState("https://media.idownloadblog.com/wp-content/uploads/2017/10/iphone-8-mockup-downloadable.jpg");
+  const [imageUrl, setImageUrl] = useState(`${process.env.REACT_APP_API_BASE_URL}/default.png`);
   let navigate = useNavigate();
   const [isActive, setActive] = useState("false");
   const handleSideBar = () => {
