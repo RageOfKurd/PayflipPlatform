@@ -342,13 +342,16 @@ export const EmployerBenefitsPage = () => {
                   <MDBRow>
                     {availableBenefitsList && availableBenefitsList.length > 0 ? (
                       availableBenefitsList.map((benefit) => (
-                        <MDBCol md={4}>
+                        <MDBCol md={4} style={{
+
+                        }}>
                           <MDBCard
                             key={benefit.id}
                             alignment="center"
                             style={{
                               width: "100%",
                               marginBottom: "30px",
+                              height: "633px !important"
                             }}
                           >
                             <MDBCardImage
@@ -361,7 +364,9 @@ export const EmployerBenefitsPage = () => {
                               alt="..."
                             />
                             <MDBCardBody>
-                              <MDBCardTitle>
+                              <MDBCardTitle style={{
+                                height: "3.5rem",
+                              }}>
                                 {benefit.name + " "}
                                 {
                                   <span
@@ -372,7 +377,9 @@ export const EmployerBenefitsPage = () => {
                                 }
                               </MDBCardTitle>
 
-                              <MDBCardText>
+                              <MDBCardText  style={{
+                                height: "5rem",
+                              }}>
                                 {benefit.description}
                               </MDBCardText>
                               <button
