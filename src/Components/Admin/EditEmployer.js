@@ -9,7 +9,7 @@ export const AdminEditEmployerPage = () => {
 
   const [companyName, setCompanyName] = useState("");
   const [companyAddress, setCompanyAddress] = useState("");
-  const [country, setCountry] = useState("Belgium");
+  const [country, setCountry] = useState("Germany");
   let navigate = useNavigate();
   const [isActive, setActive] = useState("false");
   const handleSideBar = () => {

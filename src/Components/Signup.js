@@ -11,7 +11,7 @@ export const Signup = () => {
   const [companyMail, setCompanyMail] = useState("");
   const [companyAddress, setCompanyAddress] = useState("");
   const [password, setPassword] = useState("");
-  const [country, setCountry] = useState("Belgium");
+  const [country, setCountry] = useState("Germany");
   let accountcreationprocessing = false;
   let navigate = useNavigate();
   const submitHandling = (data) => {
@@ -201,6 +201,9 @@ export const Signup = () => {
                             setCountry(answer.target.value);
                           }}
                         >
+                          <option value="Germany">Germany</option>
+                          <option value="France">France</option>
+                          <option value="Netherlands">Netherlands</option>
                           <option value="Belgium">Belgium</option>
                           <option value="Slovenia">Slovenia</option>
                           <option value="Portugal">Portugal</option>

@@ -11,7 +11,7 @@ export const AdminAddEmployerPage = () => {
   const [companyMail, setCompanyMail] = useState("");
   const [companyAddress, setCompanyAddress] = useState("");
   const [password, setPassword] = useState("");
-  const [country, setCountry] = useState("Belgium");
+  const [country, setCountry] = useState("Germany");
   const [isActive, setActive] = useState("false");
   const handleSideBar = () => {
     setActive(!isActive);

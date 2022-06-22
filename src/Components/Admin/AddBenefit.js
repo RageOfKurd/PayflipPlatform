@@ -10,7 +10,7 @@ export const AdminAddBenefitPage = () => {
   const [benefitCost, setBenefitCost] = useState("");
   const [benefitDesc, setBenefitDesc] = useState("");
   const [imageUrl, setImageUrl] = useState(`${process.env.REACT_APP_API_BASE_URL}/default.png`);
-  const [country, setCountry] = useState("Belgium");
+  const [country, setCountry] = useState("Germany");
   const [isActive, setActive] = useState("false");
   const handleSideBar = () => {
     setActive(!isActive);

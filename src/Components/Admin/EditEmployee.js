@@ -10,7 +10,7 @@ export const AdminEditEmployeePage = () => {
   const [employeeName, setEmployeeName] = useState("");
   const [employerId, setEmployerId] = useState("");
   const [employeeAddress, setEmployeeAddress] = useState("");
-  const [country, setCountry] = useState("Belgium");
+  const [country, setCountry] = useState("Germany");
   const [designation, setDesignation] = useState("");
   const [employementType, setEmployementType] = useState("full-time");
 
