@@ -7,7 +7,7 @@ import {
   MDBCardImage,
   MDBBtn,
 } from "mdb-react-ui-kit";
-
+// this ia a card component
 export const Card = (props) => {
   return (
     <MDBCard
